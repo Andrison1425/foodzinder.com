@@ -430,12 +430,11 @@
   border: none;
   border-bottom: 2px solid #ededed;
   display: flex;
+  flex-wrap: nowrap;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
-@media (max-width: 767px) {
-  .tabs_detail .nav-tabs {
-    display: none;
-  }
-}
+
 .tabs_detail .nav-tabs .nav-item {
   text-transform: uppercase;
   font-weight: 500;
@@ -444,19 +443,7 @@
   border: none;
   background-color: transparent;
 }
-.tabs_detail .tab-content .card .card-header {
-  padding: 0;
-  background-color: transparent;
-  border: 0;
-  background-color: #f8f8f8;
-}
-.tabs_detail .tab-content .card .card-header a {
-  display: block;
-  font-size: 18px;
-  font-size: 1.125rem;
-  padding: 15px;
-  color: #222;
-}
+
 .tabs_detail .tab-content .card .card-body {
   padding: 45px 0 25px 0;
 }
@@ -474,9 +461,7 @@
   .tabs_detail .tab-content .card {
     border: none;
   }
-  .tabs_detail .tab-content .card .card-header {
-    display: none;
-  }
+
   .tabs_detail .tab-content .card .collapse {
     display: block;
   }

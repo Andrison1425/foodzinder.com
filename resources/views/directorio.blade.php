@@ -484,7 +484,7 @@
 									{{ $restaurant->nombre }}
 								</h2>
 								<p class="icon ubicacion">
-									{{ $restaurant->direccion }} - {{ $restaurant->ciudad }} 
+									{{ $restaurant->direccion }} - {{ $restaurant->ciudad }}
 									@if ($restaurant->google_maps)
 										<a href="{{ $restaurant->google_maps }}" target="_blank">VER MAPA</a>
 									@endif

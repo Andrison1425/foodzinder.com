@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
 	<meta name="author" content="Ansonika">
-	<title>Mamma Pronto - Food Zinder</title>
+	<title>{{$restaurant->nombre}} - Food Zinder</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
 
 	<!-- VUEJS -->
@@ -334,13 +334,6 @@
 
 		                <div class="tab-content" role="tablist">
 		                    <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
-		                        <div class="card-header" role="tab" id="heading-A">
-		                            <h5>
-		                                <a aria-expanded="true" >
-		                                    Platos
-		                                </a>
-		                            </h5>
-		                        </div>
 		                        <div role="tabpanel" aria-labelledby="heading-A">
 		                            <div class="card-body info_content">
 		                            	<div class="main_title page-section" id="entrantes 1">
@@ -831,29 +824,20 @@
 	</script>
 
         <!-- Scroll Spy -->
-        <script>
+    <script>
+        $(window).scroll(function() {
+            var scrollDistance = $(window).scrollTop() - $(window).height();
 
-
-$(window).scroll(function() {
-		var scrollDistance = $(window).scrollTop() - $(window).height();
-
-		// Show/hide menu on scroll
-		//if (scrollDistance >= 850) {
-		//		$('nav').fadeIn("fast");
-		//} else {
-		//		$('nav').fadeOut("fast");
-		//}
-
-		// Assign active class to nav links while scolling
-		$('.page-section').each(function(i) {
-				if ($(this).position().top <= scrollDistance) {
-						$('.navigation a.active').removeClass('active');
-						$('.navigation a').eq(i).addClass('active');
-				}
-		});
-}).scroll();
-        </script>
-
+            // Assign active class to nav links while scolling
+            $('.page-section').each(function(i) {
+                if ($(this).position().top <= scrollDistance) {
+                    $('.navigation a.active').removeClass('active');
+                    $('.navigation a').eq(i).addClass('active');
+                    document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
+                }
+            });
+        }).scroll();
+    </script>
 </body>
 </html>
 
