@@ -81,9 +81,6 @@
         </div>
         </div>
 
-
-
-
     @endif
 
 	{{-- botón flotante --}}
@@ -589,7 +586,7 @@
 					<button class="btn-contacto" type="submit">Enviar</button>
 				</form>
 
-				<img src="{{asset('images/reyeno.svg')}}" class="img-form" />
+				<img src="{{asset('plantilla/img/reyeno.svg')}}" class="img-form" />
 			</div>
 
 		</div>
