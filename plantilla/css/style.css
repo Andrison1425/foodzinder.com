@@ -1760,7 +1760,7 @@ Author URI: http://themeforest.net/user/Ansonika/
     top: 0;
     width: 100%;
     padding: 15px 0;
-    z-index: 99999;
+    z-index: 9;
     border-bottom: 1px solid rgba(255, 255, 255, 0);
   }
   @media (max-width: 767px) {
