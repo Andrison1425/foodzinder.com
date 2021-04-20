@@ -75,33 +75,43 @@ class RestaurantController extends Controller
         // Guardamos las imagenes que vienen como ARCHIVO
         if($request->hasfile('filenames'))
         {
-        //    foreach($request->file('filenames') as $pos => $file)
-        //    {
-        //        $name = $pos.time().'.'.$file->extension();
-        //        $file->move(public_path().'/images/restaurantes/', $name);
-        //        $data[] = '/images/restaurantes/'.$name;
-        //    }
+            $arrImg=json_decode($request->file('filenames'), true);
+            dd($arrImg);
+            foreach($request->file('filenames') as $pos => $file)
+            {
+                $name = $pos.time().'.'.$file->extension();
+                $file->move(public_path().'/images/restaurantes/', $name);
+                $data[] = '/images/restaurantes/'.$name;
+            }
             $file = $request->file('filenames');
             $name = time().'.'.$file->extension();
             $file->move(public_path().'/images/restaurantes/', $name);
             $restaurant->imagenes = '/images/restaurantes/'.$name;
         } else if ($request->input('filenames')) {
-            // Esto es una imagen de tipo base 64
-            $base64File = $request->input('filenames');
 
-            // decode the base64 file
-            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+            $arrImg=json_decode($request->input('filenames'), true);
+            $arrNamesImgs=[];
 
-            // save it to temporary dir first.
-            $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
-            file_put_contents($tmpFilePath, $fileData);
+            foreach($arrImg as $pos=>$img)
+            {
+                // Esto es una imagen de tipo base 64
+                $base64File = $img;
 
-            // this just to help us get file info.
-            $tmpFile = new File($tmpFilePath);
+                // decode the base64 file
+                $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
 
-            $name = $tmpFile->getFilename().'.png';
-            $tmpFile->move(public_path().'/images/restaurantes/', $name);
-            $restaurant->imagenes = '/images/restaurantes/'.$name;
+                // save it to temporary dir first.
+                $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+                file_put_contents($tmpFilePath, $fileData);
+
+                // this just to help us get file info.
+                $tmpFile = new File($tmpFilePath);
+
+                $name = $tmpFile->getFilename().'.png';
+                $tmpFile->move(public_path().'/images/restaurantes/', $name);
+                $arrNamesImgs[] = '/images/restaurantes/'.$name;
+            }
+            $restaurant->imagenes = json_encode($arrNamesImgs) ;
         }
         $restaurant->tiene_whatsapp = !empty($request->input('tiene_whatsapp')) ? 1 : 0;
         $restaurant->horario = !empty($request->input("horario")) ? $request->input("horario") : null;

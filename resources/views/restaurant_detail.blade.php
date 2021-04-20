@@ -283,29 +283,54 @@
 
 	<main class="bg_gray pattern add_top_menu_90">
 
-		<div class="hero_in detail_page background-image" data-background="url({{asset( isset($restaurant->imagenes) ? $restaurant->imagenes : 'plantilla/img/header-detail-page-min.jpg')}})">
+		<div class="hero_in detail_page background-image">
 			<div class="wrapper opacity-mask img-fluid" data-opacity-mask="#00000078">
-				<div class="container full-width">
-					<div class="main_info">
-						<div class="row">
-							<div class="col-xl-4 col-lg-5 col-md-6">
-								<h1>{{$restaurant->nombre}}</h1>
-								@if ($restaurant->google_maps)
-									{{$restaurant->direccion}} - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
-								@else
-									{{$restaurant->direccion}}
-								@endif
-							</div>
-							<div class="col-xl-8 col-lg-7 col-md-6">
-								<div class="buttons clearfix">
-									<a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
-								</div>
-							</div>
-						</div>
-						<!-- /row -->
-					</div>
-					<!-- /main_info -->
-				</div>
+                <div id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
+                    <div class="carousel-inner h-100">
+                        @foreach ($imagenes as $imagen)
+                        @if($loop->index==0)
+                        <div class="carousel-item active h-100" style="background:url({{$imagen}});background-size: cover;background-repeat: no-repeat;background-position: center center;">
+
+                        </div>
+                        @else
+                        <div class="carousel-item h-100" style="background:url({{$imagen}});background-size: cover;background-repeat: no-repeat;background-position: center center;">
+
+                        </div>
+                        @endif
+
+                        @endforeach
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+
+                    <div class="main_info">
+                        <div class="container full-width">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-5 col-md-6">
+                                    <h1>{{$restaurant->nombre}}</h1>
+                                    @if ($restaurant->google_maps)
+                                        {{$restaurant->direccion}} - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
+                                    @else
+                                        {{$restaurant->direccion}}
+                                    @endif
+                                </div>
+                                <div class="col-xl-8 col-lg-7 col-md-6">
+                                    <div class="buttons clearfix">
+                                        <a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /main_info -->
 			</div>
 		</div>
 		<!--/hero_in-->

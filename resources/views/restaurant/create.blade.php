@@ -387,43 +387,28 @@
 
                  <div class="row mt-3">
                    <div class="col text-center m-4">
-                     <h3>Imágen Para Portada del Restaurante:</h3>
+                     <h3>Imágen/es Para Portada del Restaurante:</h3>
                    </div>
                   </div>
                    <div class="row">
                     <div class="col">
                       <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Imagen</span>
-                        </div>
                         {{-- para recortar --}}
-                        <input id="original_image" type="file" name="imagen"  class="form-control">
+                        <label for="original_image" class="btn btn-success">
+                            Agregar imagen +
+                        </label>
+                        <h6> Haz click sobre una imagen para eliminarla</h6>
+                        <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
 
                         {{-- recortado (oculto) --}}
                         <input id="imagen1" type="text" name="filenames" class="form-control d-none" required>
                       </div>
-
-
-
-                      {{-- <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Imagen 2</span>
-                        </div>
-                        <input id="imagen1" type="file" name="filenames[]" class="form-control">
-                      </div>
-
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Imagen 3</span>
-                        </div>
-                        <input id="imagen1" type="file" name="filenames[]" class="form-control">
-                      </div> --}}
-
                     </div>
                   </div>
                   <div class="row m-2 p-1">
                     <div class="col-md-12">
-                      <img class="imagen_final" id="imagen_final" src="" alt="">
+                        <div class="coleccionImg"></div>
+                      <img class="imagen_final" id="imagen_final" src="" alt="" style="display:none;">
                     </div>
                   </div>
 
@@ -546,6 +531,8 @@
 
     <script>
       $(document).ready(function() {
+          let arrImg=[];
+          let coleccionImg=document.querySelector(".coleccionImg");
         $('#tabla_listado_restaurantes').DataTable();
 
         // Escucha el evento que surge cuando el source de la imagen cambia:
@@ -553,7 +540,19 @@
         observer = new MutationObserver((changes) => {
           changes.forEach(change => {
               if(change.attributeName.includes('src')){
-                document.querySelector('#imagen1').value = img.src;
+                  const imgDom=document.createElement("img");
+                  imgDom.setAttribute("src",img.src);
+                  imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
+                  coleccionImg.appendChild(imgDom);
+                  arrImg.push(img.src);
+                  const urlImg=img.src;
+                  document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+                  console.log(document.querySelector('#imagen1').value)
+                imgDom.onclick=()=>{
+                    coleccionImg.removeChild(imgDom);
+                    arrImg=arrImg.filter(ele=>ele!==urlImg);
+                    document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+                }
               }
           });
         });

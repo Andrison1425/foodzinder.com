@@ -139,6 +139,7 @@ class DirectorioController extends Controller
     public function show($id)
     {
         $restaurant = Restaurant::find($id);
+        $imagenes=json_decode($restaurant->imagenes,true);
         $entrantes = DB::table('entrantes')->where('restaurant_id', $id)->where('status', 1)->get();
         $sopas = DB::table('sopas')->where('restaurant_id', $id)->where('status', 1)->get();
         $fritos = DB::table('fritos')->where('restaurant_id', $id)->where('status', 1)->get();
@@ -149,6 +150,7 @@ class DirectorioController extends Controller
         $bebidas = DB::table('bebidas')->where('restaurant_id', $id)->where('status', 1)->get();
 
         return view("restaurant_detail", ['restaurant' => $restaurant,
+                                         'imagenes'    =>$imagenes,
                                          'entrantes'   => $entrantes,
                                          'sopas'       => $sopas,
                                          'fritos'      => $fritos,
