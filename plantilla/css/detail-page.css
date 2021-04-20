@@ -1127,6 +1127,13 @@
 
 /*Contacto form*/
 
+.contacto__cont-formulario{
+	display: flex;
+}
+
+.form{
+    width: 60%;
+}
 
 .form{
     display: flex;
@@ -1159,6 +1166,7 @@
     margin: 1rem 0;
     border-radius: 0.3rem;
     border:solid 0.1rem gray;
+    height: 9rem;
 }
 
 .mensaje{
@@ -1188,4 +1196,63 @@
 
 .img-form{
 	width: 40%;
+}
+
+.cont{
+	max-width: 1200px;
+	margin: 0 auto;
+	background: #eff0f0;
+	padding: 1rem;
+}
+
+.btn-contacto{
+    border: none;
+    background: #f67599;
+    color: white;
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    transition: color 0.2s linear;
+}
+
+.btn-contacto:hover{
+    color:black;
+}
+
+@media (max-width: 1010px){
+	.cont-conoc{
+		margin-top: 1rem;
+	}
+}
+
+@media (max-width: 840px){
+	.cont-conoc{
+		width: 90%;
+		margin: 1rem auto 0 auto;
+		grid-template-columns: repeat(8, 1fr);
+	}
+}
+
+@media (max-width: 800px){
+	.img-form{
+		display: none;
+	}
+
+	.contacto__cont-formulario form{
+		width: 100%;
+	}
+}
+
+
+@media (max-width: 640px){
+	.cont-conoc{
+		grid-template-columns: repeat(4, 1fr);
+		width: 100%;
+	}
+}
+
+@media (max-width: 490px){
+	#nombre,#email{
+		width: 100%;
+		margin: 1rem 0 0 0;
+	}
 }
