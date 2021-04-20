@@ -97,8 +97,8 @@ class DirectorioController extends Controller
         $restaurantes = Restaurant::where($filtro)->where('status', 1)->paginate(6);
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);
-        return view('directorio', ["request" => $request, 
-                                   "restaurantes" => $restaurantes, 
+        return view('directorio', ["request" => $request,
+                                   "restaurantes" => $restaurantes,
                                    'cantidades' => $cantidades,
                                    "restaurantes_sin_paginar" => $restaurantes_sin_paginar
                                    ]);
@@ -136,7 +136,7 @@ class DirectorioController extends Controller
         //
     }
 
-    public function show(Request $request, $id)
+    public function show($id)
     {
         $restaurant = Restaurant::find($id);
         $entrantes = DB::table('entrantes')->where('restaurant_id', $id)->where('status', 1)->get();
@@ -148,7 +148,7 @@ class DirectorioController extends Controller
         $postres = DB::table('postres')->where('restaurant_id', $id)->where('status', 1)->get();
         $bebidas = DB::table('bebidas')->where('restaurant_id', $id)->where('status', 1)->get();
 
-        return view("restaurant_detail", ['restaurant' => $restaurant, 
+        return view("restaurant_detail", ['restaurant' => $restaurant,
                                          'entrantes'   => $entrantes,
                                          'sopas'       => $sopas,
                                          'fritos'      => $fritos,
@@ -173,5 +173,17 @@ class DirectorioController extends Controller
     public function destroy(Directorio $directorio)
     {
         //
+    }
+
+    public function enviarCorreo(Request $request)
+    {
+        $to = $request->correoRestaurante;
+        $subject = "Correo enviado desde Food Zinder";
+        $message = $request->mensaje;
+        $headers = "From: $request->email";
+
+        mail($to, $subject, $message, $headers);
+
+        return redirect()->route('directorio.detail',[$request->id])->with("mensaje","Se ha enviado el mensaje");
     }
 }

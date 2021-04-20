@@ -37,8 +37,8 @@
 
 </head>
 <body>
-   		
-		
+
+
    <div class="container fluid add_top_menu mt-5">
       <div class="row">
          <div class="col-md-12">
@@ -83,7 +83,7 @@
                      </select>
                   </div>
                   <div class="form-group col-md-4">
-                    
+
                     <label for="telefono">Teléfono</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -115,7 +115,12 @@
                     <input name="horario" type="text" class="form-control" value="{{ old('horario') }}" id="horario" placeholder="Ejemplo: Lunes a Viernes de 12hrs a 22hrs">
                   </div>
                </div>
-
+               <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="correo">Correo electrónico:</label>
+                    <input name="correo" type="email" class="form-control" value="{{ old('correo') }}" id="correo" placeholder="Correo al cual se enviarán los mensajes de contacto">
+                  </div>
+               </div>
                <hr>
 
 
@@ -398,7 +403,7 @@
                         <input id="imagen1" type="text" name="filenames" class="form-control d-none" required>
                       </div>
 
-                      
+
 
                       {{-- <div class="input-group">
                         <div class="input-group-prepend">
@@ -431,7 +436,7 @@
                      <a href="{{ url('/') }}">
                        <button type="button" class="btn btn-primary">Página de inicio</button>
                      </a>
-                    
+
                    </div>
                  </div>
                </div>

@@ -1123,3 +1123,69 @@
   .item_title_ind span {
     font-size:20px;
   }
+
+
+/*Contacto form*/
+
+
+.form{
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    height: max-content;
+    padding: 1rem;
+}
+
+.form *{
+    height: max-content;
+    font-size: 14px;
+}
+
+#nombre,#email{
+    padding: 1rem;
+    border-radius: 0.3rem;
+    border:solid 0.1rem gray;
+    width: 49%;
+}
+
+#nombre{
+    margin-right: 2%;
+}
+
+.textarea{
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0.3rem;
+    border:solid 0.1rem gray;
+}
+
+.mensaje{
+    background-color: #e12c2c;
+    margin-bottom:1rem;
+    padding: 1rem;
+    width: 100%;
+    display: none;
+}
+
+.error{
+    border:solid 0.1rem red !important;
+}
+
+.contacto__cont-contacto{
+	width: 100%;
+	background-color: $contColorSec;
+}
+
+.contacto__cont-formulario{
+	display: flex;
+}
+
+.contacto__cont-formulario form{
+    width: 60%;
+}
+
+.img-form{
+	width: 40%;
+}

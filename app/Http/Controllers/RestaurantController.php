@@ -13,7 +13,7 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        
+
     }
 
     public function create()
@@ -32,6 +32,7 @@ class RestaurantController extends Controller
         $restaurant->pais = !empty($request->input("pais")) ? $request->input("pais") : null;
         $restaurant->telefono = !empty($request->input("telefono")) ? $request->input("telefono") : null;
         $restaurant->google_maps = !empty($request->input("google_maps")) ? $request->input("google_maps") : null;
+        $restaurant->correo = !empty($request->input("correo")) ? $request->input("correo") : null;
 
         $restaurant->precio1 = !empty($request->input("precio1")) ? $request->input("precio1") : null;
         $restaurant->precio2 = !empty($request->input("precio2")) ? $request->input("precio2") : null;
@@ -77,12 +78,12 @@ class RestaurantController extends Controller
         //    foreach($request->file('filenames') as $pos => $file)
         //    {
         //        $name = $pos.time().'.'.$file->extension();
-        //        $file->move(public_path().'/images/restaurantes/', $name);  
-        //        $data[] = '/images/restaurantes/'.$name;  
+        //        $file->move(public_path().'/images/restaurantes/', $name);
+        //        $data[] = '/images/restaurantes/'.$name;
         //    }
             $file = $request->file('filenames');
             $name = time().'.'.$file->extension();
-            $file->move(public_path().'/images/restaurantes/', $name);  
+            $file->move(public_path().'/images/restaurantes/', $name);
             $restaurant->imagenes = '/images/restaurantes/'.$name;
         } else if ($request->input('filenames')) {
             // Esto es una imagen de tipo base 64
@@ -126,7 +127,7 @@ class RestaurantController extends Controller
     public function update(Request $request, Restaurant $restaurant)
     {
         $restaurant = Restaurant::find($request->id);
-        
+
         $restaurant->nombre = !empty($request->input("nombre")) ? $request->input("nombre") : null;
         $restaurant->direccion = !empty($request->input("direccion")) ? $request->input("direccion") : null;
         $restaurant->ciudad = !empty($request->input("ciudad")) ? $request->input("ciudad") : null;
@@ -178,12 +179,12 @@ class RestaurantController extends Controller
             // foreach($request->file('filenames') as $pos => $file)
             // {
             //     $name = $pos.time().'.'.$file->extension();
-            //     $file->move(public_path().'/images/restaurantes/', $name);  
-            //     $data[] = '/images/restaurantes/'.$name;  
+            //     $file->move(public_path().'/images/restaurantes/', $name);
+            //     $data[] = '/images/restaurantes/'.$name;
             // }
             $file = $request->file('filenames');
             $name = time().'.'.$file->extension();
-            $file->move(public_path().'/images/restaurantes/', $name);  
+            $file->move(public_path().'/images/restaurantes/', $name);
             $restaurant->imagenes = '/images/restaurantes/'.$name;
         } else if ($request->input('filenames')) {
             // Esto es una imagen de tipo base 64
@@ -205,7 +206,7 @@ class RestaurantController extends Controller
         }
         $restaurant->tiene_whatsapp = !empty($request->input('tiene_whatsapp')) ? 1 : 0;
         $restaurant->horario = !empty($request->input("horario")) ? $request->input("horario") : null;
-        
+
         $restaurant->update();
 
         return view('restaurant.show', ['restaurant' => $restaurant]);

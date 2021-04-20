@@ -60,10 +60,31 @@
 <body>
 	<div id="app">
 
+    @if (session('mensaje'))
+        <!-- Modal -->
+        <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notificación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                El mensaje se ha enviado.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+        </div>
 
 
 
 
+    @endif
 
 	{{-- botón flotante --}}
 	<button type="button" class="btn btn-default botonflotanteparaguardado" data-toggle="modal" data-target="#modalLista">Ver mi lista</button> {{-- end botón flotante --}}
@@ -174,15 +195,6 @@
 		</div>
 		</div>
 	</div>{{-- end Modal-new-item --}}
-
-
-
-
-
-
-
-
-
 
 	<header class="header_in clearfix">
       <div id="logo">
@@ -307,28 +319,28 @@
 		            <div class="tabs_detail">
 		                <ul class="nav navigation nav-tabs sticky-tabs" id="mainNav" role="tablist">
 								<li class="nav-item">
-									<a id="tab-A" href="#1" class="navigation__link nav-link active">Entrantes</a>
+									<a id="tab-A" href="#cont1" class="navigation__link nav-link active">Entrantes</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-B" href="#2" class="navigation__link nav-link">Sopas</a>
+									<a id="tab-B" href="#cont2" class="navigation__link nav-link">Sopas</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-C" href="#3" class="navigation__link nav-link">Fritos</a>
+									<a id="tab-C" href="#cont3" class="navigation__link nav-link">Fritos</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-D" href="#4" class="navigation__link nav-link">Carnes</a>
+									<a id="tab-D" href="#cont4" class="navigation__link nav-link">Carnes</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-E" href="#5" class="navigation__link nav-link">Pescado</a>
+									<a id="tab-E" href="#cont5" class="navigation__link nav-link">Pescado</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-F" href="#6" class="navigation__link nav-link">Pastas</a>
+									<a id="tab-F" href="#cont6" class="navigation__link nav-link">Pastas</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-G" href="#7" class="navigation__link nav-link">Postres</a>
+									<a id="tab-G" href="#cont7" class="navigation__link nav-link">Postres</a>
 								</li>
 								<li class="nav-item">
-									<a id="tab-H" href="#8" class="navigation__link nav-link">Bebidas</a>
+									<a id="tab-H" href="#cont8" class="navigation__link nav-link">Bebidas</a>
 								</li>
 		                </ul>
 
@@ -336,7 +348,7 @@
 		                    <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
 		                        <div role="tabpanel" aria-labelledby="heading-A">
 		                            <div class="card-body info_content">
-		                            	<div class="main_title page-section" id="entrantes 1">
+		                            	<div class="main_title page-section" id="cont1">
 											<span><em></em></span>
 											<h2>Entrantes</h2>
 										</div>
@@ -361,7 +373,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="sopas 2">
+											<div class="main_title page-section add_top_30" id="cont2">
 												<span><em></em></span>
 												<h2>Sopas</h2>
 											</div>
@@ -386,7 +398,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="fritos 3">
+											<div class="main_title page-section add_top_30" id="cont3">
 												<span><em></em></span>
 												<h2>Fritos</h2>
 											</div>
@@ -411,7 +423,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="carnes 4">
+											<div class="main_title page-section add_top_30" id="cont4">
 												<span><em></em></span>
 												<h2>Carnes</h2>
 											</div>
@@ -436,7 +448,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="pescado 5">
+											<div class="main_title page-section add_top_30" id="cont5">
 												<span><em></em></span>
 												<h2>Pescado</h2>
 											</div>
@@ -461,7 +473,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="pastas 6">
+											<div class="main_title page-section add_top_30" id="cont6">
 												<span><em></em></span>
 												<h2>Pastas</h2>
 											</div>
@@ -486,7 +498,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="postres 7">
+											<div class="main_title page-section add_top_30" id="cont7">
 												<span><em></em></span>
 												<h2>Postres</h2>
 											</div>
@@ -511,7 +523,7 @@
 												@endif
 											</div>{{-- end row --}}
 
-											<div class="main_title page-section add_top_30" id="bebidas 8">
+											<div class="main_title page-section add_top_30" id="cont8">
 												<span><em></em></span>
 												<h2>Bebidas</h2>
 											</div>
@@ -558,6 +570,30 @@
 		</div>
 		<!-- /container -->
 
+        <section class="contacto__cont-contacto section">
+		<div class="cont">
+			<h2 class="activo" id="contactoE">
+				Envía un mensaje a este restaurante
+			</h2>
+			<div class="contacto__cont-formulario">
+				<form class="form" method="post" action="{{ route('directorio.enviarCorreo') }}">
+                 @csrf
+					<div class="mensaje">
+						<h3></h3>
+					</div>
+					<input required class="validar" type="text"  id="nombre"  name="name" minLength="2"  maxLength="30"  placeholder="Ingrese su nombre"/>
+					<input required class="validar" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"/>
+					<textarea class="textarea" required name="mensaje" class="validar" placeholder="Escriba un mensaje"  minLength="20"  maxLength="500"></textarea>
+					<input type="hidden" name="id" value="{{$restaurant->id}}"/>
+                    <input type="hidden" name="correoRestaurante" value="{{$restaurant->correo}}"/>
+					<button class="btn-contacto" type="submit">Enviar</button>
+				</form>
+
+				<img src="{{asset('images/reyeno.svg')}}" class="img-form" />
+			</div>
+
+		</div>
+	</section>
 	</main>
 	<!-- /main -->
 
@@ -617,7 +653,7 @@
 		<div class="modal_header">
 			<h3>Sign In</h3>
 		</div>
-		<form>
+		<form >
 			<div class="sign-in-wrapper">
 				<a href="#0" class="social_bt facebook">Login with Facebook</a>
 				<a href="#0" class="social_bt google">Login with Google</a>
@@ -661,6 +697,8 @@
 	<!-- /Sign In Modal -->
 
 </div> {{-- end vuejs --}}
+
+<script src="{{asset('js/enviarCorreo.js')}}"></script>
 
 	<!-- COMMON SCRIPTS -->
     <script src="{{asset('plantilla/js/common_scripts.min.js')}}"></script>
@@ -831,12 +869,16 @@
             // Assign active class to nav links while scolling
             $('.page-section').each(function(i) {
                 if ($(this).position().top <= scrollDistance) {
+                    //document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
                     $('.navigation a.active').removeClass('active');
                     $('.navigation a').eq(i).addClass('active');
-                    document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
                 }
             });
         }).scroll();
+    </script>
+
+    <script>
+        $("#modalMensaje").modal('show');
     </script>
 </body>
 </html>
