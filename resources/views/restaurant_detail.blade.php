@@ -289,11 +289,11 @@
                     <div class="carousel-inner h-100">
                         @foreach ($imagenes as $imagen)
                         @if($loop->index==0)
-                        <div class="carousel-item active h-100" style="background:url({{$imagen}});background-size: cover;background-repeat: no-repeat;background-position: center center;">
+                        <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"><!--background-size: cover;background-repeat: no-repeat;background-position: center center;-->
 
                         </div>
                         @else
-                        <div class="carousel-item h-100" style="background:url({{$imagen}});background-size: cover;background-repeat: no-repeat;background-position: center center;">
+                        <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"><!--background-size: cover;background-repeat: no-repeat;background-position: center center;-->
 
                         </div>
                         @endif
