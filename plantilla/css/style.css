@@ -5738,3 +5738,7 @@ transform: rotate(225deg);
     background-size: cover !important;
     background-repeat: no-repeat !important;
 }
+
+.modal-lista [class*="col-"], .modal-lista [class*="col"]{
+    padding: 5px;
+}

@@ -96,17 +96,17 @@
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body modal-lista">
 				<div class="container-fluid">
 					<div v-for="item in carritoActual" class="row">
-						<div class="col">
+						<div class="col-2 d-none d-md-block">
 							<img class="img-fluid" :src="item.imagen" alt="">
 						</div>
-						<div class="col">
+						<div class="col-xs-12 col-sm">
 							<h5>@{{ item.nombre }}</h5>
 							<p class="text-muted">Precio unitario: @{{ item.precioUnitario }}</p>
 						</div>
-						<div class="col">
+						<div class="col-sm-3 col-4 col-lg-2">
 							<div class="input-group input-group-sm mb-3">
 								<div class="input-group-prepend">
 									<button @click="restarCantidadItemDelCarrito(item.nombre)" class="input-group-text">-</button>
@@ -117,10 +117,10 @@
 								 </div>
 							 </div>
 						</div>
-						<div class="col">
+						<div class="col col-sm-3">
 							<p>Monto Total: @{{ item.precioCantidad }}</p>
 						</div>
-						<div class="col">
+						<div class="col-1">
 							<a href="#" @click.prevent="borrarItemDelCarrito(item.nombre)"><i class="fas fa-trash-alt"></i></a>
 						</div>
 					</div>
@@ -288,16 +288,11 @@
                 <div id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
                     <div class="carousel-inner h-100">
                         @foreach ($imagenes as $imagen)
-                        @if($loop->index==0)
-                        <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"><!--background-size: cover;background-repeat: no-repeat;background-position: center center;-->
-
-                        </div>
-                        @else
-                        <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"><!--background-size: cover;background-repeat: no-repeat;background-position: center center;-->
-
-                        </div>
-                        @endif
-
+                            @if($loop->index==0)
+                                <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"></div>
+                            @else
+                                <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"></div>
+                            @endif
                         @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -381,8 +376,8 @@
 														<div class="col-md-4">
 															<div class="item">
 																<div class="strip">
-																	<a @click="itemClicado('entrantes', '{{ $entrante->id }}', '{{ url($entrante->imagen) }}', '{{ $entrante->nombre }}', '{{ $entrante->precio }}' )" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
-																		<img  src="{{ url($entrante->imagen) }}" class="owl-lazy plate-100" alt="">
+																	<a @click="itemClicado('entrantes', '{{ $entrante->id }}', '{{ asset('public/'.$entrante->imagen) }}', '{{ $entrante->nombre }}', '{{ $entrante->precio }}' )" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
+																		<img  src="{{ asset('public/'.$entrante->imagen) }}" class="owl-lazy plate-100" alt="">
 																		<div class="item_title_ind">
 																			<h3>{{ $entrante->nombre }}</h3>
 																			<span>{{ $entrante->precio }} €</span>
