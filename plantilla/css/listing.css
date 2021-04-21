@@ -688,7 +688,9 @@ span.infobox_rate {
   }
   @media (max-width: 991px) {
     .filter_col .inner_bt {
-      display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
   }
   .filter_col .inner_bt i {
@@ -1050,4 +1052,10 @@ span.infobox_rate {
         -moz-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
         -webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
         box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+      }
+
+      .borrar-filtros, .borrar-filtros i{
+          font-size: initial !important;
+          color:#f67599 !important;
+          cursor:pointer;
       }

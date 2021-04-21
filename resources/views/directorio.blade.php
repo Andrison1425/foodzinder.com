@@ -54,7 +54,7 @@
          <div class="row justify-content-center text-center">
             <div class="col-xl-8 col-lg-10 col-md-8">
 					<form id="form_principal" method="post" action="{{ route('directorio') }}" class="form-busqueda">
-						<input name="_method" type="hidden" value="get">
+						<input name="_method" class="_method" type="hidden" value="get">
                   <div class="row no-gutters custom-search-input">
                      <div class="col-lg-6">
                         <div class="form-group">
@@ -80,6 +80,7 @@
             </div>
 				<nav class="main-menu">
 					<div id="header_menu">
+
 						<a href="#0" class="open_close">
 							<i class="icon_close"></i><span>Menu</span>
 						</a>
@@ -139,11 +140,17 @@
 	<main class="bg_gray pattern add_top_menu">
 
 		<!-- /page_header -->
-		<div class="container margin_30_40">
+        <div class="container margin_30_40">
 			<div class="row">
+                <form class="filtroAjax">
 				<aside class="col-lg-3" id="sidebar">
 					<div class="filter_col">
-                        <div class="inner_bt"><a href="#" class="open_filters"><i class="icon_close"></i></a></div>
+                        <div class="inner_bt">
+                            <span class="borrar-filtros" onclick="borrrarFiltros()">
+                                <i class="fas fa-trash-alt"></i>
+                                Borrar filtros
+                            </span>
+                            <a href="#" class="open_filters"><i class="icon_close"></i></a></div>
                         <!-- /filter_type -->
 						<div class="filter_type">
 							<h4><a href="#filter_1" data-toggle="collapse" class="opened">Distancia</a></h4>
@@ -157,7 +164,7 @@
 						<div class="filter_type">
 							<h4><a href="#filter_2" data-toggle="collapse" class="opened">Precio</a></h4>
 							<div class="collapse show" id="filter_2">
-								<ul>
+
 									<li>
 										<label class="container_check">€ - Baratos<small>{{ count($cantidades['precio1']) }}</small>
 											<input {{ $request->precio1 != null ? 'checked': '' }} name="precio1" class="inputs" onchange="consultar()" type="checkbox">
@@ -430,10 +437,17 @@
                            </li>
                         </ul>
                      </div>
+
                   </div>
                   <!-- /filter_type -->
+                    <div class="btn-ver-filtros d-lg-none" onclick="consultar(true)">
+                         Ver <span class="numResul"></span> resultados
+                     </div>
 					</div>
+
+
 				</aside>
+                </form>
 				<div class="col-lg-9">
 					<div class="row">
 						<h2 class="title-directorio">{{count($restaurantes_sin_paginar)}} resultados</h2>
@@ -594,17 +608,50 @@
 	 <script src="{{ asset('js/lightslider.js') }}"></script>
 
 	<script>
+        let formulario = $('#form_principal');
+		let all_inputs = $('.inputs');
 
-		function consultar()
+        function borrrarFiltros(){
+            for (let i = 0; i < all_inputs.length; i++) {
+                all_inputs[i].checked=false;
+            }
+            consultar();
+        }
+
+		function consultar(enviar=false)
 		{
-			let formulario = $('#form_principal');
-			let all_inputs = $('.inputs');
-			for (let i = 0; i < all_inputs.length; i++) {
-				var input = all_inputs[i];
-				input.style.display = "none";
-				formulario.append(input);
-			}
-			formulario.submit();
+
+            if(window.innerWidth<990 && enviar ==false){
+                document.querySelector("._method").value="post";
+
+                const resp=fetch("directorio/obtenerResultadosFiltros",{
+                    headers:{
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    method:'POST',
+                    body: new FormData(document.querySelector(".filtroAjax"))
+                }).then(function(response) {
+                    if(response.ok) {
+                        return response.text();
+                    } else {
+                        throw "Error en la llamada Ajax";
+                    }
+                })
+                .then(function(texto) {
+                    document.querySelector(".numResul").innerHTML=texto;
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+            }else{
+                for (let i = 0; i < all_inputs.length; i++) {
+				    var input = all_inputs[i];
+                    input.style.display="none";
+				    formulario.append(input);
+			    }
+                document.querySelector("._method").value="get";
+                formulario.submit();
+            }
 		}
 
 		function broadcast(informacion_a_transmitir, url) {

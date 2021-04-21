@@ -5742,3 +5742,23 @@ transform: rotate(225deg);
 .modal-lista [class*="col-"], .modal-lista [class*="col"]{
     padding: 5px;
 }
+
+.btn-ver-filtros{
+    position: sticky;
+    background: #f67599;
+    color: white;
+    padding: 0.7rem 2rem;
+    z-index: 9;
+    bottom: 0.7rem;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filtroAjax *{
+    list-style: none;
+}
+
+.filtroAjax{
+    display: contents;
+}
