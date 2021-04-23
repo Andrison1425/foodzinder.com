@@ -100,7 +100,7 @@
 
 
                       </div>
-                      
+
                       <div class="row">
                         <div v-if="!addNewCardEntrante" class="col text-center">
                            <div @click="addNewCardEntrante = !addNewCardEntrante" class="card" style="width: 18rem;">
@@ -125,9 +125,9 @@
                                     </div>
                                     <input v-model="newEntrantePrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                  </div>
-                        
+
                                  <div class="input-group mb-3">
-                                    
+
                                     <input @change="onImageBase64Change($event, 'newEntranteImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
 
                                     {{-- <input @change="onImageFileChangeEntrante" type="file" name="files[]" id="file-selector" class="form-control d-none"/> --}}
@@ -150,8 +150,8 @@
                 </div>{{-- END ENTRANTES --}}
                 {{-- START SOPAS --}}
                 <div class="tab-pane fade" id="sopas" role="tabpanel" aria-labelledby="sopas-tab">
-                   
-               
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -172,7 +172,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardSopa" class="col text-center">
                           <div @click="addNewCardSopa = !addNewCardSopa" class="card" style="width: 18rem;">
@@ -197,11 +197,11 @@
                                    </div>
                                    <input v-model="newSopaPrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                    <input @change="onImageBase64Change($event, 'newSopaImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangeSopa" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -218,14 +218,14 @@
                        </div>
                      </div>
                   </div>
-               
-               
-               
+
+
+
                </div>{{-- END SOPAS --}}
                 {{-- START fritos --}}
                 <div class="tab-pane fade" id="fritos" role="tabpanel" aria-labelledby="fritos-tab">
-                   
-                
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -246,7 +246,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardFrito" class="col text-center">
                           <div @click="addNewCardFrito = !addNewCardFrito" class="card" style="width: 18rem;">
@@ -271,11 +271,11 @@
                                    </div>
                                    <input v-model="newFritoPrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                     <input @change="onImageBase64Change($event, 'newFritoImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangeFrito" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -292,13 +292,13 @@
                        </div>
                      </div>
                   </div>
-               
-               
+
+
                </div>{{-- END fritos --}}
                {{-- START carnes --}}
                 <div class="tab-pane fade" id="carnes" role="tabpanel" aria-labelledby="carnes-tab">
-                   
-                
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -319,7 +319,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardCarne" class="col text-center">
                           <div @click="addNewCardCarne = !addNewCardCarne" class="card" style="width: 18rem;">
@@ -344,11 +344,11 @@
                                    </div>
                                    <input v-model="newCarnePrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                     <input @change="onImageBase64Change($event, 'newCarneImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangeCarne" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -365,14 +365,14 @@
                        </div>
                      </div>
                   </div>
-               
-               
-               
+
+
+
                </div>{{-- END carnes --}}
                {{-- START pescado --}}
                 <div class="tab-pane fade" id="pescado" role="tabpanel" aria-labelledby="pescado-tab">
-                   
-                
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -393,7 +393,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardPescado" class="col text-center">
                           <div @click="addNewCardPescado = !addNewCardPescado" class="card" style="width: 18rem;">
@@ -418,11 +418,11 @@
                                    </div>
                                    <input v-model="newPescadoPrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                   <input @change="onImageBase64Change($event, 'newPescadoImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangePescado" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -439,15 +439,15 @@
                        </div>
                      </div>
                   </div>
-               
-               
-               
+
+
+
                </div>{{-- END pescado --}}
                {{-- START pastas --}}
                 <div class="tab-pane fade" id="pastas" role="tabpanel" aria-labelledby="pastas-tab">
-                   
-               
-                
+
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -468,7 +468,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardPasta" class="col text-center">
                           <div @click="addNewCardPasta = !addNewCardPasta" class="card" style="width: 18rem;">
@@ -493,11 +493,11 @@
                                    </div>
                                    <input v-model="newPastaPrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                  <input @change="onImageBase64Change($event, 'newPastaImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangePasta" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -514,16 +514,16 @@
                        </div>
                      </div>
                   </div>
-               
-               
-               
-               
+
+
+
+
                </div>{{-- END pastas --}}
                {{-- START postres --}}
                 <div class="tab-pane fade" id="postres" role="tabpanel" aria-labelledby="postres-tab">
-                   
-               
-                
+
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -544,7 +544,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardPostre" class="col text-center">
                           <div @click="addNewCardPostre = !addNewCardPostre" class="card" style="width: 18rem;">
@@ -569,11 +569,11 @@
                                    </div>
                                    <input v-model="newPostrePrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                   <input @change="onImageBase64Change($event, 'newPostreImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangePostre" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -590,14 +590,14 @@
                        </div>
                      </div>
                   </div>
-               
-               
-               
+
+
+
                </div>{{-- END postres --}}
                {{-- START bebidas --}}
                 <div class="tab-pane fade" id="bebidas" role="tabpanel" aria-labelledby="bebidas-tab">
-                   
-                
+
+
                   <div class="container-fluid mt-3">
                      <div class="row">
 
@@ -618,7 +618,7 @@
 
 
                      </div>
-                     
+
                      <div class="row">
                        <div v-if="!addNewCardBebida" class="col text-center">
                           <div @click="addNewCardBebida = !addNewCardBebida" class="card" style="width: 18rem;">
@@ -643,11 +643,11 @@
                                    </div>
                                    <input v-model="newBebidaPrecio" type="number" class="form-control" aria-label="precio" aria-describedby="precio">
                                 </div>
-                       
+
                                 <div class="input-group mb-3">
 
                                    <input @change="onImageBase64Change($event, 'newBebidaImageFile')" type="file" name="imagen" id="original_image" class="form-control"/>
-                                   
+
                                    {{-- <input @change="onImageChangeBebida" type="file" name="files[]" id="file-selector" class="form-control"/> --}}
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-center">
@@ -664,8 +664,8 @@
                        </div>
                      </div>
                   </div>
-               
-               
+
+
                </div>{{-- END bebidas --}}
 
               </div>{{-- END CONTENIDO DE LAS PESTAÑAS --}}
@@ -765,37 +765,37 @@
             newEntranteImageFile: null,
             newEntranteNombre: '',
             newEntrantePrecio: null,
-            
+
             addNewCardSopa: false,
             newSopaImageFile: {},
             newSopaNombre: '',
             newSopaPrecio: null,
-            
+
             addNewCardFrito: false,
             newFritoImageFile: {},
             newFritoNombre: '',
             newFritoPrecio: null,
-            
+
             addNewCardCarne: false,
             newCarneImageFile: {},
             newCarneNombre: '',
             newCarnePrecio: null,
-            
+
             addNewCardPescado: false,
             newPescadoImageFile: {},
             newPescadoNombre: '',
             newPescadoPrecio: null,
-            
+
             addNewCardPasta: false,
             newPastaImageFile: {},
             newPastaNombre: '',
             newPastaPrecio: null,
-            
+
             addNewCardPostre: false,
             newPostreImageFile: {},
             newPostreNombre: '',
             newPostrePrecio: null,
-            
+
             addNewCardBebida: false,
             newBebidaImageFile: {},
             newBebidaNombre: '',
@@ -810,6 +810,7 @@
                id: null,
                nombre: null,
                precio: null,
+               imagen: null,
                nombre_de_la_tabla_db: null,
             }
 
@@ -820,7 +821,7 @@
                if (!files.length)
                return;
                this.newEntranteImageFile = files[0];
-               
+
             },
             onImageBase64Change(e, nombre_de_la_categoria_actual){
                let files = e.target.files;
@@ -832,7 +833,7 @@
                      app.categoria_que_esta_mostrando_la_ventana_modal = nombre_de_la_categoria_actual;
                   };
                   reader.readAsDataURL(this.fileUploaded);
-                  
+
                }
             },
             recortarImagen(){
@@ -859,49 +860,49 @@
                if (!files.length)
                return;
                this.newSopaImageFile = files[0];
-               
+
             },
             onImageChangeFrito(e) {
                let files = e.target.files || e.dataTransfer.files;
                if (!files.length)
                return;
                this.newFritoImageFile = files[0];
-               
+
             },
             onImageChangeCarne(e) {
                let files = e.target.files || e.dataTransfer.files;
                if (!files.length)
                return;
                this.newCarneImageFile = files[0];
-               
+
             },
             onImageChangePescado(e) {
                let files = e.target.files || e.dataTransfer.files;
                if (!files.length)
                return;
                this.newPescadoImageFile = files[0];
-               
+
             },
             onImageChangePasta(e) {
                let files = e.target.files || e.dataTransfer.files;
                if (!files.length)
                return;
                this.newPastaImageFile = files[0];
-               
+
             },
             onImageChangePostre(e) {
                let files = e.target.files || e.dataTransfer.files;
                if (!files.length)
                return;
                this.newPostreImageFile = files[0];
-               
+
             },
             onImageChangeBebida(e) {
                let files = e.target.files || e.dataTransfer.files;
                if (!files.length)
                return;
                this.newBebidaImageFile = files[0];
-               
+
             },
             // START ENTRANTES
             AddNewProductoEntrante: function(){
@@ -914,7 +915,7 @@
                form.append('precio', parseFloat(app.newEntrantePrecio).toFixed(2) );
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newEntranteImageFile);
-               
+
                fetch("{{ url('/categoria/AddNewProductoEntrante') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1020,7 +1021,7 @@
                form.append('precio', parseFloat(app.newSopaPrecio).toFixed(2) );
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newSopaImageFile);
-               
+
                fetch("{{ url('/categoria/AddNewProductoSopa') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1078,7 +1079,7 @@
                form.append('precio', parseFloat(app.newFritoPrecio).toFixed(2) );
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newFritoImageFile);
-               
+
                fetch("{{ url('categoria/AddNewProductoFrito') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1136,7 +1137,7 @@
                form.append('precio', parseFloat(app.newCarnePrecio).toFixed(2) );
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newCarneImageFile);
-               
+
                fetch("{{ url('categoria/AddNewProductoCarne') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1194,7 +1195,7 @@
                form.append('precio', parseFloat(app.newPescadoPrecio).toFixed(2) );
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newPescadoImageFile);
-               
+
                fetch("{{ url('/categoria/AddNewProductoPescado') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1310,7 +1311,7 @@
                form.append('precio', parseFloat(app.newPostrePrecio).toFixed(2) );
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newPostreImageFile);
-               
+
                fetch("{{ url('categoria/AddNewProductoPostre') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1368,7 +1369,7 @@
                form.append('precio', parseFloat(app.newBebidaPrecio).toFixed(2));
                form.append('restauranteId', app.restaurante.id);
                form.append('file', app.newBebidaImageFile);
-               
+
                fetch("{{ url('/categoria/AddNewProductoBebida') }}", {
                   headers: {
                      "Accept": "application/json",
@@ -1427,7 +1428,7 @@
       });
 
 
-      // CROPPER      
+      // CROPPER
       $('#ventanaModal').on('shown.bs.modal', function() {
          CROPPER = new Cropper(document.getElementById('imagen_original_izquierda'), {
             aspectRatio: 1,

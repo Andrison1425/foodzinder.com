@@ -1,1 +1,10 @@
-/* YOUR CUSTOM CSS */
+.btn-dashboard a{
+    background-color: #F67599;
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.3rem;
+}
+

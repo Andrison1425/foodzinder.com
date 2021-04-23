@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Auth::routes();
 
@@ -25,6 +25,8 @@ Route::get('/directorio/detail/{id}', 'DirectorioController@show')->name('direct
 Route::post('/directorio/enviarCorreo', 'DirectorioController@enviarCorreo')->name('directorio.enviarCorreo');
 Route::post('/directorio/obtenerResultadosFiltros', 'DirectorioController@obtenerResultadosFiltros')->name('directorio.obtenerResultadosFiltros');
 
+Route::get('/restaurant', 'RestaurantController@index')->name('restaurant.index');
+Route::get('/restaurant/listado', 'RestaurantController@listado')->name('restaurant.listado');
 Route::get('/restaurant/create', 'RestaurantController@create')->name('restaurant.create');
 Route::post('/restaurant/store', 'RestaurantController@store')->name('restaurant.store');
 Route::get('/restaurant/show/{id}', 'RestaurantController@show')->name('restaurant.show');

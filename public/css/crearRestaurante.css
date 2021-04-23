@@ -1,0 +1,77 @@
+*{
+    list-style: none;
+}
+
+
+/* Tamaño del scroll */
+#progressbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    display: none;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #f8f8f8 !important;
+}
+
+header{
+    height: 7rem;
+}
+
+#progressbar{
+    padding:0;
+    margin:0;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+
+.scroll{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: max-content;
+}
+
+.scroll li{
+    padding:0 1rem;
+}
+
+.active{
+    border-bottom:#f67599 3px solid;
+}
+
+.active h6{
+    color:#f67599 !important;
+}
+
+.sec{
+    display: none;
+}
+
+.sec_active{
+    display: block;
+}
+
+.form-check-label {
+    padding-left: 0.25rem !important;
+}
+
+.imagen_izquierda_modal {
+    display: block;
+    max-width: 100%;
+ }
+ .imagen_final {
+    display: block;
+    max-width: 100%;
+ }
+ .preview_imagen_recortada {
+    overflow: hidden;
+    width: 1280px;
+    height: 720px;
+    margin: 10px;
+    border: 1px solid grey;
+ }

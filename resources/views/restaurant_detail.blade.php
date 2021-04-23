@@ -886,7 +886,7 @@
             // Assign active class to nav links while scolling
             $('.page-section').each(function(i) {
                 if ($(this).position().top <= scrollDistance) {
-                    //document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
+                    document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
                     $('.navigation a.active').removeClass('active');
                     $('.navigation a').eq(i).addClass('active');
                 }

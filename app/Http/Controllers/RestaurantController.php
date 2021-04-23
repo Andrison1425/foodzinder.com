@@ -13,13 +13,18 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-
+        return view('restaurant.index');
+    }
+    public function listado()
+    {
+        $restaurantes = Restaurant::get();
+        return view('restaurant.listado', ['restaurantes' => $restaurantes]);
     }
 
     public function create()
     {
-        $restaurantes = Restaurant::get();
-        return view("restaurant.create", ['restaurantes' => $restaurantes]);
+
+        return view("restaurant.create");
     }
 
     public function store(Request $request)
@@ -33,6 +38,7 @@ class RestaurantController extends Controller
         $restaurant->telefono = !empty($request->input("telefono")) ? $request->input("telefono") : null;
         $restaurant->google_maps = !empty($request->input("google_maps")) ? $request->input("google_maps") : null;
         $restaurant->correo = !empty($request->input("correo")) ? $request->input("correo") : null;
+        $restaurant->correo = !empty($request->input("categorias")) ? $request->input("categorias") : null;
 
         $restaurant->precio1 = !empty($request->input("precio1")) ? $request->input("precio1") : null;
         $restaurant->precio2 = !empty($request->input("precio2")) ? $request->input("precio2") : null;
