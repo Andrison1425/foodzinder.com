@@ -121,73 +121,73 @@
             {{-- START CONTENIDO DE LAS PESTAÑAS --}}
             <?php $iCategoria=0; ?>
             <div class="tab-content" id="myTabContent">
-                <div class="row">
-                    <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$categoria}}" role="button" aria-expanded="false" aria-controls="idp{{$categoria}}">Agregar plato</a>
-                    <div class="collapse multi-collapse p-0 float-right" id="idp{{$categoria}}">
-                        <div class="card card-body p-1">
-                        <div class="row">
-                            <div class="col-12 col-sm-10 col-lg-8 col-xl-6 text-center">
-                                <div class="card">
-                                    <form method="POST" action="{{ route('categorias.agregarProducto') }}" enctype="multipart/form-data" class="formPlato">
-                                        @csrf
-                                        <div class="card-header">AGREGAR NUEVO PRODUCTO:</div>
-                                        <div class="card-body">
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="nombre">Nombre</span>
-                                                </div>
-                                                <input type="text" required name="nombre" class="form-control" aria-label="nombre" aria-describedby="nombre">
-                                            </div>
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="precio">Precio</span>
-                                                </div>
-                                                <input type="number" required name="precio" class="form-control" aria-label="precio" aria-describedby="precio">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlTextarea1">Descripción:</label>
-                                                <textarea class="form-control" required name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                {{-- para recortar --}}
-                                                <label for="original_image" class="btn btn-success" {{"onclick=pestanaActiva($iCategoria)"}}>
-                                                    Agregar imagen +
-                                                </label>
-                                                <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
-                                                {{-- recortado (oculto) --}}
-                                                <input id="imagen1" type="text" name="file" class="form-control d-none imagenClass">
-                                                <img class="imagen_final" id="imagen_final" src="" alt="">
-                                            </div>
 
-                                            <div class="form-group">
-                                                <?php $cantAlergenos=14;?>
-                                                @for($i = 1; $i <=$cantAlergenos; $i++)
-                                                    <span>
-                                                        <input type="checkbox" id="alergeno{{$i.$categoria}}" class="checkAlergeno" data-id="{{'pos'.$iCategoria}}">
-                                                        <label for="alergeno{{$i.$categoria}}">
-                                                            <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" alt="">
-                                                        </label>
-                                                    </span>
-                                                @endfor
-                                                <input type="hidden" value="[]" class="numAlergenos" name="alergenos" />
-                                            </div>
-                                            <div class="input-group mb-3 d-flex justify-content-center">
-                                                <input class="btn btn-primary btn-sm" type="submit" value="Registrar Producto">
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="restauranteId" value="{{$restaurante->id}}">
-                                        <input type="hidden" name="categoria" value="{{$categoria}}">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
                 @foreach($restaurante->categorias as $categoria)
-
                 {{-- START CATEGORIA --}}
                 <div class="tab-pane fade @if($loop->index==0){{'show active'}}@endif" id="categoria{{$loop->index}}" role="tabpanel" aria-labelledby="categoria{{$loop->index}}-tab">
+                    <div class="row">
+                        <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$categoria}}" role="button" aria-expanded="false" aria-controls="idp{{$categoria}}">Agregar plato</a>
+                        <div class="collapse multi-collapse p-0 float-right" id="idp{{$categoria}}">
+                            <div class="card card-body p-1">
+                            <div class="row">
+                                <div class="col-12 col-sm-10 col-lg-8 col-xl-6 text-center">
+                                    <div class="card">
+                                        <form method="POST" action="{{ route('categorias.agregarProducto') }}" enctype="multipart/form-data" class="formPlato">
+                                            @csrf
+                                            <div class="card-header">AGREGAR NUEVO PRODUCTO:</div>
+                                            <div class="card-body">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="nombre">Nombre</span>
+                                                    </div>
+                                                    <input type="text" required name="nombre" class="form-control" aria-label="nombre" aria-describedby="nombre">
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="precio">Precio</span>
+                                                    </div>
+                                                    <input type="number" required name="precio" class="form-control" aria-label="precio" aria-describedby="precio">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Descripción:</label>
+                                                    <textarea class="form-control" required name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    {{-- para recortar --}}
+                                                    <label for="original_image" class="btn btn-success" {{"onclick=pestanaActiva($iCategoria)"}}>
+                                                        Agregar imagen +
+                                                    </label>
+                                                    <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
+                                                    {{-- recortado (oculto) --}}
+                                                    <input id="imagen1" type="text" name="file" class="form-control d-none imagenClass">
+                                                    <img class="imagen_final" id="imagen_final" src="" alt="">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <?php $cantAlergenos=14;?>
+                                                    @for($i = 1; $i <=$cantAlergenos; $i++)
+                                                        <span>
+                                                            <input type="checkbox" id="alergeno{{$i.$categoria}}" class="checkAlergeno" data-id="{{'pos'.$iCategoria}}">
+                                                            <label for="alergeno{{$i.$categoria}}">
+                                                                <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" alt="">
+                                                            </label>
+                                                        </span>
+                                                    @endfor
+                                                    <input type="hidden" value="[]" class="numAlergenos" name="alergenos" />
+                                                </div>
+                                                <div class="input-group mb-3 d-flex justify-content-center">
+                                                    <input class="btn btn-primary btn-sm" type="submit" value="Registrar Producto">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="restauranteId" value="{{$restaurante->id}}">
+                                            <input type="hidden" name="categoria" value="{{$categoria}}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="container-fluid mt-3">
                         <div class="row">
                             @foreach($platos as $plato)
