@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Restaurant extends Model
 {
     protected $fillable = [
-        'nombre', 
+        'nombre',
         'direccion',
         'ciudad',
         'pais',
         'telefono'
     ];
 
-    public function entrantes(){
-        return $this->hasMany(Entrante::class, 'restaurant_id', 'id');
+    public function platos()
+    {
+        return $this->hasMany(Plato::class, 'restaurant_id', 'id');
     }
 }

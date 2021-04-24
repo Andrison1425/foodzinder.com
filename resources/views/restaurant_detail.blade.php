@@ -80,7 +80,6 @@
             </div>
         </div>
         </div>
-
     @endif
 
 	{{-- botón flotante --}}

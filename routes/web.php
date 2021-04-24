@@ -42,6 +42,8 @@ Route::post('/users/update', 'UserController@update')->name('users.update');
 // START CATEGORIAS
 Route::get('/categoria/index/{id}', 'CategoriaController@index')->name('categorias.index');
 Route::post('/categoria/cambiarstatus/{id}/{nombre}', 'CategoriaController@cambiarStatus')->name('categorias.cambiarstatus');
+Route::post('/categoria/agregarCategoria', 'CategoriaController@agregarCategoria')->name('categorias.agregarCategoria');
+Route::post('/categoria/agregarProducto', 'CategoriaController@agregarProducto')->name('categorias.agregarProducto');
 
 Route::post('/categoria/AddNewProductoEntrante', 'CategoriaController@AddNewProductoEntrante')->name('categorias.AddNewProductoEntrante');
 Route::post('/categoria/editarEntrante', 'CategoriaController@editarEntrante')->name('categorias.editarEntrante');

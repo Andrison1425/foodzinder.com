@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Entrante extends Model
+class Plato extends Model
 {
-    //
+    protected $table = 'platos';
 }

@@ -8,7 +8,6 @@
 @section('custom-links')
     <link rel="stylesheet" href="{{asset('public/css/crearRestaurante.css')}}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css" integrity="sha512-jO9KUHlvIF4MH/OTiio0aaueQrD38zlvFde9JoEA+AQaCNxIJoX4Kjse3sO2kqly84wc6aCtdm9BIUpYdvFYoA==" crossorigin="anonymous" />
-
 @endsection
 
 <!-- multistep form -->

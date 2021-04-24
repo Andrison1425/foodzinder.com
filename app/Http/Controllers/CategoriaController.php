@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Restaurant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\File;
 
 class CategoriaController extends Controller
@@ -14,28 +13,64 @@ class CategoriaController extends Controller
     public function index($id)
     {
         $restaurante = Restaurant::find($id);
-        $entrantes = DB::table('entrantes')->where('restaurant_id', $id)->get()->toJson();
-        $sopas = DB::table('sopas')->where('restaurant_id', $id)->get()->toJson();
-        $fritos = DB::table('fritos')->where('restaurant_id', $id)->get()->toJson();
-        $carnes = DB::table('carnes')->where('restaurant_id', $id)->get()->toJson();
-        $pescados = DB::table('pescados')->where('restaurant_id', $id)->get()->toJson();
-        $pastas = DB::table('pastas')->where('restaurant_id', $id)->get()->toJson();
-        $postres = DB::table('postres')->where('restaurant_id', $id)->get()->toJson();
-        $bebidas = DB::table('bebidas')->where('restaurant_id', $id)->get()->toJson();
+        $restaurante->categorias=json_decode($restaurante->categorias,true);
+        $platos = $restaurante->platos;
 
-        return view("categorias.index", ['restaurante' => json_encode($restaurante->toJson()), 
-                                         'entrantes'   => json_encode($entrantes),
-                                         'sopas'       => json_encode($sopas),
-                                         'fritos'      => json_encode($fritos),
-                                         'carnes'      => json_encode($carnes),
-                                         'pescados'    => json_encode($pescados),
-                                         'pastas'      => json_encode($pastas),
-                                         'postres'     => json_encode($postres),
-                                         'bebidas'     => json_encode($bebidas)
-                                         ]);
+        return view("categorias.index", [
+            'restaurante' => $restaurante,
+            'platos'=>$platos
+        ]);
     }
 
+    public function agregarCategoria(Request $request){
+        $restaurante = Restaurant::find($request->id);
+        if($restaurante->categorias){
+            $categorias=json_decode($restaurante->categorias,true);
+            $categorias[]=$request->categoria;
+            $restaurante->categorias=json_encode($categorias);
 
+        }else{
+            $restaurante->categorias=json_encode([$request->categoria]);
+        }
+
+        $restaurante->save();
+        return redirect()->route('categorias.index', ['id' => $request->id])->with('Notificacion','Categoría agregada');
+    }
+
+    public function agregarProducto(Request $request)
+    {
+        if ($request->input('file')) {
+            // Esto es una imagen de tipo base 64
+            $base64File = $request->input('file');
+
+            // decode the base64 file
+            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+
+            // save it to temporary dir first.
+            $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+            file_put_contents($tmpFilePath, $fileData);
+
+            // this just to help us get file info.
+            $tmpFile = new File($tmpFilePath);
+
+            $name = $tmpFile->getFilename().'.png';
+            $tmpFile->move(public_path().'/images/platos/', $name);
+            // Preparamos el producto:
+            $plato['nombre'] = $request->input('nombre');
+            $plato['precio'] = $request->input('precio');
+            $plato['descripcion'] = $request->input('descripcion');
+            $plato['alergenos'] = $request->input('alergenos');
+            $plato['restaurant_id'] = $request->input('restauranteId');
+            $plato['categoria'] = $request->input('categoria');
+            $plato['imagen'] = '/images/platos/'.$name;
+
+            $plato_id = DB::table('platos')->insertGetId($plato);
+
+            $plato['id'] = $plato_id;
+
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato agregado');
+        }
+    }
 
     // START ENTRANTES
     public function AddNewProductoEntrante(Request $request)
@@ -61,11 +96,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/entrantes/'.$name;
-    
+
             $entrante_id = DB::table('entrantes')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -73,20 +108,20 @@ class CategoriaController extends Controller
             // Esto es una imagen de tipo file
             $file = $request->file('file'); // capturo el archivo
             $name = time().$request->input('restauranteId').$file->getClientOriginalName(); // le pongo imagen al archivo
-    
+
             // Guardo la imagen en la siguiente carpeta
             $file->move(public_path().'/images/categorias/entrantes/', $name);
-    
+
             // Preparamos el producto:
             $entrante['nombre'] = $request->input('nombre');
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/entrantes/'.$name;
-    
+
             $entrante_id = DB::table('entrantes')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
     }
@@ -114,7 +149,7 @@ class CategoriaController extends Controller
         $categoria = DB::table($nombre)->where('id', $id)->first();
 
         $actualizacion = $categoria->status == "1" ? ['status' => 2] : ['status' => 1];
-        
+
         DB::table($nombre)->where('id', $id)->update($actualizacion);
 
         return response()->json([
@@ -149,11 +184,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/sopas/'.$name;
-    
+
             $entrante_id = DB::table('sopas')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -208,11 +243,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/fritos/'.$name;
-    
+
             $entrante_id = DB::table('fritos')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -268,11 +303,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/carnes/'.$name;
-    
+
             $entrante_id = DB::table('carnes')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -328,11 +363,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/pescados/'.$name;
-    
+
             $entrante_id = DB::table('pescados')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -388,11 +423,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/pastas/'.$name;
-    
+
             $entrante_id = DB::table('pastas')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -448,11 +483,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/postres/'.$name;
-    
+
             $entrante_id = DB::table('postres')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 
@@ -508,11 +543,11 @@ class CategoriaController extends Controller
             $entrante['precio'] = $request->input('precio');
             $entrante['restaurant_id'] = $request->input('restauranteId');
             $entrante['imagen'] = '/images/categorias/bebidas/'.$name;
-    
+
             $entrante_id = DB::table('bebidas')->insertGetId($entrante);
-    
+
             $entrante['id'] = $entrante_id;
-    
+
             return response()->json($entrante);
         }
 

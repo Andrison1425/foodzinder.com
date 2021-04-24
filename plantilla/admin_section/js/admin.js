@@ -23,15 +23,7 @@
     this.scrollTop += (delta < 0 ? 1 : -1) * 30;
     e.preventDefault();
   });
-  // Scroll to top button appear
-  $(document).scroll(function() {
-    var scrollDistance = $(this).scrollTop();
-    if (scrollDistance > 100) {
-      $('.scroll-to-top').fadeIn();
-    } else {
-      $('.scroll-to-top').fadeOut();
-    }
-  });
+
   // Configure tooltips globally
   $('[data-toggle="tooltip"]').tooltip()
   // Smooth scrolling using jQuery easing
@@ -42,7 +34,7 @@
     }, 1000, 'easeInOutExpo');
     event.preventDefault();
   });
-  
+
   // Inline popups
   $('.inline-popups').each(function () {
   	$(this).magnificPopup({
@@ -61,10 +53,10 @@
  $('.wishlist_close').on('click', function (c) {
  	$(this).parent().parent().parent().fadeOut('slow', function (c) {});
  });
-	
+
   // Selectbox
   $(".selectbox").selectbox();
-  
+
   // Pricing add
 	function newMenuItem() {
 		var newElem = $('tr.pricing-list-item').first().clone();
@@ -81,5 +73,5 @@
 			$(this).parent().parent().parent().remove();
 		});
 	}
-	
+
 })(jQuery); // End of use strict

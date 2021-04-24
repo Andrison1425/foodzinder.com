@@ -1,0 +1,29 @@
+.checkAlergeno{
+    display: none;
+}
+
+
+.checkAlergeno ~ label{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.checkAlergeno:checked ~ label{
+    opacity: 1;
+}
+
+.imagen_izquierda_modal {
+    display: block;
+    max-width: 100%;
+}
+.imagen_final {
+    display: block;
+    max-width: 100%;
+}
+.preview_imagen_recortada {
+    overflow: hidden;
+    width: 1280px;
+    height: 720px;
+    margin: 10px;
+    border: 1px solid grey;
+}
