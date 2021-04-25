@@ -126,8 +126,8 @@
                 {{-- START CATEGORIA --}}
                 <div class="tab-pane fade @if($loop->index==0){{'show active'}}@endif" id="categoria{{$loop->index}}" role="tabpanel" aria-labelledby="categoria{{$loop->index}}-tab">
                     <div class="row">
-                        <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$categoria}}" role="button" aria-expanded="false" aria-controls="idp{{$categoria}}">Agregar plato</a>
-                        <div class="collapse multi-collapse p-0 float-right" id="idp{{$categoria}}">
+                        <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
+                        <div class="collapse multi-collapse p-0 float-right" id="idp{{$loop->index}}">
                             <div class="card card-body p-1">
                             <div class="row">
                                 <div class="col-12 col-sm-10 col-lg-8 col-xl-6 text-center">
@@ -208,6 +208,14 @@
                                                         {{$plato->descripcion}}
                                                     </div>
                                                 </div>
+
+                                                <div class="cont-alergenos">
+                                                    <?php $alergenos=json_decode($plato->alergenos,true);?>
+                                                    @foreach($alergenos as $alergeno)
+                                                        <img src="{{asset('public/images/alergenos/'.$alergeno.'.png')}}" alt="">
+                                                    @endforeach
+                                                </div>
+
                                                 <div class="d-flex justify-content-end align-items-center">
                                                     <a @click="handleEdicionDeProductoEnCategoria(producto, 'entrantes')" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
                                                     <a @click="eliminarEntrante(producto.id)" href="#" class="btn btn-danger btn-sm">Borrar</a>

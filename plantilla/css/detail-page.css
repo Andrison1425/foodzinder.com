@@ -1256,3 +1256,15 @@
 		margin: 1rem 0 0 0;
 	}
 }
+
+.cont-alergenos{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+}
+
+.img-alergeno{
+    width: 18%;
+    margin:0 0 0.5rem 2%;
+    height: max-content;
+}

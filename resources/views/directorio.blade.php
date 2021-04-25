@@ -468,19 +468,19 @@
                                      </span>
                                  </div>
                                  <ul>
-                                     @foreach ($restaurant->entrantes->slice(0, 4) as $entrante)
+                                     @foreach ($restaurant->platos->slice(0, 4) as $plato)
 
                                         @if($loop->index == 3)
                                             <div
                                                 class="li-slider"
-                                                style=" background-image:url({{ url($entrante->imagen) }});"
+                                                style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
                                             <a href="{{ route('directorio.detail', ['id' => $restaurant->id]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
                                             </div>
                                         @else
                                             <div
                                                 class="li-slider"
-                                                style=" background-image:url({{ url($entrante->imagen) }});"
+                                                style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
                                         </div>
                                         @endif

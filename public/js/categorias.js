@@ -11,19 +11,17 @@ formPlato.forEach((form,i)=>{
        const indice=form.querySelector(".checkAlergeno").getAttribute("data-id");
         checkAlergeno[index].onchange=()=>{
             if(checkAlergeno[index].checked){
-
-                arrAlergenos[indice]=[index+1,...arrAlergenos[indice]];
+                arrAlergenos[indice]=[(index-14*i)+1,...arrAlergenos[indice]];
                 numAlergenos[i].value=JSON.stringify(arrAlergenos[indice]);
             }else{
                 arrAlergenos[indice]=JSON.parse(numAlergenos[i].value).filter(num=>{
-                    if(num==(i*14+index-i*14)+1) return null;
+                    if(num==(index-14*i)+1) return null;
                     else return num;
                 });
-                numAlergenos[indice].value=JSON.stringify([...arrAlergenos[indice]]);
+                numAlergenos[i].value=JSON.stringify([...arrAlergenos[indice]]);
             }
         };
     }
-
 });
 
 let activa=0;

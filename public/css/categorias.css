@@ -27,3 +27,14 @@
     margin: 10px;
     border: 1px solid grey;
 }
+
+.cont-alergenos{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+}
+
+.cont-alergenos img{
+    width: 23%;
+    margin:0 0 0.5rem 2%;
+}

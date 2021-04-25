@@ -139,26 +139,12 @@ class DirectorioController extends Controller
     public function show($id)
     {
         $restaurant = Restaurant::find($id);
+        $restaurant->categorias=json_decode($restaurant->categorias,true);
         $imagenes=json_decode($restaurant->imagenes,true);
-        $entrantes = DB::table('entrantes')->where('restaurant_id', $id)->where('status', 1)->get();
-        $sopas = DB::table('sopas')->where('restaurant_id', $id)->where('status', 1)->get();
-        $fritos = DB::table('fritos')->where('restaurant_id', $id)->where('status', 1)->get();
-        $carnes = DB::table('carnes')->where('restaurant_id', $id)->get();
-        $pescados = DB::table('pescados')->where('restaurant_id', $id)->where('status', 1)->get();
-        $pastas = DB::table('pastas')->where('restaurant_id', $id)->where('status', 1)->get();
-        $postres = DB::table('postres')->where('restaurant_id', $id)->where('status', 1)->get();
-        $bebidas = DB::table('bebidas')->where('restaurant_id', $id)->where('status', 1)->get();
-
+        $platos=$restaurant->platos;;
         return view("restaurant_detail", ['restaurant' => $restaurant,
                                          'imagenes'    =>$imagenes,
-                                         'entrantes'   => $entrantes,
-                                         'sopas'       => $sopas,
-                                         'fritos'      => $fritos,
-                                         'carnes'      => $carnes,
-                                         'pescados'    => $pescados,
-                                         'pastas'      => $pastas,
-                                         'postres'     => $postres,
-                                         'bebidas'     => $bebidas
+                                         'platos'      =>$platos
                                          ]);
     }
 

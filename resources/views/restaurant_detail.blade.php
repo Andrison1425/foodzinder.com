@@ -24,7 +24,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
 	<!-- BASE CSS -->
 	<link href="{{asset('plantilla/css/bootstrap_customized.min.css')}}" rel="stylesheet">
@@ -160,6 +161,18 @@
 							<h5>@{{ newItem.nombre }}</h5>
 						</div>
 					</div>
+                    <div class="row mt-2">
+                        <a  class="mt-2" data-toggle="collapse" href="#id1" role="button" aria-expanded="false" aria-controls="id1">Ver desripción</a>
+                        <div class="collapse multi-collapse p-0" id="id1">
+                            <div class="card card-body p-1">
+                                @{{ newItem.descripcion }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <img  v-for="alergeno in newItem.alergenos" :src=`{{asset('public/images/alergenos')}}${'/'+alergeno}.png` class="img-alergeno" alt="">
+                    </div>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -334,241 +347,53 @@
 		        <div class="col-lg-12">
 		            <div class="tabs_detail">
 		                <ul class="nav navigation nav-tabs sticky-tabs" id="mainNav" role="tablist">
-								<li class="nav-item">
-									<a id="tab-A" href="#cont1" class="navigation__link nav-link active">Entrantes</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-B" href="#cont2" class="navigation__link nav-link">Sopas</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-C" href="#cont3" class="navigation__link nav-link">Fritos</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-D" href="#cont4" class="navigation__link nav-link">Carnes</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-E" href="#cont5" class="navigation__link nav-link">Pescado</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-F" href="#cont6" class="navigation__link nav-link">Pastas</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-G" href="#cont7" class="navigation__link nav-link">Postres</a>
-								</li>
-								<li class="nav-item">
-									<a id="tab-H" href="#cont8" class="navigation__link nav-link">Bebidas</a>
-								</li>
+                            @foreach($restaurant->categorias as $categoria)
+                                @if($loop->index==0)
+                                    <li class="nav-item">
+                                        <a id="tab-{{$loop->index}}" href="#cont{{$loop->index}}" class="navigation__link nav-link active">{{$categoria}}</a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a id="tab-{{$loop->index}}" href="#cont{{$loop->index}}" class="navigation__link nav-link">{{$categoria}}</a>
+                                    </li>
+                                @endif
+                            @endforeach
 		                </ul>
 
 		                <div class="tab-content" role="tablist">
+
 		                    <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
 		                        <div role="tabpanel" aria-labelledby="heading-A">
 		                            <div class="card-body info_content">
-		                            	<div class="main_title page-section" id="cont1">
-											<span><em></em></span>
-											<h2>Entrantes</h2>
-										</div>
+                                    @foreach($restaurant->categorias as $categoria)
+                                        <div class="main_title page-section" id="cont1">
+                                            <span><em></em></span>
+                                            <h2>{{$categoria}}</h2>
+                                        </div>
 
-											<div class="row">
-												@if (count($entrantes) > 0)
-													@foreach ($entrantes as $entrante)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('entrantes', '{{ $entrante->id }}', '{{ asset('public/'.$entrante->imagen) }}', '{{ $entrante->nombre }}', '{{ $entrante->precio }}' )" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
-																		<img  src="{{ asset('public/'.$entrante->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $entrante->nombre }}</h3>
-																			<span>{{ $entrante->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
+                                        <div class="row">
+                                            @foreach($platos as $plato)
+                                                @if($plato->categoria==$categoria)
+                                                    <div class="col-md-4">
+                                                        <div class="item">
+                                                            <div class="strip">
+                                                                <a @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', '{{$plato->descripcion}}', {{$plato->alergenos}})" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                    <img  src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
+                                                                    <div class="item_title_ind">
+                                                                        <h3>{{ $plato->nombre }}</h3>
+                                                                        <span>{{ $plato->precio }} €</span>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-											<div class="main_title page-section add_top_30" id="cont2">
-												<span><em></em></span>
-												<h2>Sopas</h2>
-											</div>
-
-											<div class="row">
-												@if ($sopas)
-													@foreach ($sopas as $sopa)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('sopa', '{{ $sopa->id }}', '{{ url($sopa->imagen) }}', '{{ $sopa->nombre }}', '{{ $sopa->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($sopa->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $sopa->nombre }}</h3>
-																			<span>{{ $sopa->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-											<div class="main_title page-section add_top_30" id="cont3">
-												<span><em></em></span>
-												<h2>Fritos</h2>
-											</div>
-
-											<div class="row">
-												@if ($fritos)
-													@foreach ($fritos as $frito)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('frito', '{{ $frito->id }}', '{{ url($frito->imagen) }}', '{{ $frito->nombre }}', '{{ $frito->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($frito->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $frito->nombre }}</h3>
-																			<span>{{ $frito->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-											<div class="main_title page-section add_top_30" id="cont4">
-												<span><em></em></span>
-												<h2>Carnes</h2>
-											</div>
-
-											<div class="row">
-												@if ($carnes)
-													@foreach ($carnes as $carne)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('carne', '{{ $carne->id }}', '{{ url($carne->imagen) }}', '{{ $carne->nombre }}', '{{ $carne->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($carne->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $carne->nombre }}</h3>
-																			<span>{{ $carne->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-											<div class="main_title page-section add_top_30" id="cont5">
-												<span><em></em></span>
-												<h2>Pescado</h2>
-											</div>
-
-											<div class="row">
-												@if ($pescados)
-													@foreach ($pescados as $pescado)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('pescado', '{{ $pescado->id }}', '{{ url($pescado->imagen) }}', '{{ $pescado->nombre }}', '{{ $pescado->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($pescado->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $pescado->nombre }}</h3>
-																			<span>{{ $pescado->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-											<div class="main_title page-section add_top_30" id="cont6">
-												<span><em></em></span>
-												<h2>Pastas</h2>
-											</div>
-
-											<div class="row">
-												@if ($pastas)
-													@foreach ($pastas as $pasta)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('pasta', '{{ $pasta->id }}', '{{ url($pasta->imagen) }}', '{{ $pasta->nombre }}', '{{ $pasta->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($pasta->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $pasta->nombre }}</h3>
-																			<span>{{ $pasta->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-											<div class="main_title page-section add_top_30" id="cont7">
-												<span><em></em></span>
-												<h2>Postres</h2>
-											</div>
-
-											<div class="row">
-												@if ($postres)
-													@foreach ($postres as $postre)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('postre', '{{ $postre->id }}', '{{ url($postre->imagen) }}', '{{ $postre->nombre }}', '{{ $postre->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($postre->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $postre->nombre }}</h3>
-																			<span>{{ $postre->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-											<div class="main_title page-section add_top_30" id="cont8">
-												<span><em></em></span>
-												<h2>Bebidas</h2>
-											</div>
-
-
-											<div class="row">
-												@if ($bebidas)
-													@foreach ($bebidas as $bebida)
-														<div class="col-md-4">
-															<div class="item">
-																<div class="strip">
-																	<a @click="itemClicado('bebida', '{{ $bebida->id }}', '{{ url($bebida->imagen) }}', '{{ $bebida->nombre }}', '{{ $bebida->precio }}' )" href="#" class="strip_info"  data-toggle="modal" data-target="#exampleModalCenter">
-																		<img src="{{ url($bebida->imagen) }}" class="owl-lazy plate-100" alt="">
-																		<div class="item_title_ind">
-																			<h3>{{ $bebida->nombre }}</h3>
-																			<span>{{ $bebida->precio }} €</span>
-																		</div>
-																	</a>
-																</div>
-															</div>
-														</div>
-													@endforeach
-												@endif
-											</div>{{-- end row --}}
-
-
-										</div>
-									</div>
+                                                @endif
+                                            @endforeach
+                                        </div>{{-- end row --}}
+                                    @endforeach
 								</div>
+							</div>
 		                    <!-- /tab -->
 
 
@@ -778,11 +603,13 @@
 					nombre: "",
 					precioUnitario: 0,
 					cantidad: 1,
-					precioCantidad: 0
+					precioCantidad: 0,
+                    descripcion: "",
+                    alergenos:[]
 				}
 			},
 			methods: {
-				itemClicado: function (categoria, id, imagen, nombre, precio){
+				itemClicado: function (categoria, id, imagen, nombre, precio, descripcion,alergenos){
 					this.newItem = {
 						categoria: categoria,
 						id: id,
@@ -790,7 +617,9 @@
 						nombre: nombre,
 						precioUnitario: precio,
 						cantidad: 1,
-						precioCantidad: precio
+						precioCantidad: precio,
+                        descripcion: descripcion,
+                        alergenos:alergenos
 					}
 				},
 
@@ -898,5 +727,3 @@
     </script>
 </body>
 </html>
-
-
