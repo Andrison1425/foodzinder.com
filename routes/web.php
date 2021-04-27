@@ -41,14 +41,12 @@ Route::post('/users/update', 'UserController@update')->name('users.update');
 
 // START CATEGORIAS
 Route::get('/categoria/index/{id}', 'CategoriaController@index')->name('categorias.index');
-Route::post('/categoria/cambiarstatus/{id}/{nombre}', 'CategoriaController@cambiarStatus')->name('categorias.cambiarstatus');
+Route::post('/categoria/cambiarstatus/{id}', 'CategoriaController@cambiarStatus')->name('categorias.cambiarstatus');
 Route::post('/categoria/agregarCategoria', 'CategoriaController@agregarCategoria')->name('categorias.agregarCategoria');
 Route::post('/categoria/agregarProducto', 'CategoriaController@agregarProducto')->name('categorias.agregarProducto');
 Route::post('/categoria/cambiarCategoria/{id}/{categoria}/{restauranteId}', 'CategoriaController@cambiarCategoria')->name('categorias.cambiarCategoria');
 Route::post('/categoria/organizarPlatos/{restauranteId}/', 'CategoriaController@organizarPlatos')->name('categorias.organizarPlatos');
-
-Route::post('/categoria/AddNewProductoEntrante', 'CategoriaController@AddNewProductoEntrante')->name('categorias.AddNewProductoEntrante');
 Route::post('/categoria/editarProducto', 'CategoriaController@editarProducto')->name('categorias.editarProducto');
-Route::delete('/categoria/eliminarEntrante/{id}', 'CategoriaController@eliminarEntrante')->name('categorias.eliminarEntrante');
+Route::delete('/categoria/eliminarProducto/{id}/{restauranteId}', 'CategoriaController@eliminarProducto')->name('categorias.eliminarProducto');
 
 // END CATEGORIAS

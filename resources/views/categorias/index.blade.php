@@ -223,8 +223,8 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $plato->nombre }}</h5>
                                                 <p class="card-text">{{ $plato->precio }}€</p>
-                                                <a @click.prevent="cambiarStatus(producto.id, 'entrantes')" href="#">
-                                                    <p class="card-text" class="@if($plato->status=='1') {{'text-success'}} @else {{'text-danger'}} @endif">@if($plato->status=='1') {{'Habilitado'}} @else {{'Inhabilitado'}} @endif</p>
+                                                <a onclick=cambiarStatus("{{url('/categoria/cambiarstatus',['id'=>$plato->id])}}",{{$plato->id}}) href="#">
+                                                    <p class="p{{$plato->id}} card-text @if($plato->status=='1') {{'text-success'}} @else {{'text-danger'}} @endif">@if($plato->status=='1') {{'Habilitado'}} @else {{'Inhabilitado'}} @endif</p>
                                                 </a>
 
                                                 <a  class="mt-2" data-toggle="collapse" href="#id{{$plato->id}}" role="button" aria-expanded="false" aria-controls="id{{$plato->id}}">Ver desripción</a>
@@ -243,7 +243,12 @@
 
                                                 <div class="d-flex justify-content-end align-items-center">
                                                     <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}' )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
-                                                    <a @click="eliminarEntrante(producto.id)" href="#" class="btn btn-danger btn-sm">Borrar</a>
+
+                                                    <form method="POST" action="{{ route('categorias.eliminarProducto',['id'=>$plato->id,'restauranteId'=>$restaurante->id]) }}" enctype="multipart/form-data">
+                                                        @method("delete")
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -362,23 +367,7 @@
 
         cerrarModalDeEdicion(){
             $('#modal_de_edicion').modal('hide');
-            },
-
-        eliminarEntrante: function(id){
-            // eliminar en interfaz:
-            this.categorias.entrantes = this.categorias.entrantes.filter(producto => producto.id !== id);
-
-            // eliminar en la base de datos:
-            fetch(`{{ url('/categoria/eliminarEntrante') }}/${id}`, {
-                headers: {
-                "Accept": "application/json",
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": token
-                },
-                method: "delete",
-            }).then(response => response.json())
-            .then(data => console.log(data));
-        },
+        }
     }
     });
 </script>

@@ -88,63 +88,65 @@ class CategoriaController extends Controller
         }
     }
 
-    public function eliminarEntrante($id)
+    public function eliminarProducto($id,$restauranteId)
     {
-        DB::table('entrantes')->where('id', $id)->delete();
-        return response()->json([
-            $id => 'Fue borrado exitosamente'
-        ]);
+        $plato = Plato::findOrFail($id)->delete();
+        return redirect()->route('categorias.index', ['id' => $restauranteId])->with('Notificacion','Plato eliminado');
     }
 
     public function editarProducto(Request $request)
     {
         $plato = Plato::findOrFail($request->id);
-
         $nombre = $request->input('nombre');
         $precio= $request->input('precio');
         $imagen=$request->input('file');
 
-        // Esto es una imagen de tipo base 64
-        $base64File = $request->input('file');
+        if (!$imagen) {
 
-        // decode the base64 file
-        $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+            $plato->update([
+                'nombre' => $nombre,
+                'precio'=>$precio
+            ]);
 
-        // save it to temporary dir first.
-        $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
-        file_put_contents($tmpFilePath, $fileData);
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
 
-         // this just to help us get file info.
-         $tmpFile = new File($tmpFilePath);
+        }else{
 
-         $name = $tmpFile->getFilename().'.png';
-         $tmpFile->move(public_path().'/images/platos/', $name);
+            // Esto es una imagen de tipo base 64
+            $base64File = $request->input('file');
 
-         $imagen='/images/platos/'.$name;
+            // decode the base64 file
+            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
 
-         unlink(public_path().$plato->imagen);
+            // save it to temporary dir first.
+            $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+            file_put_contents($tmpFilePath, $fileData);
 
-         $plato->update([
-            'nombre' => $nombre,
-            'precio'=>$precio,
-            'imagen'=>$imagen
-        ]);
-        return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
+             // this just to help us get file info.
+             $tmpFile = new File($tmpFilePath);
+
+             $name = $tmpFile->getFilename().'.png';
+             $tmpFile->move(public_path().'/images/platos/', $name);
+
+             $imagen='/images/platos/'.$name;
+
+             unlink(public_path().$plato->imagen);
+
+             $plato->update([
+                'nombre' => $nombre,
+                'precio'=>$precio,
+                'imagen'=>$imagen
+            ]);
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
+        }
     }
 
-    public function cambiarStatus($id, $nombre)
+    public function cambiarStatus($id)
     {
-        $categoria = DB::table($nombre)->where('id', $id)->first();
-
-        $actualizacion = $categoria->status == "1" ? ['status' => 2] : ['status' => 1];
-
-        DB::table($nombre)->where('id', $id)->update($actualizacion);
-
-        return response()->json([
-            $actualizacion,
-            "categoria" => $nombre,
-            "categoria_id" => $id
-        ]);
+        $plato =  Plato::findOrFail($id);
+        $actualizacion = $plato->status == "1" ? ['status' => 2] : ['status' => 1];
+        $plato->update($actualizacion);
+        return response()->json( $actualizacion);
     }
 
     public function cambiarCategoria($id, $categoria, $restauranteId)

@@ -27,27 +27,55 @@ btnBack.forEach((btn,i)=>{
 
 $(document).ready(function() {
     let arrImg=[];
+    let valuesImg=document.querySelector(".valuesImg");
+    let img = document.querySelector("#imagen_final")
     let coleccionImg=document.querySelector(".coleccionImg");
-  $('#tabla_listado_restaurantes').DataTable();
 
-  // Escucha el evento que surge cuando el source de la imagen cambia:
-  let img = document.querySelector("#imagen_final"),
-  observer = new MutationObserver((changes) => {
-    changes.forEach(change => {
-        if(change.attributeName.includes('src')){
+    if(valuesImg){
+        const arr=JSON.parse(valuesImg.value)
+        .forEach(ele=>{
             const imgDom=document.createElement("img");
-            imgDom.setAttribute("src",img.src);
+            imgDom.src=ele;
             imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
             coleccionImg.appendChild(imgDom);
-            arrImg.push(img.src);
-            const urlImg=img.src;
+            arrImg.push(ele);
+            const urlImg=ele;
+            console.log(ele)
             document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-            console.log(document.querySelector('#imagen1').value)
-          imgDom.onclick=()=>{
-              coleccionImg.removeChild(imgDom);
-              arrImg=arrImg.filter(ele=>ele!==urlImg);
-              document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-          }
+
+            imgDom.onclick=()=>{
+                coleccionImg.removeChild(imgDom);
+                arrImg=arrImg.filter(comp=>comp!==urlImg);
+                document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+            }
+        })
+
+    }
+
+  $('#tabla_listado_restaurantes').DataTable();
+
+  function agregarImg(){
+    const imgDom=document.createElement("img");
+    imgDom.setAttribute("src",img.src);
+    imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
+    coleccionImg.appendChild(imgDom);
+    arrImg.push(img.src);
+    const urlImg=img.src;
+    document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+
+    imgDom.onclick=()=>{
+        coleccionImg.removeChild(imgDom);
+        arrImg=arrImg.filter(ele=>ele!==urlImg);
+        document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+    }
+  }
+
+  agregarImg();
+  // Escucha el evento que surge cuando el source de la imagen cambia:
+  let observer = new MutationObserver((changes) => {
+    changes.forEach(change => {
+        if(change.attributeName.includes('src')){
+            agregarImg();
         }
     });
   });

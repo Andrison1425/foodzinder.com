@@ -1,87 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-      <title>Lista de Usuarios</title>
-   </head>
-   <body>
-      <div class="container fluid">
-         <div class="row">
-            <div class="col-md-12">
-               <h3>LISTA DE USUARIOS</h3>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-12">
-               <table class="table table-dark">
-                  <thead>
-                     <tr>
+@extends('restaurant.layouts.admin')
+
+@section('title')
+    Foodzinder | Lista de Usuarios
+@endsection
+
+@section('custom-links')
+@endsection
+
+@section('content')
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-12">
+            <h3>LISTA DE USUARIOS</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
                         <td>Nombre</td>
                         <td>Email</td>
                         <td>Perfil</td>
                         <td>Acciones</td>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach ($users as $user)
-                        <tr>
-                           <td>{{$user->name}}</td>
-                           <td>{{$user->email}}</td>
-                           <td>{{($user->profile === 1) ? "Administrador" : "Usuario"}}</td>
-                           <td>
-                              <a href="{{ route('users.edit', ['id' => $user->id]) }}">
-                                 <button class="btn btn-info">Cambiar perfil</button>
-                              </a>
-                           </td>
-                        </tr>
-                     @endforeach
-                  </tbody>
-               </table>
-               <a href="{{ url('/') }}">
-                  <button class="btn btn-info">Home</button>
-               </a>
-            </div>
-         </div>
-      </div>
-      
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                    <tr>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{($user->profile === 1) ? "Administrador" : "Usuario"}}</td>
+                        <td>
+                            <a href="{{ route('users.edit', ['id' => $user->id]) }}">
+                                <button class="btn btn-info">Cambiar perfil</button>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
 
+@section('scripts')
 
-
-         {{-- <!-- Modal -->
-         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         
-            <div class="modal-dialog" role="document">
-               <div class="modal-content">
-                  <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">ATENCIÓN</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                  </button>
-                  </div>
-                  <div class="modal-body">
-                  Los datos del restaurante serán borrados de manera definitiva ¿Aún desea <strong>borrar</strong> el restaurante <strong>{{ $restaurant->nombre }}</strong>?
-                  </div>
-                  <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                  <form method="POST" action="{{ route('restaurant.destroy', ['id' => $restaurant->id]) }}">
-                        @csrf
-                     <button type="submit" class="btn btn-danger">Borrar</button>
-                  </form>
-                  </div>
-               </div>
-            </div>
-         </div> --}}
-
-   <!-- Optional JavaScript -->
-   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-   </body>
-</html>
+@endsection

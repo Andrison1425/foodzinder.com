@@ -136,6 +136,14 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = Restaurant::find($id);
+        $restaurant->imagenes = json_decode($restaurant->imagenes);
+        $imagenes=[];
+
+        foreach($restaurant->imagenes as $imagen){
+            $imagenes[]=public_path().$imagen;
+        }
+
+        $restaurant->imagenes=json_encode($imagenes);
 
         return view("restaurant.edit", ['restaurant' => $restaurant]);
     }

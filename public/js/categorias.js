@@ -24,6 +24,37 @@ formPlato.forEach((form,i)=>{
     }
 });
 
+function cambiarStatus(url,id){
+    const resp=fetch(url,{
+        headers:{
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        method:'POST'
+    }).then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw "Error en la llamada Ajax";
+        }
+    })
+    .then(function(resp) {
+        const selector=`.p${id}`;
+        const p=document.querySelector(selector);
+        if(resp.status===1){
+            p.innerHTML="Habilitado";
+            p.classList.remove("text-danger");
+            p.classList.add("text-success");
+        }else{
+            p.innerHTML="Inhabilitado";
+            p.classList.add("text-danger");
+            p.classList.remove("text-success");
+        }
+    })
+    .catch(function(err) {
+        console.log(err);
+    });
+}
+
 let activa=0;
 function pestanaActiva(id=0){
     activa=id;

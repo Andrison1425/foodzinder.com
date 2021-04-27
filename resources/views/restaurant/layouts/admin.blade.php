@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Ansonika">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{asset('plantilla/img/favicon.ico')}}" type="image/x-icon">
@@ -58,22 +59,11 @@
                         <span class="nav-link-text">Lista de restaurantes</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMylistings" data-parent="#mylistings">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+                    <a class="nav-link" href="{{route('users.index')}}">
                         <i class="fa fa-fw fa-list"></i>
-                        <span class="nav-link-text">My listings</span>
+                        <span class="nav-link-text">Lista de usuarios</span>
                     </a>
-                    <ul class="sidenav-second-level collapse" id="collapseMylistings">
-                        <li>
-                            <a href="listings.html">Pending <span class="badge badge-pill badge-primary">6</span></a>
-                        </li>
-                        <li>
-                            <a href="listings.html">Active <span class="badge badge-pill badge-success">6</span></a>
-                        </li>
-                        <li>
-                            <a href="listings.html">Expired <span class="badge badge-pill badge-danger">6</span></a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                     <a class="nav-link" href="reviews.html">
