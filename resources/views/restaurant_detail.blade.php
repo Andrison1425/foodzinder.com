@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no maximum-scale=2">
 	<meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
 	<meta name="author" content="Ansonika">
 	<title>{{$restaurant->nombre}} - Food Zinder</title>
@@ -132,9 +132,6 @@
 		</div>
 		</div>
 	</div><!-- end Modal-mi-lista -->
-
-
-
 
 	<!-- Modal-new-item -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -301,9 +298,9 @@
                     <div class="carousel-inner h-100">
                         @foreach ($imagenes as $imagen)
                             @if($loop->index==0)
-                                <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"></div>
+                                <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});" data-toggle="modal" data-target=".bd-example-modal-lg"></div>
                             @else
-                                <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});"></div>
+                                <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});" data-toggle="modal" data-target=".bd-example-modal-lg"></div>
                             @endif
                         @endforeach
                     </div>
@@ -319,7 +316,7 @@
                     <div class="main_info">
                         <div class="container full-width">
                             <div class="row">
-                                <div class="col-xl-4 col-lg-5 col-md-6">
+                                <div class="col-xl-4 col-lg-5 col-md-6" style="text-shadow: 0 0 0.5rem black;">
                                     <h1>{{$restaurant->nombre}}</h1>
                                     @if ($restaurant->google_maps)
                                         {{$restaurant->direccion}} - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
@@ -350,11 +347,11 @@
                             @foreach($restaurant->categorias as $categoria)
                                 @if($loop->index==0)
                                     <li class="nav-item">
-                                        <a id="tab-{{$loop->index}}" href="#cont{{$loop->index}}" class="navigation__link nav-link active">{{$categoria}}</a>
+                                        <a id="tab-{{$loop->index}}" href="#cont{{$loop->index}}" class="navigation__link nav-link active ancla">{{$categoria}}</a>
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a id="tab-{{$loop->index}}" href="#cont{{$loop->index}}" class="navigation__link nav-link">{{$categoria}}</a>
+                                        <a id="tab-{{$loop->index}}" href="#cont{{$loop->index}}" class="navigation__link nav-link ancla">{{$categoria}}</a>
                                     </li>
                                 @endif
                             @endforeach
@@ -366,7 +363,7 @@
 		                        <div role="tabpanel" aria-labelledby="heading-A">
 		                            <div class="card-body info_content">
                                     @foreach($restaurant->categorias as $categoria)
-                                        <div class="main_title page-section" id="cont1">
+                                        <div class="main_title page-section" id="cont{{$loop->index}}">
                                             <span><em></em></span>
                                             <h2>{{$categoria}}</h2>
                                         </div>
@@ -411,30 +408,32 @@
 		</div>
 		<!-- /container -->
 
-        <section class="contacto__cont-contacto section">
-		<div class="cont">
-			<h2 class="activo" id="contactoE">
-				Envía un mensaje a este restaurante
-			</h2>
-			<div class="contacto__cont-formulario">
-				<form class="form" method="post" action="{{ route('directorio.enviarCorreo') }}">
-                 @csrf
-					<div class="mensaje">
-						<h3></h3>
-					</div>
-					<input required class="validar" type="text"  id="nombre"  name="name" minLength="2"  maxLength="30"  placeholder="Ingrese su nombre"/>
-					<input required class="validar" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"/>
-					<textarea class="textarea" required name="mensaje" class="validar" placeholder="Escriba un mensaje"  minLength="20"  maxLength="500"></textarea>
-					<input type="hidden" name="id" value="{{$restaurant->id}}"/>
-                    <input type="hidden" name="correoRestaurante" value="{{$restaurant->correo}}"/>
-					<button class="btn-contacto" type="submit">Enviar</button>
-				</form>
+        @if($restaurant->correo)
+            <section class="contacto__cont-contacto section">
+                <div class="cont">
+                    <h2 class="activo" id="contactoE">
+                        Envía un mensaje a este restaurante
+                    </h2>
+                    <div class="contacto__cont-formulario">
+                        <form class="form" method="post" action="{{ route('directorio.enviarCorreo') }}">
+                        @csrf
+                            <div class="mensaje">
+                                <h3></h3>
+                            </div>
+                            <input required class="validar" type="text"  id="nombre"  name="name" minLength="2"  maxLength="30"  placeholder="Ingrese su nombre"/>
+                            <input required class="validar" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"/>
+                            <textarea class="textarea" required name="mensaje" class="validar" placeholder="Escriba un mensaje"  minLength="20"  maxLength="500"></textarea>
+                            <input type="hidden" name="id" value="{{$restaurant->id}}"/>
+                            <input type="hidden" name="correoRestaurante" value="{{$restaurant->correo}}"/>
+                            <button class="btn-contacto" type="submit">Enviar</button>
+                        </form>
 
-				<img src="{{asset('plantilla/img/reyeno.svg')}}" class="img-form" />
-			</div>
+                        <img src="{{asset('plantilla/img/reyeno.svg')}}" class="img-form" />
+                    </div>
 
-		</div>
-	</section>
+                </div>
+            </section>
+        @endif
 	</main>
 	<!-- /main -->
 
@@ -484,6 +483,39 @@
 		</div>
 	</footer>
 	<!--/footer-->
+
+
+  <!-- modal -->
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id="carouselExampleControls2" class="carousel slide h-100" data-ride="carousel">
+                <div class="carousel-inner h-100">
+                    @foreach ($imagenes as $imagen)
+                        @if($loop->index==0)
+                            <div class="carousel-item active h-100 img-portada">
+                                <img src="{{asset('public/'.$imagen)}}" class="w-100" alt="">
+                            </div>
+                        @else
+                            <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});">
+                                <img src="{{asset('public/'.$imagen)}}" class="w-100" alt="">
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
 
 	<div id="toTop"></div><!-- Back to top button -->
 
@@ -708,9 +740,18 @@
 
         <!-- Scroll Spy -->
     <script>
+
+        $(function() {
+            $('a.ancla').click(function(e){
+                e.preventDefault();
+                let ancla = $(this).attr('href');
+                var position = $(ancla).offset();
+                $('html, body').animate({scrollTop:position.top-60}, 200);
+            })
+        })
+
         $(window).scroll(function() {
             var scrollDistance = $(window).scrollTop() - $(window).height();
-
             // Assign active class to nav links while scolling
             $('.page-section').each(function(i) {
                 if ($(this).position().top <= scrollDistance) {

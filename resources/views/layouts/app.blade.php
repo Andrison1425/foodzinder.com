@@ -110,7 +110,7 @@
 			<div class="container home">
 				<div class="row">
 					<div class="col-md-6">
-						<h1 class="titulo">Todos tus <span class="rosa">menús</span> de tus restaurantes <span class="rosa">en imágenes</span></h1>
+						<h1 class="titulo">Todos los <span class="rosa">menús</span> de tus restaurantes <span class="rosa">en imágenes</span></h1>
 						<div class="box_booking_2">
 							<form method="post" action="{{ route('directorio') }}">
 								<input name="_method" type="hidden" value="get">
