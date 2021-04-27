@@ -117,7 +117,7 @@
 								@csrf
 								<div class="main">
 									<div class="form-group">
-										<input name="palabra_busqueda" class="form-control" placeholder="Tipo de cocina, nombre del restaurante...">
+										<input name="palabra_busqueda" class="form-control" placeholder="Nombre del restaurante...">
 										<i class="icon_search"></i>
 									</div>
 									<div class="form-group">

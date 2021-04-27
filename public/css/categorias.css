@@ -38,3 +38,29 @@
     width: 23%;
     margin:0 0 0.5rem 2%;
 }
+
+.opc-plato::after{
+    display: none !important;
+
+}
+
+.opc-plato{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: max-content;
+    position: absolute !important;
+    right: 0;
+}
+
+.opc-plato img{
+    height: 1rem;
+}
+
+.agarrar:active{
+    cursor: grabbing;
+}
+
+.mostrarBoton{
+    display:block !important;
+}

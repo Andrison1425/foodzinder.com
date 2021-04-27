@@ -11,7 +11,8 @@ class Restaurant extends Model
         'direccion',
         'ciudad',
         'pais',
-        'telefono'
+        'telefono',
+        'posiciones'
     ];
 
     public function platos()

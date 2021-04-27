@@ -58,7 +58,7 @@
                   <div class="row no-gutters custom-search-input">
                      <div class="col-lg-6">
                         <div class="form-group">
-                           <input name="palabra_busqueda" class="form-control" type="text" value="{{ ($request->palabra_busqueda != null) ? $request->palabra_busqueda : "" }}" placeholder="Tipo de cocina, nombre del restaurante...">
+                           <input name="palabra_busqueda" class="form-control" type="text" value="{{ ($request->palabra_busqueda != null) ? $request->palabra_busqueda : "" }}" placeholder="Nombre del restaurante...">
                            <i class="icon_search"></i>
                         </div>
                      </div>
@@ -71,9 +71,7 @@
                      <div class="col-lg-2">
                         <input type="submit" value="Buscar">
                      </div>
-                     <div class="col-12">
-						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
-					</div>
+
                   </div>
                   <!-- /row -->
                </form>
@@ -449,8 +447,9 @@
 				</aside>
                 </form>
 				<div class="col-lg-9">
-					<div class="row">
-						<h2 class="title-directorio">{{count($restaurantes_sin_paginar)}} resultados</h2>
+					<div class="row align-items-center justify-content-between p-2">
+						<h2 class="title-directorio m-0">{{count($restaurantes_sin_paginar)}} resultados</h2>
+						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
 					</div>
 					@foreach ($restaurantes as $restaurant)
 						<div class="row resultados">

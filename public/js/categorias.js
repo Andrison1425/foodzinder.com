@@ -27,7 +27,10 @@ formPlato.forEach((form,i)=>{
 let activa=0;
 function pestanaActiva(id=0){
     activa=id;
-    console.log(id)
+    if(id===999){
+        activa=document.querySelectorAll(".imagenClass").length - 1;
+        console.log(activa)
+    }
 }
 
 $(document).ready(function() {

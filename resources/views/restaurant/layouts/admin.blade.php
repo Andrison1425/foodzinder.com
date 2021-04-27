@@ -25,6 +25,8 @@
     <!-- Your custom styles -->
     <link href="{{asset('plantilla/admin_section/css/custom.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- VUEJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
     @yield('custom-links')
 </head>
@@ -234,7 +236,7 @@
         </div>
     </nav>
     <!-- /Navigation-->
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="app">
         @yield('content')
         <!-- /.container-fluid-->
     </div>

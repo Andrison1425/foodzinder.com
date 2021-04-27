@@ -3,6 +3,7 @@
 @section('custom-links')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css" integrity="sha512-jO9KUHlvIF4MH/OTiio0aaueQrD38zlvFde9JoEA+AQaCNxIJoX4Kjse3sO2kqly84wc6aCtdm9BIUpYdvFYoA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{asset('public/css/categorias.css')}}">
+
 @endsection
 
 @section('content')
@@ -126,7 +127,14 @@
                 {{-- START CATEGORIA --}}
                 <div class="tab-pane fade @if($loop->index==0){{'show active'}}@endif" id="categoria{{$loop->index}}" role="tabpanel" aria-labelledby="categoria{{$loop->index}}-tab">
                     <div class="row">
-                        <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
+                        <div class="col-12 d-flex align-items-center justify-content-between">
+                            <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
+                            <form method="POST" action="{{ route('categorias.organizarPlatos',['restauranteId'=>$restaurante->id]) }}">
+                                @csrf
+                                <input type="hidden" name="posiciones" class="posiciones" value="[]">
+                                <input class="btn btn-success d-none guardarCambios" type="submit" value="Guardar cambios">
+                            </form>
+                        </div>
                         <div class="collapse multi-collapse p-0 float-right" id="idp{{$loop->index}}">
                             <div class="card card-body p-1">
                             <div class="row">
@@ -189,11 +197,28 @@
                         </div>
                     </div>
                     <div class="container-fluid mt-3">
-                        <div class="row">
+                        <div class="row drag-sort-enable">
                             @foreach($platos as $plato)
                                 @if($plato->categoria==$categoria)
-                                    <div class="col-12 col-sm-6 col-md-4 col-xl-3 my-3 d-flex">
-                                        <div class="card" style="width: 18rem;">
+                                    <div class="col-12 col-sm-6 col-md-4 col-xl-3 my-3 d-flex agarrar" data-pos="{{$plato->pos}}">
+                                        <div class="card">
+                                            <div class="btn-group dropright">
+                                                <button type="button" class="btn btn-secondary dropdown-toggle opc-plato" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="{{asset('public/images/menu.svg')}}" alt="">
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <h6 class="dropdown-header">Mover a</h6>
+                                                    @foreach($restaurante->categorias as $categoriaa)
+                                                        @if($categoriaa==$categoria)
+                                                        @else
+                                                            <form method="POST" action="{{ route('categorias.cambiarCategoria', ['id' => $plato->id, 'categoria' => $categoriaa, 'restauranteId' => $restaurante->id]) }}">
+                                                                @csrf
+                                                                <input type="submit" class="dropdown-item" value="{{$categoriaa}}" />
+                                                            </form>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                             <img class="card-img-top" src="{{asset('public'.$plato->imagen)}}" alt="Imagen de ejemplo">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $plato->nombre }}</h5>
@@ -217,7 +242,7 @@
                                                 </div>
 
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a @click="handleEdicionDeProductoEnCategoria(producto, 'entrantes')" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
+                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}' )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
                                                     <a @click="eliminarEntrante(producto.id)" href="#" class="btn btn-danger btn-sm">Borrar</a>
                                                 </div>
                                             </div>
@@ -238,7 +263,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="ventanaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ventanaModal" tabindex="-1" style="z-index:9999 !important;overflow-y: scroll;" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
     <div class="modal-content">
         <div class="modal-header">
@@ -266,29 +291,46 @@
 
 
 <!-- Modal de edición -->
-<div class="modal fade" id="modal_de_edicion" tabindex="-1" aria-labelledby="modal_de_edicion" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modal_de_edicion">Modo Edición</h5>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-md-12">
-                <label for="nombre">Nombre:</label>
-                <input type="text" v-model="editando.nombre" class="form-control">
+<div class="modal fade" id="modal_de_edicion"  style="overflow-y: scroll;" tabindex="-1" aria-labelledby="modal_de_edicion1" aria-hidden="true">
+    <form method="POST" action="{{ route('categorias.editarProducto') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_de_edicion1">Modo Edición</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" v-model="editando.nombre" class="form-control" name="nombre">
 
-                <label for="nombre">Precio:</label>
-                <input type="number" v-model="editando.precio" class="form-control" min="0">
+                            <label for="nombre">Precio:</label>
+                            <input type="number" v-model="editando.precio" class="form-control" min="0" name="precio">
+
+                            <div class="input-group my-3">
+                                {{-- para recortar --}}
+                                <label for="original_image" class="btn btn-success" onclick="pestanaActiva(999)">
+                                    Cambiar imagen +
+                                </label>
+                                <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
+                            </div>
+                            {{-- recortado (oculto) --}}
+                            <input id="imagen1" type="text" name="file" class="form-control d-none imagenClass">
+                            <img class="imagen_final" id="imagen_final" :src="editando.rutaImg" alt="">
+                        </div>
+
+                        <input type="hidden" name="id" :value="editando.id" />
+                        <input type="hidden" name="restauranteId" value="{{$restaurante->id}}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button @click="cerrarModalDeEdicion" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button @click="cerrarModalDeEdicion" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button @click="editarProductoDeCategoria()" type="button" class="btn btn-success">Guardar</button>
-        </div>
-    </div>
-    </div>
+    </form>
 </div>
 <!-- Modal de edición -->
 
@@ -298,5 +340,50 @@
 <!-- Cropper js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js" integrity="sha512-1bpfZkKJ+WlmJN/I2KLm79dSiuOos0ymwL5IovsUVARyzcaf9rSXsVO2Cdg4qlKNOQXh8fd1d0vKeY9Ru3bQDw==" crossorigin="anonymous"></script>
 
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+        editando: {
+            id: null,
+            nombre: null,
+            precio: null,
+            rutaImg: null,
+        }
+    },
+    methods: {
+        handleEdicionDeProductoEnCategoria(id,nombre,precio,rutaImg){
+            this.editando.id = id;
+            this.editando.nombre = nombre;
+            this.editando.precio = precio;
+            this.editando.rutaImg = rutaImg;
+            $('#modal_de_edicion').modal('show');
+        },
+
+        cerrarModalDeEdicion(){
+            $('#modal_de_edicion').modal('hide');
+            },
+
+        eliminarEntrante: function(id){
+            // eliminar en interfaz:
+            this.categorias.entrantes = this.categorias.entrantes.filter(producto => producto.id !== id);
+
+            // eliminar en la base de datos:
+            fetch(`{{ url('/categoria/eliminarEntrante') }}/${id}`, {
+                headers: {
+                "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": token
+                },
+                method: "delete",
+            }).then(response => response.json())
+            .then(data => console.log(data));
+        },
+    }
+    });
+</script>
+
 <script src="{{asset('public/js/categorias.js')}}"></script>
+<script src="{{asset('public/js/dragSort.js')}}"></script>
+
 @endsection
