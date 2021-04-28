@@ -64,3 +64,7 @@
 .mostrarBoton{
     display:block !important;
 }
+
+img{
+    pointer-events: none;
+}

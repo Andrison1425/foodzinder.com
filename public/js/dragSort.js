@@ -19,13 +19,15 @@ let arrPos=[];
   }
 
   function handleDrag(item) {
-    const selectedItem = item.target,
-          list = selectedItem.parentNode,
+    let selectedItem = item.target;
+
+    const list = selectedItem.parentNode,
           x = event.clientX,
           y = event.clientY;
 
     selectedItem.classList.add('drag-sort-active');
     let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
+
 
     if (list === swapItem.parentNode) {
       swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
