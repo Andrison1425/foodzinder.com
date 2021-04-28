@@ -229,7 +229,18 @@
 			}
 			}
 		}
-		setInterval(sliderhome, 5000);</script>
+		setInterval(sliderhome, 5000);
 
+
+    </script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TFDMW04ZEM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TFDMW04ZEM');
+</script>
 	</body>
 </html>
