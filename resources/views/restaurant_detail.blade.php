@@ -46,11 +46,11 @@
 		.botonflotanteparaguardado {
 			display:scroll;
 			position:fixed;
-			bottom:95px;
-			right:35px;
+			bottom: 20px;
+            right: 20px;
 			opacity: 1;
 			cursor: pointer;
-			z-index: 20;
+			z-index: 1000;
 			background-color: #F67599;
 			color: #fff;
 			border-radius: 25px;
@@ -60,7 +60,7 @@
 
 <body>
 	<div id="app">
-
+        <span id="top"></span>
     @if (session('mensaje'))
         <!-- Modal -->
         <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -85,7 +85,11 @@
 
 	{{-- botón flotante --}}
 	<button type="button" class="btn btn-default botonflotanteparaguardado" data-toggle="modal" data-target="#modalLista">Ver mi lista</button> {{-- end botón flotante --}}
-
+    @if($restaurant->correo)
+        <a href="#" class="btn_contactar" data-toggle="modal" data-target=".bd-contact-modal-lg">
+            <i class="fas fa-envelope"></i>
+        </a>
+    @endif
 	<!-- Modal-mi-lista -->
 	<div class="modal fade" id="modalLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -326,6 +330,9 @@
                                 </div>
                                 <div class="col-xl-8 col-lg-7 col-md-6">
                                     <div class="buttons clearfix">
+                                    @if($restaurant->correo)
+                                        <a href="#" class="btn_hero wishlist" data-toggle="modal" data-target=".bd-contact-modal-lg">Contactar</a>
+                                    @endif
                                         <a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
                                     </div>
                                 </div>
@@ -409,30 +416,39 @@
 		<!-- /container -->
 
         @if($restaurant->correo)
-            <section class="contacto__cont-contacto section">
-                <div class="cont">
-                    <h2 class="activo" id="contactoE">
-                        Envía un mensaje a este restaurante
-                    </h2>
-                    <div class="contacto__cont-formulario">
-                        <form class="form" method="post" action="{{ route('directorio.enviarCorreo') }}">
-                        @csrf
-                            <div class="mensaje">
-                                <h3></h3>
-                            </div>
-                            <input required class="validar" type="text"  id="nombre"  name="name" minLength="2"  maxLength="30"  placeholder="Ingrese su nombre"/>
-                            <input required class="validar" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"/>
-                            <textarea class="textarea" required name="mensaje" class="validar" placeholder="Escriba un mensaje"  minLength="20"  maxLength="500"></textarea>
-                            <input type="hidden" name="id" value="{{$restaurant->id}}"/>
-                            <input type="hidden" name="correoRestaurante" value="{{$restaurant->correo}}"/>
-                            <button class="btn-contacto" type="submit">Enviar</button>
-                        </form>
 
-                        <img src="{{asset('plantilla/img/reyeno.svg')}}" class="img-form" />
+        <div class="modal fade bd-contact-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalContac" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Envía un mensaje a este restaurante</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
+                    <section class="contacto__cont-contacto section">
+                        <div class="cont">
+                            <div class="contacto__cont-formulario">
+                                <form class="form" method="post" action="{{ route('directorio.enviarCorreo') }}">
+                                    @csrf
+                                    <div class="mensaje">
+                                        <h3></h3>
+                                    </div>
+                                    <input required class="validar" type="text"  id="nombre"  name="name" minLength="2"  maxLength="30"  placeholder="Ingrese su nombre"/>
+                                    <input required class="validar" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"/>
+                                    <textarea class="textarea" required name="mensaje" class="validar" placeholder="Escriba un mensaje"  minLength="20"  maxLength="500"></textarea>
+                                    <input type="hidden" name="id" value="{{$restaurant->id}}"/>
+                                    <input type="hidden" name="correoRestaurante" value="{{$restaurant->correo}}"/>
+                                    <button class="btn-contacto" type="submit">Enviar</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
 
                 </div>
-            </section>
+            </div>
+        </div>
         @endif
 	</main>
 	<!-- /main -->
@@ -749,6 +765,10 @@
                 $('html, body').animate({scrollTop:position.top-60}, 200);
             })
         })
+
+        $("#toTop").click(function(){
+            $('html, body').animate({scrollTop:0}, 200);
+        });
 
         $(window).scroll(function() {
             var scrollDistance = $(window).scrollTop() - $(window).height();

@@ -29,9 +29,7 @@
         </div>
     </div>
 
-    <script>
-        $("#modalMensaje").modal('show');
-    </script>
+
 @endif
 <div class="container mt-4">
     <div class="row justify-content-center">
@@ -374,5 +372,7 @@
 
 <script src="{{asset('public/js/categorias.js')}}"></script>
 <script src="{{asset('public/js/dragSort.js')}}"></script>
-
+<script>
+    $("#modalMensaje").modal('show');
+</script>
 @endsection

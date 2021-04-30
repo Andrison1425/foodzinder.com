@@ -2533,7 +2533,7 @@ Author URI: http://themeforest.net/user/Ansonika/
       position: static;
     }
   }
-  .hero_in.detail_page .wrapper .buttons a.btn_hero {
+  .hero_in.detail_page .wrapper .buttons a.btn_hero, button.btn_hero {
     background-color: #fff;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -5185,7 +5185,7 @@ Author URI: http://themeforest.net/user/Ansonika/
     right: 0;
     opacity: 0;
     visibility: hidden;
-    bottom: 25px;
+    bottom: 77px;
     margin: 0 25px 0 0;
     z-index: 999;
     transition: 0.35s;
