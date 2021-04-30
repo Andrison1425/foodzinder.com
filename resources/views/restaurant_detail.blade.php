@@ -295,7 +295,7 @@
 		<div class="hero_in detail_page background-image">
 			<div class="wrapper opacity-mask img-fluid" data-opacity-mask="#00000078">
                 <div id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
-                    <div class="carousel-inner h-100">
+                    <div class="carousel-inner h-100" style="opacity:0.6;">
                         @foreach ($imagenes as $imagen)
                             @if($loop->index==0)
                                 <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});" data-toggle="modal" data-target=".bd-example-modal-lg"></div>
