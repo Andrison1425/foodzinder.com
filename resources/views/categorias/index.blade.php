@@ -122,18 +122,18 @@
             {{-- START CONTENIDO DE LAS PESTAÑAS --}}
             <?php $iCategoria=0; ?>
             <div class="tab-content" id="myTabContent">
-
+                <form method="POST" action="{{ route('categorias.organizarPlatos',['restauranteId'=>$restaurante->id]) }}">
+                    @csrf
+                    <input type="hidden" name="posiciones" class="posiciones" value="[]">
+                    <input class="btn btn-success d-none guardarCambios float-right m-3" type="submit" value="Guardar cambios">
+                </form>
                 @foreach($restaurante->categorias as $categoria)
                 {{-- START CATEGORIA --}}
                 <div class="tab-pane fade @if($loop->index==0){{'show active'}}@endif" id="categoria{{$loop->index}}" role="tabpanel" aria-labelledby="categoria{{$loop->index}}-tab">
                     <div class="row">
                         <div class="col-12 d-flex align-items-center justify-content-between">
                             <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
-                            <form method="POST" action="{{ route('categorias.organizarPlatos',['restauranteId'=>$restaurante->id]) }}">
-                                @csrf
-                                <input type="hidden" name="posiciones" class="posiciones" value="[]">
-                                <input class="btn btn-success d-none guardarCambios" type="submit" value="Guardar cambios">
-                            </form>
+
                         </div>
                         <div class="collapse multi-collapse p-0 float-right" id="idp{{$loop->index}}">
                             <div class="card card-body p-1">

@@ -29,6 +29,7 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+
         // Crear y guardar el Restaurant con los datos validados:
         $restaurant = new Restaurant;
         $restaurant->nombre = !empty($request->input("nombre")) ? $request->input("nombre") : null;
@@ -82,7 +83,6 @@ class RestaurantController extends Controller
         if($request->hasfile('filenames'))
         {
             $arrImg=json_decode($request->file('filenames'), true);
-            dd($arrImg);
             foreach($request->file('filenames') as $pos => $file)
             {
                 $name = $pos.time().'.'.$file->extension();
@@ -94,7 +94,6 @@ class RestaurantController extends Controller
             $file->move(public_path().'/images/restaurantes/', $name);
             $restaurant->imagenes = '/images/restaurantes/'.$name;
         } else if ($request->input('filenames')) {
-
             $arrImg=json_decode($request->input('filenames'), true);
             $arrNamesImgs=[];
 
@@ -136,104 +135,53 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = Restaurant::find($id);
-        $restaurant->imagenes = json_decode($restaurant->imagenes);
-        $imagenes=[];
-
-        foreach($restaurant->imagenes as $imagen){
-            $imagenes[]=public_path().$imagen;
-        }
-
-        $restaurant->imagenes=json_encode($imagenes);
 
         return view("restaurant.edit", ['restaurant' => $restaurant]);
     }
 
-    public function update(Request $request, Restaurant $restaurant)
+    public function update($id, Request $request)
     {
-        $restaurant = Restaurant::find($request->id);
+        $restaurant = Restaurant::find($id);
+        $imagenes=json_decode($request->input("imagenes"), true);
 
-        $restaurant->nombre = !empty($request->input("nombre")) ? $request->input("nombre") : null;
-        $restaurant->direccion = !empty($request->input("direccion")) ? $request->input("direccion") : null;
-        $restaurant->ciudad = !empty($request->input("ciudad")) ? $request->input("ciudad") : null;
-        $restaurant->pais = !empty($request->input("pais")) ? $request->input("pais") : null;
-        $restaurant->telefono = !empty($request->input("telefono")) ? $request->input("telefono") : null;
-        $restaurant->google_maps = !empty($request->input("google_maps")) ? $request->input("google_maps") : null;
+        $arrNamesImgs=$imagenes;
 
-        $restaurant->precio1 = !empty($request->input("precio1")) ? $request->input("precio1") : null;
-        $restaurant->precio2 = !empty($request->input("precio2")) ? $request->input("precio2") : null;
-        $restaurant->precio3 = !empty($request->input("precio3")) ? $request->input("precio3") : null;
-        $restaurant->restaurante = !empty($request->input("restaurante")) ? $request->input("restaurante") : null;
-        $restaurant->cafeteria = !empty($request->input("cafeteria")) ? $request->input("cafeteria") : null;
-        $restaurant->bar = !empty($request->input("bar")) ? $request->input("bar") : null;
-        $restaurant->admite_reservas = !empty($request->input("admite_reservas")) ? $request->input("admite_reservas") : null;
-        $restaurant->para_llevar = !empty($request->input("para_llevar")) ? $request->input("para_llevar") : null;
-        $restaurant->domicilio = !empty($request->input("domicilio")) ? $request->input("domicilio") : null;
-        $restaurant->terraza_exterior = !empty($request->input("terraza_exterior")) ? $request->input("terraza_exterior") : null;
-        $restaurant->wifi_gratuito = !empty($request->input("wifi_gratuito")) ? $request->input("wifi_gratuito") : null;
-        $restaurant->sin_gluten = !empty($request->input("sin_gluten")) ? $request->input("sin_gluten") : null;
-        $restaurant->accesible = !empty($request->input("accesible")) ? $request->input("accesible") : null;
-        $restaurant->admite_mascotas = !empty($request->input("admite_mascotas")) ? $request->input("admite_mascotas") : null;
-        $restaurant->plastic_free = !empty($request->input("plastic_free")) ? $request->input("plastic_free") : null;
-        $restaurant->desayuno = !empty($request->input("desayuno")) ? $request->input("desayuno") : null;
-        $restaurant->brunch = !empty($request->input("brunch")) ? $request->input("brunch") : null;
-        $restaurant->almuerzo = !empty($request->input("almuerzo")) ? $request->input("almuerzo") : null;
-        $restaurant->merienda = !empty($request->input("merienda")) ? $request->input("merienda") : null;
-        $restaurant->cena = !empty($request->input("cena")) ? $request->input("cena") : null;
-        $restaurant->dulce = !empty($request->input("dulce")) ? $request->input("dulce") : null;
-        $restaurant->salado = !empty($request->input("salado")) ? $request->input("salado") : null;
-        $restaurant->local = !empty($request->input("local")) ? $request->input("local") : null;
-        $restaurant->nacional = !empty($request->input("nacional")) ? $request->input("nacional") : null;
-        $restaurant->internacional = !empty($request->input("internacional")) ? $request->input("internacional") : null;
-        $restaurant->fusion = !empty($request->input("fusion")) ? $request->input("fusion") : null;
-        $restaurant->vegetariano = !empty($request->input("vegetariano")) ? $request->input("vegetariano") : null;
-        $restaurant->vegano = !empty($request->input("vegano")) ? $request->input("vegano") : null;
-        $restaurant->marisco = !empty($request->input("marisco")) ? $request->input("marisco") : null;
-        $restaurant->atun = !empty($request->input("atun")) ? $request->input("atun") : null;
-        $restaurant->sushi = !empty($request->input("sushi")) ? $request->input("sushi") : null;
-        $restaurant->pescado = !empty($request->input("pescado")) ? $request->input("pescado") : null;
-        $restaurant->carne = !empty($request->input("carne")) ? $request->input("carne") : null;
-        $restaurant->paella = !empty($request->input("paella")) ? $request->input("paella") : null;
-        $restaurant->pasta = !empty($request->input("pasta")) ? $request->input("pasta") : null;
-        $restaurant->pizza = !empty($request->input("pizza")) ? $request->input("pizza") : null;
-        $restaurant->zumos_y_batidos = !empty($request->input("zumos_y_batidos")) ? $request->input("zumos_y_batidos") : null;
+        if ($request->input('filenames')){
+            $arrImg=json_decode($request->input('filenames'), true);
 
-        // Actualizamos las imagenes
-        if($request->hasfile('filenames'))
-        {
-            // foreach($request->file('filenames') as $pos => $file)
-            // {
-            //     $name = $pos.time().'.'.$file->extension();
-            //     $file->move(public_path().'/images/restaurantes/', $name);
-            //     $data[] = '/images/restaurantes/'.$name;
-            // }
-            $file = $request->file('filenames');
-            $name = time().'.'.$file->extension();
-            $file->move(public_path().'/images/restaurantes/', $name);
-            $restaurant->imagenes = '/images/restaurantes/'.$name;
-        } else if ($request->input('filenames')) {
-            // Esto es una imagen de tipo base 64
-            $base64File = $request->input('filenames');
+            foreach($arrImg as $pos=>$img)
+            {
+                // Esto es una imagen de tipo base 64
+                $base64File = $img;
 
-            // decode the base64 file
-            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+                // decode the base64 file
+                $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
 
-            // save it to temporary dir first.
-            $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
-            file_put_contents($tmpFilePath, $fileData);
+                // save it to temporary dir first.
+                $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+                file_put_contents($tmpFilePath, $fileData);
 
-            // this just to help us get file info.
-            $tmpFile = new File($tmpFilePath);
+                // this just to help us get file info.
+                $tmpFile = new File($tmpFilePath);
 
-            $name = $tmpFile->getFilename().'.png';
-            $tmpFile->move(public_path().'/images/restaurantes/', $name);
-            $restaurant->imagenes = '/images/restaurantes/'.$name;
+                $name = $tmpFile->getFilename().'.png';
+                $tmpFile->move(public_path().'/images/restaurantes/', $name);
+                $arrNamesImgs[] = '/images/restaurantes/'.$name;
+            }
         }
-        $restaurant->tiene_whatsapp = !empty($request->input('tiene_whatsapp')) ? 1 : 0;
-        $restaurant->horario = !empty($request->input("horario")) ? $request->input("horario") : null;
 
-        $restaurant->update();
+        $request['imagenes']=json_encode($arrNamesImgs);
 
-        return view('restaurant.show', ['restaurant' => $restaurant]);
+        unset($request["filenames"]);
+        unset($request["submit"]);
+
+        if($request['tiene_whatsapp']){
+            $request['tiene_whatsapp']=1;
+        }
+
+        $restaurant->update($request->all());
+        return redirect(route('restaurant.show', ["id" => $restaurant->id]))->with('Notification', 'Restaurante editado exitosamente');
+
     }
 
     public function destroy($id)

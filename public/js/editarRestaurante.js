@@ -1,3 +1,4 @@
+
 let btnNext=document.querySelectorAll("[name=next]");
 let btnBack=document.querySelectorAll("[name=back]");
 let sec=document.querySelectorAll(".sec");
@@ -25,32 +26,27 @@ btnBack.forEach((btn,i)=>{
     }
 });
 
+let arrImg=[];
+let arrImgOri=[];
+let valuesImg=document.querySelector(".valuesImg");
+let img = document.querySelector("#imagen_final")
+let coleccionImg=document.querySelector(".coleccionImg");
+
+arrImgOri=JSON.parse(valuesImg.value);
+
+function quitarImg(e){
+    coleccionImg.removeChild(e);
+    arrImg=arrImg.filter(comp=>comp!==e.src);
+    document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+}
+
+function quitarImgOri(e){
+    coleccionImg.removeChild(e);
+    arrImgOri=arrImgOri.filter(comp=>comp!==e.alt);
+    valuesImg.value = JSON.stringify(arrImgOri);
+}
+
 $(document).ready(function() {
-    let arrImg=[];
-    let valuesImg=document.querySelector(".valuesImg");
-    let img = document.querySelector("#imagen_final")
-    let coleccionImg=document.querySelector(".coleccionImg");
-
-    if(valuesImg){
-        const arr=JSON.parse(valuesImg.value)
-        .forEach(ele=>{
-            const imgDom=document.createElement("img");
-            imgDom.src=ele;
-            imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
-            coleccionImg.appendChild(imgDom);
-            arrImg.push(ele);
-            const urlImg=ele;
-            console.log(ele)
-            document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-
-            imgDom.onclick=()=>{
-                coleccionImg.removeChild(imgDom);
-                arrImg=arrImg.filter(comp=>comp!==urlImg);
-                document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-            }
-        })
-
-    }
 
   $('#tabla_listado_restaurantes').DataTable();
 
@@ -63,11 +59,7 @@ $(document).ready(function() {
     const urlImg=img.src;
     document.querySelector('#imagen1').value = JSON.stringify(arrImg);
 
-    imgDom.onclick=()=>{
-        coleccionImg.removeChild(imgDom);
-        arrImg=arrImg.filter(ele=>ele!==urlImg);
-        document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-    }
+    imgDom.onclick=(e)=>quitarImg(e.target);
   }
 
   // Escucha el evento que surge cuando el source de la imagen cambia:

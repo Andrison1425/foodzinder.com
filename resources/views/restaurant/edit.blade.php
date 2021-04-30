@@ -15,7 +15,7 @@
 
 <h2>Editar Restaurante</h2>
 
-<form id="msform" class="container bg-white py-3 float-left mb-3" method="POST" action="{{ route('restaurant.store') }}" enctype="multipart/form-data">
+<form id="msform" class="container bg-white py-3 float-left mb-3" method="POST" action="{{ route('restaurant.update',['id'=>$restaurant->id]) }}" enctype="multipart/form-data">
     @csrf
     <!-- progressbar -->
     <ul id="progressbar">
@@ -343,20 +343,24 @@
                     <h6> Haz click sobre una imagen para eliminarla</h6>
                     <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
                     {{-- recortado (oculto) --}}
-                    <input id="imagen1" type="text" name="filenames" class="form-control d-none" required>
+                    <input id="imagen1" type="text" name="filenames" class="form-control d-none">
                 </div>
             </div>
             <div class="row m-2 p-1">
                 <div class="col-md-12">
-                    <input type="hidden" name="" class="valuesImg" value="{{$restaurant->imagenes}}">
+                    <input type="hidden" name="imagenes" class="valuesImg" value="{{$restaurant->imagenes}}">
                     <div class="coleccionImg">
+                        <?php $arrImg=json_decode($restaurant->imagenes); ?>
+                        @foreach($arrImg as $img)
+                            <img alt="{{$img}}" src="{{asset('public/'.$img)}}" class="img-coleccion col-md-4 col-sm-6 img-fluid my-1" onclick="quitarImgOri(this)">
+                        @endforeach
                     </div>
                     <img class="imagen_final" id="imagen_final" src="" alt="" style="display:none;">
                 </div>
             </div>
         </div> {{-- END-CONTAINER --}}
-        <input type="submit" name="submit" class="btn btn-primary m-3 float-right" value="Crear restaurante" />
-        <input type="button" name="back" class="btn btn-warning m-3 float-right" value="Anterior" />
+        <input type="submit" class="btn btn-primary m-3 float-right" value="Crear restaurante" />
+        <input type="button" class="btn btn-warning m-3 float-right" value="Anterior" />
     </div>
 </form>
 
@@ -392,5 +396,5 @@
     <!-- Cropper js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js" integrity="sha512-1bpfZkKJ+WlmJN/I2KLm79dSiuOos0ymwL5IovsUVARyzcaf9rSXsVO2Cdg4qlKNOQXh8fd1d0vKeY9Ru3bQDw==" crossorigin="anonymous"></script>
     <!--custom js-->
-    <script src="{{asset('public/js/crearRestaurante.js')}}"></script>
+    <script src="{{asset('public/js/editarRestaurante.js')}}"></script>
 @endsection
