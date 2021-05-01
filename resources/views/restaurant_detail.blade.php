@@ -163,12 +163,9 @@
 						</div>
 					</div>
                     <div class="row mt-2">
-                        <a  class="mt-2" data-toggle="collapse" href="#id1" role="button" aria-expanded="false" aria-controls="id1">Ver desripción</a>
-                        <div class="collapse multi-collapse p-0" id="id1">
-                            <div class="card card-body p-1">
-                                @{{ newItem.descripcion }}
-                            </div>
-                        </div>
+                        <p>
+                            @{{ newItem.descripcion }}
+                        </p>
                     </div>
 
                     <div class="row mt-2">
@@ -177,30 +174,27 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<button @click="restarCantidad" class="input-group-text">-</button>
-								</div>
-								<input type="text" class="form-control text-center" :value="newItem.cantidad" aria-label="Username" aria-describedby="basic-addon1">
-								<div class="input-group-append">
-									<button @click="sumarCantidad" class="input-group-text">+</button>
-								 </div>
-							 </div>
-						</div>
-						<div class="col d-flex align-items-center justify-content-center">
-							<h5>@{{ newItem.precioCantidad }} €</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col d-flex justify-content-center">
-							<button @click="agregarAMiLista" type="button" class="btn btn-primary">Agregar a mi lista</button>
-						</div>
-					</div>
-				</div>
-
+                <div class="row w-100">
+                    <div class="col-5">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <button @click="restarCantidad" class="input-group-text">-</button>
+                            </div>
+                            <input type="text" class="form-control text-center " :value="newItem.cantidad" aria-label="Username" aria-describedby="basic-addon1">
+                            <div class="input-group-append">
+                                <button @click="sumarCantidad" class="input-group-text">+</button>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-center">
+                        <h5>@{{ newItem.precioCantidad }} €</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <button @click="agregarAMiLista" type="button" class="btn btn-primary">Agregar a mi lista</button>
+                    </div>
+                </div>
 			</div>
 		</div>
 		</div>

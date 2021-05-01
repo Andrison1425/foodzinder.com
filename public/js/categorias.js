@@ -55,6 +55,18 @@ function cambiarStatus(url,id){
     });
 }
 
+document.querySelector(".editarCategoria").onclick=()=>{
+    const arrCategorias=[];
+    const categoriasEdit=document.querySelectorAll(".categoriasEdit");
+
+    categoriasEdit.forEach(categoria=>{
+        arrCategorias.push(categoria.value);
+    });
+
+    document.querySelector(".categoriasJson").value=JSON.stringify(arrCategorias);
+    document.querySelector("#editForm").submit();
+}
+
 let activa=0;
 function pestanaActiva(id=0){
     activa=id;

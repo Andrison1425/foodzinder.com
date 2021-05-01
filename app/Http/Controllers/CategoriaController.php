@@ -99,13 +99,15 @@ class CategoriaController extends Controller
         $plato = Plato::findOrFail($request->id);
         $nombre = $request->input('nombre');
         $precio= $request->input('precio');
+        $descripcion= $request->input('descripcion');
         $imagen=$request->input('file');
 
         if (!$imagen) {
 
             $plato->update([
                 'nombre' => $nombre,
-                'precio'=>$precio
+                'precio'=>$precio,
+                'descripcion'=>$descripcion
             ]);
 
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
@@ -135,7 +137,8 @@ class CategoriaController extends Controller
              $plato->update([
                 'nombre' => $nombre,
                 'precio'=>$precio,
-                'imagen'=>$imagen
+                'imagen'=>$imagen,
+                'descripcion'=>$descripcion
             ]);
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
         }
@@ -170,6 +173,15 @@ class CategoriaController extends Controller
         ]);
 
         return redirect()->route('categorias.index', ['id' => $restauranteId])->with('Notificacion','Los platos se han organizado');
+    }
 
+    public function editarCategorias(Request $request,$restauranteId)
+    {
+        $restaurante = Restaurant::findOrFail($restauranteId);
+
+        $restaurante->update([
+            'categorias'=>$request['categorias']
+        ]);
+        return redirect()->route('categorias.index', ['id' => $restauranteId])->with('Notificacion','Nombre de categorías ha sido editado con éxito');
     }
 }

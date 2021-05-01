@@ -8,29 +8,8 @@
 
 @section('content')
 
-@if (session('Notificacion'))
-        <!-- Modal -->
-    <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Notificación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{session('Notificacion')}}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-            </div>
-        </div>
-    </div>
 
 
-@endif
 <div class="container mt-4">
     <div class="row justify-content-center">
         <h3>Restaurante:</h3>
@@ -93,6 +72,35 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editarCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="editForm" method="POST" action="{{ route('categorias.editarCategorias', ['restauranteId'=>$restaurante->id])}}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarCategoriaModalLabel">Editar categoría</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="" class="col-form-label">Categorías:</label>
+                            @foreach($restaurante->categorias as $categoria)
+                                <input type="text" class="form-control mb-2 categoriasEdit" value="{{$categoria}}" placeholder="{{$categoria}}">
+                            @endforeach
+                        </div>
+                        <input type="hidden" name="categorias" class="categoriasJson">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary editarCategoria">Editar categorías</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col text-center">
             <h3>Categorias:</h3>
@@ -123,15 +131,15 @@
                 <form method="POST" action="{{ route('categorias.organizarPlatos',['restauranteId'=>$restaurante->id]) }}">
                     @csrf
                     <input type="hidden" name="posiciones" class="posiciones" value="[]">
-                    <input class="btn btn-success d-none guardarCambios float-right m-3" type="submit" value="Guardar cambios">
+                    <input class="btn btn-success d-none guardarCambios float-right m-2" type="submit" value="Guardar cambios">
                 </form>
                 @foreach($restaurante->categorias as $categoria)
                 {{-- START CATEGORIA --}}
                 <div class="tab-pane fade @if($loop->index==0){{'show active'}}@endif" id="categoria{{$loop->index}}" role="tabpanel" aria-labelledby="categoria{{$loop->index}}-tab">
                     <div class="row">
-                        <div class="col-12 d-flex align-items-center justify-content-between">
+                        <div class="col-12 d-flex align-items-center justify-content-between" style="flex-wrap: wrap;">
                             <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
-
+                            <button class="my-2 btn-secondary btn" data-toggle="modal" data-target="#editarCategoriaModal" >Editar categoría</button>
                         </div>
                         <div class="collapse multi-collapse p-0 float-right" id="idp{{$loop->index}}">
                             <div class="card card-body p-1">
@@ -169,7 +177,7 @@
                                                     <img class="imagen_final" id="imagen_final" src="" alt="">
                                                 </div>
 
-                                                <div class="form-group">
+                                                <div class="form-group cont-alergenos-crear">
                                                     <?php $cantAlergenos=14;?>
                                                     @for($i = 1; $i <=$cantAlergenos; $i++)
                                                         <span>
@@ -240,7 +248,7 @@
                                                 </div>
 
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}' )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
+                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', '{{$plato->descripcion}}' )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
 
                                                     <form method="POST" action="{{ route('categorias.eliminarProducto',['id'=>$plato->id,'restauranteId'=>$restaurante->id]) }}" enctype="multipart/form-data">
                                                         @method("delete")
@@ -311,6 +319,9 @@
                             <label for="nombre">Precio:</label>
                             <input type="number" v-model="editando.precio" class="form-control" min="0" name="precio">
 
+                            <label for="descripcion">Descripcion:</label>
+                            <textarea name="descripcion" id="descripcion" class="form-control w-100" rows="5" v-model="editando.descripcion"></textarea>
+
                             <div class="input-group my-3">
                                 {{-- para recortar --}}
                                 <label for="original_image" class="btn btn-success" onclick="pestanaActiva(999)">
@@ -351,15 +362,17 @@
             id: null,
             nombre: null,
             precio: null,
+            descripcion: null,
             rutaImg: null,
         }
     },
     methods: {
-        handleEdicionDeProductoEnCategoria(id,nombre,precio,rutaImg){
+        handleEdicionDeProductoEnCategoria(id,nombre,precio,rutaImg, descripcion){
             this.editando.id = id;
             this.editando.nombre = nombre;
             this.editando.precio = precio;
             this.editando.rutaImg = rutaImg;
+            this.editando.descripcion = descripcion;
             $('#modal_de_edicion').modal('show');
         },
 
@@ -372,7 +385,5 @@
 
 <script src="{{asset('public/js/categorias.js')}}"></script>
 <script src="{{asset('public/js/dragSort.js')}}"></script>
-<script>
-    $("#modalMensaje").modal('show');
-</script>
+
 @endsection

@@ -48,5 +48,6 @@ Route::post('/categoria/cambiarCategoria/{id}/{categoria}/{restauranteId}', 'Cat
 Route::post('/categoria/organizarPlatos/{restauranteId}/', 'CategoriaController@organizarPlatos')->name('categorias.organizarPlatos');
 Route::post('/categoria/editarProducto', 'CategoriaController@editarProducto')->name('categorias.editarProducto');
 Route::delete('/categoria/eliminarProducto/{id}/{restauranteId}', 'CategoriaController@eliminarProducto')->name('categorias.eliminarProducto');
+Route::post('/categoria/editarCategorias/{restauranteId}', 'CategoriaController@editarCategorias')->name('categorias.editarCategorias');
 
 // END CATEGORIAS

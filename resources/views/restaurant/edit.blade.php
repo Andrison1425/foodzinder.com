@@ -359,7 +359,7 @@
                 </div>
             </div>
         </div> {{-- END-CONTAINER --}}
-        <input type="submit" class="btn btn-primary m-3 float-right" value="Crear restaurante" />
+        <input type="submit" class="btn btn-primary m-3 float-right" value="Editar restaurante" />
         <input type="button" class="btn btn-warning m-3 float-right" value="Anterior" />
     </div>
 </form>

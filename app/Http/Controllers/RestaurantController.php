@@ -123,7 +123,7 @@ class RestaurantController extends Controller
 
         $restaurant->save();
 
-        return redirect(route('restaurant.show', ["id" => $restaurant->id]))->with('notification', 'Restaurante creado exitosamente');
+        return redirect(route('categorias.index', ["id" => $restaurant->id]))->with('Notificacion', 'Restaurante creado exitosamente');
 
     }
 
@@ -180,7 +180,7 @@ class RestaurantController extends Controller
         }
 
         $restaurant->update($request->all());
-        return redirect(route('restaurant.show', ["id" => $restaurant->id]))->with('Notification', 'Restaurante editado exitosamente');
+        return redirect(route('restaurant.index'))->with('Notificacion', 'Restaurante editado exitosamente');
 
     }
 

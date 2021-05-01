@@ -68,3 +68,18 @@
 img{
     pointer-events: none;
 }
+
+.cont-alergenos-crear{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cont-alergenos-crear span{
+    width: 3.5rem;
+    height: 3.5rem;
+    margin:0.5rem 0.5%;
+}
+
+.cont-alergenos-crear img{
+    width: 100%;
+}
