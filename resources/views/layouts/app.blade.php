@@ -74,10 +74,11 @@
 								Administrador
 								</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
-								<a class="dropdown-item" href="{{ route('directorio') }}">Listar Restaurantes</a>
-								<a class="dropdown-item" href="{{ route('users.index') }}">Listar Usuarios</a>
-								<a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
+                                    <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
+                                    <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
+                                    <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
 									onclick="event.preventDefault();
 													document.getElementById('logout-form').submit();">
 									{{ __('Logout') }}
