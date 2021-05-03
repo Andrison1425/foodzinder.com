@@ -433,6 +433,7 @@
     flex-wrap: nowrap;
     overflow-y: auto;
     scroll-behavior: smooth;
+    width: max-content;
   }
 
   .tabs_detail .nav-tabs .nav-item {
