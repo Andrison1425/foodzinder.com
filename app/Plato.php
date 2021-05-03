@@ -8,12 +8,5 @@ class Plato extends Model
 {
     protected $table = 'platos';
 
-    protected $fillable = [
-        'nombre',
-        'precio',
-        'imagen',
-        'descripcion',
-        'categoria',
-        'status'
-    ];
+    protected $guarded = [];
 }

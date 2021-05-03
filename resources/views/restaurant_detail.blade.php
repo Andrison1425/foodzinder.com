@@ -15,11 +15,10 @@
 
 	<!-- Favicons-->
 	<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" >
-	<link rel="apple-touch-icon" type="image/x-icon" href="{{asset('plantilla/img/apple-touch-icon-57x57-precomposed.png')}}">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('plantilla/img/apple-touch-icon-72x72-precomposed.png')}}">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('plantilla/img/apple-touch-icon-114x114-precomposed.png')}}">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('plantilla/img/apple-touch-icon-144x144-precomposed.png')}}">
-
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('plantilla/img/img-compartir.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('plantilla/img/img-compartir.png')}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('plantilla/img/img-compartir.png')}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('plantilla/img/img-compartir.png')}}">
 	<!-- GOOGLE WEB FONT -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
@@ -85,11 +84,6 @@
 
 	{{-- botón flotante --}}
 	<button type="button" class="btn btn-default botonflotanteparaguardado" data-toggle="modal" data-target="#modalLista">Ver mi lista</button> {{-- end botón flotante --}}
-    @if($restaurant->correo)
-        <a href="#" class="btn_contactar" data-toggle="modal" data-target=".bd-contact-modal-lg">
-            <i class="fas fa-envelope"></i>
-        </a>
-    @endif
 	<!-- Modal-mi-lista -->
 	<div class="modal fade" id="modalLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -122,7 +116,7 @@
 							 </div>
 						</div>
 						<div class="col col-sm-3">
-							<p>Monto Total: @{{ item.precioCantidad }}</p>
+							<p>Precio Total: @{{ item.precioCantidad }}</p>
 						</div>
 						<div class="col-1">
 							<a href="#" @click.prevent="borrarItemDelCarrito(item.nombre)"><i class="fas fa-trash-alt"></i></a>
@@ -325,9 +319,6 @@
                                 </div>
                                 <div class="col-xl-8 col-lg-7 col-md-6">
                                     <div class="buttons clearfix">
-                                    @if($restaurant->correo)
-                                        <a href="#" class="btn_hero wishlist" data-toggle="modal" data-target=".bd-contact-modal-lg">Contactar</a>
-                                    @endif
                                         <a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
                                     </div>
                                 </div>
@@ -380,6 +371,12 @@
                                                                     <img  src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
                                                                     <div class="item_title_ind">
                                                                         <h3>{{ $plato->nombre }}</h3>
+                                                                        <div class="cont-alergenos-sec">
+                                                                            <?php $alergenoPlato=json_decode($plato->alergenos); ?>
+                                                                            @foreach($alergenoPlato as $alergeno)
+                                                                                <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                            @endforeach
+                                                                        </div>
                                                                         <span>{{ $plato->precio }} €</span>
                                                                     </div>
                                                                 </a>
@@ -409,42 +406,6 @@
 		    <!-- /row -->
 		</div>
 		<!-- /container -->
-
-        @if($restaurant->correo)
-
-        <div class="modal fade bd-contact-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalContac" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myLargeModalLabel">Envía un mensaje a este restaurante</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <section class="contacto__cont-contacto section">
-                        <div class="cont">
-                            <div class="contacto__cont-formulario">
-                                <form class="form" method="post" action="{{ route('directorio.enviarCorreo') }}">
-                                    @csrf
-                                    <div class="mensaje">
-                                        <h3></h3>
-                                    </div>
-                                    <input required class="validar" type="text"  id="nombre"  name="name" minLength="2"  maxLength="30"  placeholder="Ingrese su nombre"/>
-                                    <input required class="validar" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"/>
-                                    <textarea class="textarea" required name="mensaje" class="validar" placeholder="Escriba un mensaje"  minLength="20"  maxLength="500"></textarea>
-                                    <input type="hidden" name="id" value="{{$restaurant->id}}"/>
-                                    <input type="hidden" name="correoRestaurante" value="{{$restaurant->correo}}"/>
-                                    <button class="btn-contacto" type="submit">Enviar</button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </section>
-
-                </div>
-            </div>
-        </div>
-        @endif
 	</main>
 	<!-- /main -->
 
@@ -582,7 +543,6 @@
 
 </div> {{-- end vuejs --}}
 
-<script src="{{asset('js/enviarCorreo.js')}}"></script>
 
 	<!-- COMMON SCRIPTS -->
     <script src="{{asset('plantilla/js/common_scripts.min.js')}}"></script>
@@ -768,12 +728,15 @@
         $(window).scroll(function() {
             var scrollDistance = $(window).scrollTop() - $(window).height();
             // Assign active class to nav links while scolling
+            let cambiar=false;
             $('.page-section').each(function(i) {
                 if ($(this).position().top <= scrollDistance+150) {
                     document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
+
                     $('.navigation a.active').removeClass('active');
                     $('.navigation a').eq(i).addClass('active');
                 }
+
             });
         }).scroll();
     </script>

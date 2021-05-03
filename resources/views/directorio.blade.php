@@ -20,10 +20,10 @@
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="plantilla/image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="{{asset('plantilla/img/apple-touch-icon-57x57-precomposed.png')}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('plantilla/img/apple-touch-icon-72x72-precomposed.png')}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('plantilla/img/apple-touch-icon-114x114-precomposed.png')}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('plantilla/img/apple-touch-icon-144x144-precomposed.png')}}">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('plantilla/img/img-compartir.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('plantilla/img/img-compartir.png')}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('plantilla/img/img-compartir.png')}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('plantilla/img/img-compartir.png')}}">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
@@ -441,15 +441,28 @@
                   <!-- /filter_type -->
                     <div class="btn-ver-filtros d-lg-none" onclick="consultar(true)">
                          Ver <span class="numResul"></span> resultados
+
                      </div>
 					</div>
 
 
 				</aside>
                 </form>
+                <?php
+                    $filtros=$request->all();
+
+                    unset($filtros["_method"]);
+                    unset($filtros["palabra_busqueda"]);
+
+                    $numFiltros=sizeof($filtros);
+                ?>
 				<div class="col-lg-9">
 					<div class="row align-items-center justify-content-between p-2">
-						<h2 class="title-directorio m-0">{{count($restaurantes_sin_paginar)}} resultados</h2>
+						<h2 class="title-directorio m-0">
+                            {{count($restaurantes_sin_paginar)}} resultados
+                            <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
+                        </h2>
+
 						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
 					</div>
 					@foreach ($restaurantes as $restaurant)

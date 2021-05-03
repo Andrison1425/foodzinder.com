@@ -83,3 +83,22 @@ img{
 .cont-alergenos-crear img{
     width: 100%;
 }
+
+.img-alergenos-edit{
+    width: 5rem;
+    height: 6rem;
+    margin:0.5rem;
+}
+
+.checkAlergenosEdit{
+    display: none;
+}
+
+.checkAlergenosEdit ~ label{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.checkAlergenosEdit:checked ~ label{
+    opacity: 1;
+}

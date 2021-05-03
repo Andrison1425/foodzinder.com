@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="col-md-4 col-sm-6 col-12 btn-dashboard mb-2">
-            <a href="">
+            <a href="{{route('users.agregar')}}">
                 Añadir usuario
             </a>
         </div>

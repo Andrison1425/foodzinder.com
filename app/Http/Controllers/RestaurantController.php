@@ -38,7 +38,6 @@ class RestaurantController extends Controller
         $restaurant->pais = !empty($request->input("pais")) ? $request->input("pais") : null;
         $restaurant->telefono = !empty($request->input("telefono")) ? $request->input("telefono") : null;
         $restaurant->google_maps = !empty($request->input("google_maps")) ? $request->input("google_maps") : null;
-        $restaurant->correo = !empty($request->input("correo")) ? $request->input("correo") : null;
         $restaurant->categorias = !empty($request->input("categorias")) ? $request->input("categorias") : "[]";
 
         $restaurant->precio1 = !empty($request->input("precio1")) ? $request->input("precio1") : null;

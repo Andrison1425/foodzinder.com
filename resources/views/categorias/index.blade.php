@@ -241,14 +241,14 @@
                                                 </div>
 
                                                 <div class="cont-alergenos">
-                                                    <?php $alergenos=json_decode($plato->alergenos,true);?>
+                                                    <?php $alergenos=json_decode($plato->alergenos);?>
                                                     @foreach($alergenos as $alergeno)
                                                         <img src="{{asset('public/images/alergenos/'.$alergeno.'.png')}}" alt="">
                                                     @endforeach
                                                 </div>
 
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', '{{$plato->descripcion}}' )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
+                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', '{{$plato->descripcion}}', {{$plato->alergenos}} )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
 
                                                     <form method="POST" action="{{ route('categorias.eliminarProducto',['id'=>$plato->id,'restauranteId'=>$restaurante->id]) }}" enctype="multipart/form-data">
                                                         @method("delete")
@@ -322,6 +322,18 @@
                             <label for="descripcion">Descripcion:</label>
                             <textarea name="descripcion" id="descripcion" class="form-control w-100" rows="5" v-model="editando.descripcion"></textarea>
 
+                            <?php $cantAlergenos=14;?>
+                            @for($i = 1; $i <=$cantAlergenos; $i++)
+                                <span>
+                                    <input type="checkbox" id="alergeno{{$i}}" class="checkAlergenosEdit" data-id="{{'pos'}}">
+                                    <label for="alergeno{{$i}}">
+                                        <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" class="img-alergenos-edit" alt="">
+                                    </label>
+
+                                </span>
+                                @endfor
+                                <input type="hidden" :value=`${JSON.stringify(editando.alergenos)}` class="numAlergenosEdit" name="alergenos" />
+
                             <div class="input-group my-3">
                                 {{-- para recortar --}}
                                 <label for="original_image" class="btn btn-success" onclick="pestanaActiva(999)">
@@ -364,15 +376,33 @@
             precio: null,
             descripcion: null,
             rutaImg: null,
+            alergenos: [],
         }
     },
     methods: {
-        handleEdicionDeProductoEnCategoria(id,nombre,precio,rutaImg, descripcion){
+        handleEdicionDeProductoEnCategoria(id,nombre,precio,rutaImg, descripcion, alergenos){
             this.editando.id = id;
             this.editando.nombre = nombre;
             this.editando.precio = precio;
             this.editando.rutaImg = rutaImg;
             this.editando.descripcion = descripcion;
+            this.editando.alergenos = alergenos;
+
+            const arr=alergenos;
+            let arrAlergenos=[];
+
+            document.querySelectorAll("#modal_de_edicion .checkAlergenosEdit").forEach(input=>{
+                input.checked=false;
+            });
+
+            arr.forEach(ele=>{
+                arrAlergenos.push(ele);
+                document.querySelector("#alergeno"+ele).checked=true;
+            });
+
+            asignarValue(arrAlergenos);
+
+
             $('#modal_de_edicion').modal('show');
         },
 

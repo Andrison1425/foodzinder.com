@@ -101,13 +101,14 @@ class CategoriaController extends Controller
         $precio= $request->input('precio');
         $descripcion= $request->input('descripcion');
         $imagen=$request->input('file');
+        $alergenos=$request->input('alergenos');
 
         if (!$imagen) {
-
             $plato->update([
                 'nombre' => $nombre,
                 'precio'=>$precio,
-                'descripcion'=>$descripcion
+                'descripcion'=>$descripcion,
+                'alergenos'=>$alergenos
             ]);
 
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
@@ -138,7 +139,8 @@ class CategoriaController extends Controller
                 'nombre' => $nombre,
                 'precio'=>$precio,
                 'imagen'=>$imagen,
-                'descripcion'=>$descripcion
+                'descripcion'=>$descripcion,
+                'alergenos'=>$alergenos
             ]);
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
         }

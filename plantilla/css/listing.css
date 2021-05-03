@@ -690,6 +690,10 @@ span.infobox_rate {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: sticky;
+        top: -16px;
+        z-index: 9;
+        background: white;
     }
   }
   .filter_col .inner_bt i {

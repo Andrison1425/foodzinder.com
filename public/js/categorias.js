@@ -23,6 +23,30 @@ formPlato.forEach((form,i)=>{
         };
     }
 });
+let arrAlergenosEdit=[];
+
+
+const numAlergenosEdit=document.querySelector(".numAlergenosEdit");
+
+function asignarValue(arrAlergenos){
+    arrAlergenosEdit=arrAlergenos;
+    console.log(arrAlergenosEdit);
+}
+
+document.querySelectorAll("#modal_de_edicion .checkAlergenosEdit").forEach((input,index)=>{
+    input.onchange=()=>{
+        if(input.checked){
+            arrAlergenosEdit=[index+1,...arrAlergenosEdit];
+            numAlergenosEdit.value=JSON.stringify(arrAlergenosEdit);
+        }else{
+            arrAlergenosEdit=JSON.parse(numAlergenosEdit.value).filter(num=>{
+                if(num==index+1) return null;
+                else return num;
+            });
+            numAlergenosEdit.value=JSON.stringify([...arrAlergenosEdit]);
+        }
+    };
+});
 
 function cambiarStatus(url,id){
     const resp=fetch(url,{

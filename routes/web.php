@@ -36,6 +36,8 @@ Route::post('/restaurant/destroy/{id}', 'RestaurantController@destroy')->name('r
 Route::get('/restaurant/changestatus/{id}', 'RestaurantController@cambiarStatus')->name('restaurant.cambiar_status');
 
 Route::get('/users/index', 'UserController@index')->name('users.index');
+Route::get('/users/agregar', 'UserController@agregar')->name('users.agregar');
+Route::post('/users/crear', 'UserController@crear')->name('users.crear');
 Route::get('/users/edit/{id}', 'UserController@edit')->name('users.edit');
 Route::post('/users/update', 'UserController@update')->name('users.update');
 
