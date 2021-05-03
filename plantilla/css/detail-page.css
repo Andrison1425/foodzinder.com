@@ -433,12 +433,14 @@
     flex-wrap: nowrap;
     overflow-y: auto;
     scroll-behavior: smooth;
-    width: max-content;
   }
+
+
 
   .tabs_detail .nav-tabs .nav-item {
     text-transform: uppercase;
     font-weight: 500;
+    min-width: max-content;
   }
   .tabs_detail .tab-content .card {
     border: none;
