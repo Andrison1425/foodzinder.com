@@ -450,10 +450,9 @@
                 </form>
                 <?php
                     $filtros=$request->all();
-
                     unset($filtros["_method"]);
                     unset($filtros["palabra_busqueda"]);
-
+                    unset($filtros["_token"]);
                     $numFiltros=sizeof($filtros);
                 ?>
 				<div class="col-lg-9">
