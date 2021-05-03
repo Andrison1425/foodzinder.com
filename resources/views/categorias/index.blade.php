@@ -160,7 +160,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="precio">Precio</span>
                                                     </div>
-                                                    <input type="number" required name="precio" class="form-control" aria-label="precio" aria-describedby="precio">
+                                                    <input type="number" required step="0.01" name="precio" class="form-control" aria-label="precio" aria-describedby="precio">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Descripción:</label>
