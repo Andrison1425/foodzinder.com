@@ -367,7 +367,7 @@
                                                     <div class="col-md-4">
                                                         <div class="item">
                                                             <div class="strip">
-                                                                <a @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', '{{$plato->descripcion}}', {{$plato->alergenos}})" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                <a @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}})" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
                                                                     <img  src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
                                                                     <div class="item_title_ind">
                                                                         <h3>{{ $plato->nombre }}</h3>
