@@ -35,11 +35,16 @@ Route::post('/restaurant/update/{id}', 'RestaurantController@update')->name('res
 Route::post('/restaurant/destroy/{id}', 'RestaurantController@destroy')->name('restaurant.destroy');
 Route::get('/restaurant/changestatus/{id}', 'RestaurantController@cambiarStatus')->name('restaurant.cambiar_status');
 
+Route::get('/restaurant/listado/aprobar', 'RestaurantController@listadoAprobar')->name('restaurant.listadoAprobar');
+
 Route::get('/users/index', 'UserController@index')->name('users.index');
 Route::get('/users/agregar', 'UserController@agregar')->name('users.agregar');
 Route::post('/users/crear', 'UserController@crear')->name('users.crear');
 Route::get('/users/edit/{id}', 'UserController@edit')->name('users.edit');
 Route::post('/users/update', 'UserController@update')->name('users.update');
+
+Route::get('/users/createRestaurant', 'UserController@createRestaurant')->name('users.createRestaurant');
+Route::post('/users/createRestaurant', 'UserController@restaurantStore')->name('users.restaurantStore');
 
 // START CATEGORIAS
 Route::get('/categoria/index/{id}', 'CategoriaController@index')->name('categorias.index');

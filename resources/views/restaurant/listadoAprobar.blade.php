@@ -30,30 +30,22 @@
             <td class="text-center">
             <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
             </td>
-            <td class="text-center">{{ $resto->direccion }}</td>
-            <td class="text-center">{{ $resto->telefono }}</td>
-            <td class="text-center">{{ $resto->status === "1" ? "Habilitado" : "No aparecerá en el buscador" }}</td>
-            <td class="text-center d-flex justify-content-center">
-            <a class="m-1" href="{{ route('restaurant.edit', ['id' => $resto->id]) }}">
-                <button type="button" class="btn btn-success btn-sm">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a class="m-1" href="{{ route('categorias.index', ['id' => $resto->id]) }}">
-                <button type="button" class="btn btn-info btn-sm">Ver Categorías</button>
-            </a>
-
-            <a class="m-1" href="{{ route('restaurant.cambiar_status', ['id' => $resto->id]) }}">
-                <button type="button" class="btn btn-{{ $resto->status === "2" ? "success" : "warning" }} btn-sm">{{ $resto->status === "1" ? "Inhabilitar" : "Habilitar" }}</button>
-            </a>
-
-            <a class="m-1" href="#">
-                <form method="POST" class="formEliminar" action="{{ route('restaurant.destroy', ['id' => $resto->id]) }}">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                </form>
-            </a>
-
+                <td class="text-center">{{ $resto->direccion }}</td>
+                <td class="text-center">{{ $resto->telefono }}</td>
+                <td class="text-center">{{ $resto->status === "3" ? "En espera": "Aprobado"}}</td>
+                <td class="text-center d-flex justify-content-center">
+                <a class="m-1" href="{{ route('restaurant.edit', ['id' => $resto->id]) }}">
+                    <button type="button" class="btn btn-success btn-sm">Editar Restaurante</button>
+                </a>
+                <a class="m-1" href="{{ route('restaurant.cambiar_status', ['id' => $resto->id]) }}">
+                    <button type="button" class="btn btn-{{ $resto->status === "3" ? "primary" : "danger" }} btn-sm">{{ $resto->status === "1" ? "Aprobar" : "Habilitar" }}</button>
+                </a>
+                <a class="m-1" href="#">
+                    <form method="POST" class="formEliminar" action="{{ route('restaurant.destroy', ['id' => $resto->id]) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </a>
             </td>
         </tr>
         @endforeach
@@ -87,5 +79,6 @@
                 }
             }
         })
+
     </script>
 @endsection

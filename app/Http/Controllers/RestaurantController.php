@@ -17,8 +17,14 @@ class RestaurantController extends Controller
     }
     public function listado()
     {
-        $restaurantes = Restaurant::get();
+        $restaurantes = Restaurant::where('status','!=', 3)->get();
         return view('restaurant.listado', ['restaurantes' => $restaurantes]);
+    }
+
+    public function listadoAprobar()
+    {
+        $restaurantes = Restaurant::where('status','=', 3)->get();
+        return view('restaurant.listadoAprobar', ['restaurantes' => $restaurantes]);
     }
 
     public function create()
@@ -186,9 +192,9 @@ class RestaurantController extends Controller
     public function destroy($id)
     {
         $restaurant = Restaurant::find($id);
-
+        $restaurant->platos()->delete();
         $restaurant->delete();
-        return redirect()->route('home')->with('message', 'Restaurant borrado exitosamente');
+        return redirect()->route('restaurant.index')->with('Notificacion', 'Restaurante borrado exitosamente');
     }
 
     public function get_ciudad($number)

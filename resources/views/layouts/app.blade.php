@@ -45,7 +45,28 @@
 	</head>
 
 	<body>
+    @if (session('Notificacion'))
+        <!-- Modal -->
+    <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notificación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{session('Notificacion')}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
+@endif
 		<header class="header_in clearfix is_sticky">
 			<div>
 				<div id="logo">
@@ -161,7 +182,7 @@
 							<div class="box_1">
 								<h3>Registra tu restaurante</h3>
 								<p>Te ayudaremos a crear tu <strong>menú</strong> en <strong>imágenes</strong></p>
-								<a href="contacto.html" class="btn_1">Contáctanos</a>
+								<a href="{{route('users.createRestaurant')}}" class="btn_1">Registrar</a>
 							</div>
 					</div>
 				</div>
@@ -243,6 +264,8 @@
 
 
     </script>
-
+    <script>
+        $("#modalMensaje").modal('show');
+    </script>
 	</body>
 </html>
