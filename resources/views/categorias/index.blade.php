@@ -317,7 +317,7 @@
                             <input type="text" v-model="editando.nombre" class="form-control" name="nombre">
 
                             <label for="nombre">Precio:</label>
-                            <input type="number" v-model="editando.precio" class="form-control" min="0" name="precio">
+                            <input type="number" step="0.01" v-model="editando.precio" class="form-control" min="0" name="precio">
 
                             <label for="descripcion">Descripcion:</label>
                             <textarea name="descripcion" id="descripcion" class="form-control w-100" rows="5" v-model="editando.descripcion"></textarea>
