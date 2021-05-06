@@ -248,7 +248,7 @@
                                                 </div>
 
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', '{{$plato->descripcion}}', {{$plato->alergenos}} )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
+                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}} )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
 
                                                     <form method="POST" action="{{ route('categorias.eliminarProducto',['id'=>$plato->id,'restauranteId'=>$restaurante->id]) }}" enctype="multipart/form-data">
                                                         @method("delete")
