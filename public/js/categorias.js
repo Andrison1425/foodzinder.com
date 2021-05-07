@@ -7,15 +7,15 @@ const arrAlergenos={};
 formPlato.forEach((form,i)=>{
    arrAlergenos['pos'+i]=[];
 
-    for (let index = i*14; index < i*14+14; index++) {
+    for (let index = i*16; index < i*16+16; index++) {
        const indice=form.querySelector(".checkAlergeno").getAttribute("data-id");
         checkAlergeno[index].onchange=()=>{
             if(checkAlergeno[index].checked){
-                arrAlergenos[indice]=[(index-14*i)+1,...arrAlergenos[indice]];
+                arrAlergenos[indice]=[(index-16*i)+1,...arrAlergenos[indice]];
                 numAlergenos[i].value=JSON.stringify(arrAlergenos[indice]);
             }else{
                 arrAlergenos[indice]=JSON.parse(numAlergenos[i].value).filter(num=>{
-                    if(num==(index-14*i)+1) return null;
+                    if(num==(index-16*i)+1) return null;
                     else return num;
                 });
                 numAlergenos[i].value=JSON.stringify([...arrAlergenos[indice]]);

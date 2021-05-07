@@ -211,7 +211,7 @@
                                                 </div>
 
                                                 <div class="form-group cont-alergenos-crear">
-                                                    <?php $cantAlergenos=14;?>
+                                                    <?php $cantAlergenos=16;?>
                                                     @for($i = 1; $i <=$cantAlergenos; $i++)
                                                         <span>
                                                             <input type="checkbox" id="alergeno{{$i.$categoria}}" class="checkAlergeno" data-id="{{'pos'.$iCategoria}}">
@@ -354,14 +354,13 @@
                             <label for="descripcion">Descripcion:</label>
                             <textarea name="descripcion" id="descripcion" class="form-control w-100" rows="5" v-model="editando.descripcion"></textarea>
 
-                            <?php $cantAlergenos=14;?>
+                            <?php $cantAlergenos=16;?>
                             @for($i = 1; $i <=$cantAlergenos; $i++)
                                 <span>
                                     <input type="checkbox" id="alergeno{{$i}}" class="checkAlergenosEdit" data-id="{{'pos'}}">
                                     <label for="alergeno{{$i}}">
                                         <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" class="img-alergenos-edit" alt="">
                                     </label>
-
                                 </span>
                                 @endfor
                                 <input type="hidden" :value=`${JSON.stringify(editando.alergenos)}` class="numAlergenosEdit" name="alergenos" />

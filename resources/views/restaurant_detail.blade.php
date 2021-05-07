@@ -374,10 +374,19 @@
                                                                         <div class="cont-alergenos-sec">
                                                                             <?php $alergenoPlato=json_decode($plato->alergenos); ?>
                                                                             @foreach($alergenoPlato as $alergeno)
-                                                                                <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                @if($alergeno=='15' || $alergeno=='16')
+                                                                                @else
+                                                                                    <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                @endif
                                                                             @endforeach
                                                                         </div>
-                                                                        <span>{{ $plato->precio }} €</span>
+                                                                        <span>{{ $plato->precio }} €
+                                                                            @foreach($alergenoPlato as $alergeno)
+                                                                                @if($alergeno=='15' || $alergeno=='16')
+                                                                                    <img class="img-icons-a" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </span>
                                                                     </div>
                                                                 </a>
                                                             </div>
