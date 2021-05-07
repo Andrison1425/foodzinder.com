@@ -76,6 +76,7 @@ class UserController extends Controller
         $restaurant->restaurante = !empty($request->input("restaurante")) ? $request->input("restaurante") : null;
         $restaurant->cafeteria = !empty($request->input("cafeteria")) ? $request->input("cafeteria") : null;
         $restaurant->bar = !empty($request->input("bar")) ? $request->input("bar") : null;
+        $restaurant->restaurante_playa = !empty($request->input("restaurante_playa")) ? $request->input("restaurante_playa") : null;
         $restaurant->admite_reservas = !empty($request->input("admite_reservas")) ? $request->input("admite_reservas") : null;
         $restaurant->para_llevar = !empty($request->input("para_llevar")) ? $request->input("para_llevar") : null;
         $restaurant->domicilio = !empty($request->input("domicilio")) ? $request->input("domicilio") : null;

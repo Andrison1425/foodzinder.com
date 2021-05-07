@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/directorio', 'DirectorioController@index')->name('directorio');
-Route::get('/directorio/detail/{id}', 'DirectorioController@show')->name('directorio.detail');
+Route::get('/d/{id}/{name}', 'DirectorioController@show')->name('directorio.detail');
 Route::post('/directorio/enviarCorreo', 'DirectorioController@enviarCorreo')->name('directorio.enviarCorreo');
 Route::post('/directorio/obtenerResultadosFiltros', 'DirectorioController@obtenerResultadosFiltros')->name('directorio.obtenerResultadosFiltros');
 
@@ -34,6 +34,7 @@ Route::get('/restaurant/edit/{id}', 'RestaurantController@edit')->name('restaura
 Route::post('/restaurant/update/{id}', 'RestaurantController@update')->name('restaurant.update');
 Route::post('/restaurant/destroy/{id}', 'RestaurantController@destroy')->name('restaurant.destroy');
 Route::get('/restaurant/changestatus/{id}', 'RestaurantController@cambiarStatus')->name('restaurant.cambiar_status');
+Route::post('/restaurant/organizarImgs/{restauranteId}/', 'RestaurantController@organizarImgs')->name('restaurant.organizarImgs');
 
 Route::get('/restaurant/listado/aprobar', 'RestaurantController@listadoAprobar')->name('restaurant.listadoAprobar');
 

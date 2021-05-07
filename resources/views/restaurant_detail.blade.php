@@ -213,7 +213,7 @@
                   </div>
                   <div class="col-lg-4">
                      <div class="form-group">
-                     <input name="ciudad" class="form-control no_border_r" type="text" placeholder="Ciudad">
+                     <input name="ciudad" class="form-control no_border_r" type="text" placeholder="{{$restaurant->ciudad}}">
                         <i class="icon_pin_alt"></i>
                      </div>
                   </div>

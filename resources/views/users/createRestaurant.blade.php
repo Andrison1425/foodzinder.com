@@ -264,6 +264,12 @@
                             Bar
                         </label>
                     </div>
+                    <div class="form-check form-group col-12">
+                        <input name="restaurante_playa" class="form-check-input" type="checkbox" id="restaurante_playa">
+                        <label class="form-check-label" for="restaurante_playa">
+                            Restaurante playa
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 col-6">
@@ -380,7 +386,7 @@
         </div>
         <div class="form-group form-check col-12">
             <input  name="zumos_y_batidos" type="checkbox" class="form-check-input" id="Zumos">
-            <label class="form-check-label" for="Zumos">Zumos y batidas</label>
+            <label class="form-check-label" for="Zumos">Zumos y Batidos</label>
         </div>
 
         <input type="button" name="next" class="btn btn-success m-3 float-right" value="Siguiente" />

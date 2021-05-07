@@ -20,6 +20,7 @@ class DirectorioController extends Controller
         $restaurante = (!empty($request->input('restaurante'))) ? 'on' : null;
         $cafeteria = (!empty($request->input('cafeteria'))) ? 'on' : null;
         $bar = (!empty($request->input('bar'))) ? 'on' : null;
+        $restaurante_playa = (!empty($request->input('restaurante_playa'))) ? 'on' : null;
         $admite_reservas = (!empty($request->input('admite_reservas'))) ? 'on' : null;
         $para_llevar = (!empty($request->input('para_llevar'))) ? 'on' : null;
         $domicilio = (!empty($request->input('domicilio'))) ? 'on' : null;
@@ -61,6 +62,7 @@ class DirectorioController extends Controller
         if ($restaurante) {array_push($filtro, ['restaurante', 'like', 'on']);}
         if ($cafeteria) {array_push($filtro, ['cafeteria', 'like', 'on']);}
         if ($bar) {array_push($filtro, ['bar', 'like', 'on']);}
+        if ($restaurante_playa) {array_push($filtro, ['restaurante_playa', 'like', 'on']);}
         if ($admite_reservas) {array_push($filtro, ['admite_reservas', 'like', 'on']);}
         if ($para_llevar) {array_push($filtro, ['para_llevar', 'like', 'on']);}
         if ($domicilio) {array_push($filtro, ['domicilio', 'like', 'on']);}
@@ -108,7 +110,7 @@ class DirectorioController extends Controller
     {
 
         $cantidades = [];
-        $palabras = ['precio1','precio2','precio3','restaurante','cafeteria','bar','admite_reservas','para_llevar','domicilio','terraza_exterior','wifi_gratuito','sin_gluten','accesible','admite_mascotas','plastic_free','desayuno','brunch','almuerzo', 'merienda', 'cena','dulce','salado','local','nacional','internacional','fusion','vegetariano','vegano','marisco','atun','sushi','pescado','carne','paella','pasta','pizza','zumos_y_batidos'];
+        $palabras = ['precio1','precio2','precio3','restaurante','cafeteria','bar','restaurante_playa','admite_reservas','para_llevar','domicilio','terraza_exterior','wifi_gratuito','sin_gluten','accesible','admite_mascotas','plastic_free','desayuno','brunch','almuerzo', 'merienda', 'cena','dulce','salado','local','nacional','internacional','fusion','vegetariano','vegano','marisco','atun','sushi','pescado','carne','paella','pasta','pizza','zumos_y_batidos'];
 
         foreach ($palabras as $palabra) {
             $cantidades[$palabra] = [];
@@ -136,12 +138,27 @@ class DirectorioController extends Controller
         //
     }
 
-    public function show($id)
+    public function show($id,$name)
     {
         $restaurant = Restaurant::find($id);
         $restaurant->categorias=json_decode($restaurant->categorias,true);
         $imagenes=json_decode($restaurant->imagenes,true);
-        $platos=$restaurant->platos;;
+        $platos=$restaurant->platos;
+        $arrPlatos=[];
+        $i=0;
+
+        foreach($platos as $plato){
+            $plato->pos=$i;
+            $arrPlatos[]=$plato;
+            $i++;
+        }
+
+        $orden = json_decode($restaurant->posiciones);
+        if($orden && $arrPlatos){
+            $array_ordenado = array_replace( array_flip( $orden ), $arrPlatos );
+            $platos=$array_ordenado;
+        }
+
         return view("restaurant_detail", ['restaurant' => $restaurant,
                                          'imagenes'    =>$imagenes,
                                          'platos'      =>$platos
@@ -177,7 +194,6 @@ class DirectorioController extends Controller
 
     public function obtenerResultadosFiltros(Request $request)
     {
-
         $palabra_busqueda = (!empty($request->input("palabra_busqueda"))) ? '%'.$request->input("palabra_busqueda").'%' : "%";
         $ciudad = (!empty($request->input("ciudad"))) ? '%'.$request->input("ciudad").'%' : '%';
         $precio1 = (!empty($request->input('precio1'))) ? 'on' : null;
@@ -186,6 +202,7 @@ class DirectorioController extends Controller
         $restaurante = (!empty($request->input('restaurante'))) ? 'on' : null;
         $cafeteria = (!empty($request->input('cafeteria'))) ? 'on' : null;
         $bar = (!empty($request->input('bar'))) ? 'on' : null;
+        $restaurante_playa = (!empty($request->input('restaurante_playa'))) ? 'on' : null;
         $admite_reservas = (!empty($request->input('admite_reservas'))) ? 'on' : null;
         $para_llevar = (!empty($request->input('para_llevar'))) ? 'on' : null;
         $domicilio = (!empty($request->input('domicilio'))) ? 'on' : null;
@@ -227,6 +244,7 @@ class DirectorioController extends Controller
         if ($restaurante) {array_push($filtro, ['restaurante', 'like', 'on']);}
         if ($cafeteria) {array_push($filtro, ['cafeteria', 'like', 'on']);}
         if ($bar) {array_push($filtro, ['bar', 'like', 'on']);}
+        if ($restaurante_playa) {array_push($filtro, ['restaurante_playa', 'like', 'on']);}
         if ($admite_reservas) {array_push($filtro, ['admite_reservas', 'like', 'on']);}
         if ($para_llevar) {array_push($filtro, ['para_llevar', 'like', 'on']);}
         if ($domicilio) {array_push($filtro, ['domicilio', 'like', 'on']);}

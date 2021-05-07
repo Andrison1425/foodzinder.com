@@ -100,6 +100,31 @@ function pestanaActiva(id=0){
     }
 }
 
+let arrOrdenarImg=[];
+const valueImgOrden=document.querySelector(".valueImgOrden");
+
+document.querySelectorAll(".checkImg").forEach((input,indice)=>{
+    input.onchange=e=>{
+        if(input.checked){
+            if(arrOrdenarImg.length>=4){
+                alert("Solo se pueden mostrar 4 imágenes a la vez.");
+                input.checked=false;
+            }else{
+                arrOrdenarImg=[...arrOrdenarImg,indice];
+                valueImgOrden.value=JSON.stringify(arrOrdenarImg);
+            }
+
+        }else{
+            arrOrdenarImg=JSON.parse(valueImgOrden.value).filter(num=>{
+                if(num==indice) return null;
+                else return num;
+            });
+            valueImgOrden.value=JSON.stringify([...arrOrdenarImg]);
+        }
+    };
+});
+
+
 $(document).ready(function() {
     // Escucha el evento que surge cuando el source de la imagen cambia:
     let img = document.querySelector("#imagen_final"),

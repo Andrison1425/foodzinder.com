@@ -208,6 +208,12 @@
 											  <span class="checkmark"></span>
 											</label>
 										</li>
+                                        <li>
+											<label class="container_check">Restaurante playa<small>{{ count($cantidades['restaurante_playa']) }}</small>
+											  <input {{ $request->restaurante_playa != null ? 'checked': '' }} name="restaurante_playa" class="inputs" onchange="consultar()" type="checkbox">
+											  <span class="checkmark"></span>
+											</label>
+										</li>
 									</ul>
 							</div>
                         </div>
@@ -480,14 +486,32 @@
                                      </span>
                                  </div>
                                  <ul>
-                                     @foreach ($restaurant->platos->slice(0, 4) as $plato)
+                                     <?php
+                                        $platos=$restaurant->platos;
+                                        $arrPlatos=[];
+                                        $i=0;
+
+                                        foreach($platos as $plato){
+                                            $plato->pos=$i;
+                                            $arrPlatos[]=$plato;
+                                            $i++;
+                                        }
+
+                                        $orden = json_decode($restaurant->img_orden);
+                                        if($orden && $arrPlatos){
+                                            $array_ordenado = array_replace( array_flip( $orden ), $arrPlatos );
+                                            $platos=$array_ordenado;
+                                        }
+                                        $platos=array_slice($platos,0,4);
+                                     ?>
+                                     @foreach ($platos as $plato)
 
                                         @if($loop->index == 3)
                                             <div
                                                 class="li-slider"
                                                 style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
-                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
+                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$restaurant->nombre]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
                                             </div>
                                         @else
                                             <div
@@ -515,8 +539,9 @@
 										<a href="{{ $restaurant->google_maps }}" target="_blank">VER MAPA</a>
 									@endif
 								</p>
-								<p class="icon telefono d-flex align-items-center">
-									<span href="#"> {{ $restaurant->telefono }}</span>
+								<p class="icon telefono d-flex align-items-center" style="flex-wrap: wrap;">
+									<span href="#"> {{ $restaurant->telefono }} </span>
+                                    <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;"> Llamar</a> o
 									@if ($restaurant->tiene_whatsapp === 1)
 										<a target="_blank" title="Ir a Whatsapp" href="https://api.whatsapp.com/send?phone=34{{ $restaurant->telefono }}" class="ml-4">
 											<img class="img-fluid" style="max-width: 20px;" src="{{ asset('plantilla/img/whatsapp.png') }}" alt="Logo de Whatsapp">
@@ -527,7 +552,7 @@
 									{{ $restaurant->horario }}
 								</p>
 								<p>
-								<a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id]) }}">Ver menú completo »</a>
+								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$restaurant->nombre]) }}">Ver menú completo »</a>
 								</p>
 							</div>
 						</div>

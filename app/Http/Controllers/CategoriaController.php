@@ -30,7 +30,6 @@ class CategoriaController extends Controller
             $array_ordenado = array_replace( array_flip( $orden ), $arrPlatos );
             $platos=$array_ordenado;
         }
-        // ["1", "0", "2", "3", "4"]
         return view("categorias.index", [
             'restaurante' => $restaurante,
             'platos'=>$platos

@@ -52,6 +52,7 @@ class RestaurantController extends Controller
         $restaurant->restaurante = !empty($request->input("restaurante")) ? $request->input("restaurante") : null;
         $restaurant->cafeteria = !empty($request->input("cafeteria")) ? $request->input("cafeteria") : null;
         $restaurant->bar = !empty($request->input("bar")) ? $request->input("bar") : null;
+        $restaurant->restaurante_playa = !empty($request->input("restaurante_playa")) ? $request->input("restaurante_playa") : null;
         $restaurant->admite_reservas = !empty($request->input("admite_reservas")) ? $request->input("admite_reservas") : null;
         $restaurant->para_llevar = !empty($request->input("para_llevar")) ? $request->input("para_llevar") : null;
         $restaurant->domicilio = !empty($request->input("domicilio")) ? $request->input("domicilio") : null;
@@ -225,5 +226,21 @@ class RestaurantController extends Controller
         }
         $restaurant->update();
         return redirect()->back();
+    }
+
+    public function organizarImgs(Request $request, $restauranteId)
+    {
+        $restaurante = Restaurant::findOrFail($restauranteId);
+
+        $posiciones=$request->input('valueImgOrden');
+        if($posiciones=="[]"){
+            $posiciones="[0]";
+        }
+
+        $restaurante->update([
+            'img_orden'=>$posiciones
+        ]);
+
+        return redirect()->route('categorias.index', ['id' => $restauranteId])->with('Notificacion','Las imágenes se han organizado');
     }
 }

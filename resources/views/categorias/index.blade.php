@@ -40,6 +40,7 @@
 
     <div class="row">
         <div class="col text-right">
+            <button class="btn btn-primary btn-sm btn-ordenar-imagenes" data-toggle="modal" data-target="#ordenImagenesModal" >Ordenar imágenes del menú</button>
             <button class="btn btn-info btn-sm btn-agregar-categoria" data-toggle="modal" data-target="#exampleModal" >Agregar categoría</button>
         </div>
     </div>
@@ -66,6 +67,38 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Agregar categoría</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ordenImagenesModal" tabindex="-1" role="dialog" aria-labelledby="ordenImagenesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <form id="msform" method="POST" action="{{ route('restaurant.organizarImgs',['restauranteId'=>$restaurante->id])}}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ordenImagenesModalLabel">Ordenar imágenes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <p>Seleccione las imágenes que deben salir en los resultados de búsqueda. Máximo 4.</p>
+                        @foreach($platos as $plato)
+                        <span>
+                            <input type="checkbox" id="img{{$loop->index}}" class="checkImg" data-id="{{'posImg'.$loop->index}}">
+                            <label for="img{{$loop->index}}" class="img-plato-ordenar">
+                                <img src="{{asset('public'.$plato->imagen)}}" class="w-100">
+                            </label>
+                        </span>
+                        @endforeach
+                        <input type="hidden" value="[]" name="valueImgOrden" class="valueImgOrden">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -299,7 +332,6 @@
     </div>
 </div>
 <!-- Modal -->
-
 
 <!-- Modal de edición -->
 <div class="modal fade" id="modal_de_edicion"  style="overflow-y: scroll;" tabindex="-1" aria-labelledby="modal_de_edicion1" aria-hidden="true">
