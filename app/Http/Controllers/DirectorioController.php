@@ -187,10 +187,10 @@ class DirectorioController extends Controller
             $restaurante=$request->restaurante;
         }
 
-        $to = 'cuentasecundariadeandrison@gmail.com';
+        $to = 'foodzinder@gmail.com';
         $subject = "Correo enviado desde Food Zinder";
         $message = "
-            Nombre completo:$request->nombre.
+            Nombre completo:$request->name.
             Ciudad: $request->ciudad.
             Teléfono: $request->telefono.
             Restaurante: $restaurante.
