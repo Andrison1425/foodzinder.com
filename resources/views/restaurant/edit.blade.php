@@ -72,25 +72,25 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">+34</span>
                     </div>
-                    <input type="text" name="telefono" class="form-control" value="{{$restaurant->telefono}}" style="height:max-content;" id="telefono" aria-describedby="basic-addon3">
+                    <input type="text" name="telefono" class="form-control" style="height:max-content;" id="telefono" aria-describedby="basic-addon3">
+                </div>
+            </div>
+            <div class="form-group col-md-4 col-sm-6">
+                <label for="celular">Celular (Whatsapp)</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">+34</span>
+                    </div>
+                    <input type="text" name="celular" class="form-control" style="height:max-content;" id="celular" aria-describedby="basic-addon3">
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="ciudadd">Horario de atención</label>
-                <input  name="horario" type="text" value="{{$restaurant->horario}}" class="form-control" id="ciudadd">
+                <input  name="horario" type="text" class="form-control" id="ciudadd">
             </div>
             <div class="form-group col-md-8">
                 <label for="google_maps">Enlace a Google Maps:</label>
                 <input name="google_maps" type="text" class="form-control" value="{{$restaurant->google_maps}}" id="google_maps" placeholder="Ejemplo: https://goo.gl/maps/U4ovQFQCftxehew8A">
-            </div>
-            <div class="form-group col-md-3 text-center">
-                <label for="checkbox_si">¿Tiene WhatsApp?  </label>
-                <div class="form-check">
-                <input name="tiene_whatsapp"  class="form-check-input" type="checkbox" name="tiene_whatsapp" id="checkbox_si" {{ $restaurant->tiene_whatsapp === 1 ? "checked" : "" }}>
-                <label class="form-check-label" for="checkbox_si">
-                    SI
-                </label>
-                </div>
             </div>
         </div>
         <input type="button" name="next" class="btn btn-success m-3 float-right" value="Siguiente" />

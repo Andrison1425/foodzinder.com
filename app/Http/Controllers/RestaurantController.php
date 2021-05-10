@@ -43,6 +43,7 @@ class RestaurantController extends Controller
         $restaurant->ciudad = !empty($request->input("ciudad")) ? $request->input("ciudad") : null;
         $restaurant->pais = !empty($request->input("pais")) ? $request->input("pais") : null;
         $restaurant->telefono = !empty($request->input("telefono")) ? $request->input("telefono") : null;
+        $restaurant->celular = !empty($request->input("celular")) ? $request->input("celular") : null;
         $restaurant->google_maps = !empty($request->input("google_maps")) ? $request->input("google_maps") : null;
         $restaurant->categorias = !empty($request->input("categorias")) ? $request->input("categorias") : "[]";
 
@@ -124,7 +125,6 @@ class RestaurantController extends Controller
             }
             $restaurant->imagenes = json_encode($arrNamesImgs) ;
         }
-        $restaurant->tiene_whatsapp = !empty($request->input('tiene_whatsapp')) ? 1 : 0;
         $restaurant->horario = !empty($request->input("horario")) ? $request->input("horario") : null;
 
         $restaurant->save();
@@ -180,10 +180,6 @@ class RestaurantController extends Controller
 
         unset($request["filenames"]);
         unset($request["submit"]);
-
-        if($request['tiene_whatsapp']){
-            $request['tiene_whatsapp']=1;
-        }
 
         $restaurant->update($request->all());
         return redirect(route('restaurant.index'))->with('Notificacion', 'Restaurante editado exitosamente');

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no maximum-scale=2">
-	<meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
+	<meta name="description" content="Todos los menús de tus restaurantes en imágenes">
 	<meta name="author" content="Ansonika">
 	<title>{{$restaurant->nombre}} - Food Zinder</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
@@ -84,7 +84,10 @@
 
 	{{-- botón flotante --}}
 	<button type="button" class="btn btn-default botonflotanteparaguardado" data-toggle="modal" data-target="#modalLista">Ver mi lista</button> {{-- end botón flotante --}}
-	<!-- Modal-mi-lista -->
+    <button class="btn btn_contactar" onClick="history.back()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <!-- Modal-mi-lista -->
 	<div class="modal fade" id="modalLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -102,7 +105,7 @@
 						</div>
 						<div class="col-xs-12 col-sm">
 							<h5>@{{ item.nombre }}</h5>
-							<p class="text-muted">Precio unitario: @{{ item.precioUnitario }}</p>
+							<p class="text-muted">Precio unitario: @{{ item.precioUnitario }} €</p>
 						</div>
 						<div class="col-sm-3 col-4 col-lg-2">
 							<div class="input-group input-group-sm mb-3">
@@ -116,7 +119,7 @@
 							 </div>
 						</div>
 						<div class="col col-sm-3">
-							<p>Precio Total: @{{ item.precioCantidad }}</p>
+							<p>Precio Total: @{{ item.precioCantidad }} €</p>
 						</div>
 						<div class="col-1">
 							<a href="#" @click.prevent="borrarItemDelCarrito(item.nombre)"><i class="fas fa-trash-alt"></i></a>
@@ -379,14 +382,15 @@
                                                                                     <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
                                                                                 @endif
                                                                             @endforeach
+                                                                            <span class="ml-5">
+                                                                                @foreach($alergenoPlato as $alergeno)
+                                                                                    @if($alergeno=='15' || $alergeno=='16')
+                                                                                        <img class="img-icons-a" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </span>
                                                                         </div>
-                                                                        <span>{{ $plato->precio }} €
-                                                                            @foreach($alergenoPlato as $alergeno)
-                                                                                @if($alergeno=='15' || $alergeno=='16')
-                                                                                    <img class="img-icons-a" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
-                                                                                @endif
-                                                                            @endforeach
-                                                                        </span>
+                                                                        <span>{{ $plato->precio }} €</span>
                                                                     </div>
                                                                 </a>
                                                             </div>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Foogra - Discover & Book the best restaurantes at the best price">
+    <meta name="description" content="Todos los menús de tus restaurantes en imágenes">
 	 <meta name="author" content="Ansonika">
 	 <meta name="csrf-token" content="{{ csrf_token() }}">
 	 <title>Lista de restaurantes en imágenes - Food Zinder</title>
@@ -511,7 +511,8 @@
                                                 class="li-slider"
                                                 style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
-                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$restaurant->nombre]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
+                                            <?php $nombre=str_replace(' ', '', $restaurant->nombre); ?>
+                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$nombre]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
                                             </div>
                                         @else
                                             <div
@@ -541,9 +542,10 @@
 								</p>
 								<p class="icon telefono d-flex align-items-center" style="flex-wrap: wrap;">
 									<span href="#"> {{ $restaurant->telefono }} </span>
-                                    <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;"> Llamar</a> o
-									@if ($restaurant->tiene_whatsapp === 1)
-										<a target="_blank" title="Ir a Whatsapp" href="https://api.whatsapp.com/send?phone=34{{ $restaurant->telefono }}" class="ml-4">
+                                    <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;"> Llamar</a>
+									@if ($restaurant->celular)
+                                    o
+										<a target="_blank" title="Ir a Whatsapp" href="https://api.whatsapp.com/send?phone=34{{ $restaurant->celular }}" class="ml-4">
 											<img class="img-fluid" style="max-width: 20px;" src="{{ asset('plantilla/img/whatsapp.png') }}" alt="Logo de Whatsapp">
 										</a>
 									@endif
@@ -552,7 +554,7 @@
 									{{ $restaurant->horario }}
 								</p>
 								<p>
-								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$restaurant->nombre]) }}">Ver menú completo »</a>
+								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$nombre]) }}">Ver menú completo »</a>
 								</p>
 							</div>
 						</div>

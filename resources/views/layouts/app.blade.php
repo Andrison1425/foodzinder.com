@@ -182,7 +182,7 @@
 							<div class="box_1">
 								<h3>Registra tu restaurante</h3>
 								<p>Te ayudaremos a crear tu <strong>menú</strong> en <strong>imágenes</strong></p>
-								<a href="{{route('users.createRestaurant')}}" class="btn_1">Registrar</a>
+								<a href="{{route('users.createRestaurant')}}" class="btn_1">Contáctanos</a>
 							</div>
 					</div>
 				</div>

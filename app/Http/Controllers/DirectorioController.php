@@ -182,14 +182,26 @@ class DirectorioController extends Controller
 
     public function enviarCorreo(Request $request)
     {
-        $to = $request->correoRestaurante;
+        $restaurante='';
+        if($request->restaurante){
+            $restaurante=$request->restaurante;
+        }
+
+        $to = 'cuentasecundariadeandrison@gmail.com';
         $subject = "Correo enviado desde Food Zinder";
-        $message = $request->mensaje;
-        $headers = "From: $request->email";
+        $message = "
+            Nombre completo:$request->nombre.
+            Ciudad: $request->ciudad.
+            Teléfono: $request->telefono.
+            Restaurante: $restaurante.
+            email: $request->email.
+            Mensaje: $request->mensaje
+        ";
+        $headers = "Desde: $request->email";
 
         mail($to, $subject, $message, $headers);
 
-        return redirect()->route('directorio.detail',[$request->id])->with("mensaje","Se ha enviado el mensaje");
+        return redirect()->route('index',[$request->id])->with("Notificacion","Se ha enviado el mensaje");
     }
 
     public function obtenerResultadosFiltros(Request $request)

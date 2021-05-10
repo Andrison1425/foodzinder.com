@@ -57,7 +57,9 @@ header{
 }
 
 .form-check-label {
-    padding-left: 0.25rem !important;
+    margin-left: 0.5rem !important;
+    font-weight: 400 !important;
+    color:#777 !important;
 }
 
 .imagen_izquierda_modal {

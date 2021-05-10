@@ -1263,8 +1263,8 @@
 
 .btn_contactar{
     position: fixed;
-    bottom: 22px;
-    right: 143px;
+    top: 130px;
+    left: 7px;
     opacity: 1;
     cursor: pointer;
     z-index: 1000;
