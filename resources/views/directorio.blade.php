@@ -503,16 +503,18 @@
                                             $platos=$array_ordenado;
                                         }
                                         $platos=array_slice($platos,0,4);
-                                     ?>
-                                     @foreach ($platos as $plato)
 
+                                        $nombre=str_replace(' ', '-', $restaurant->nombre);
+                                     ?>
+
+                                     @foreach ($platos as $plato)
                                         @if($loop->index == 3)
                                             <div
                                                 class="li-slider"
                                                 style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
-                                            <?php $nombre=str_replace(' ', '', $restaurant->nombre); ?>
-                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$nombre]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
+
+                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'ciudad'=>$restaurant->ciudad,'name'=>$nombre]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
                                             </div>
                                         @else
                                             <div
@@ -554,7 +556,7 @@
 									{{ $restaurant->horario }}
 								</p>
 								<p>
-								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id,'name'=>$nombre]) }}">Ver menú completo »</a>
+								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id, 'ciudad'=>$restaurant->ciudad, 'name'=>$nombre]) }}">Ver menú completo »</a>
 								</p>
 							</div>
 						</div>

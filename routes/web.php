@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware'=>'auth','middleware' => 'admin'], function () {
-    Route::get('/restaurant', 'RestaurantController@index')->name('restaurant.index');
+    Route::get('/tablero', 'RestaurantController@index')->name('restaurant.index');
     Route::get('/restaurant/listado', 'RestaurantController@listado')->name('restaurant.listado');
     Route::get('/restaurant/create', 'RestaurantController@create')->name('restaurant.create');
     Route::post('/restaurant/store', 'RestaurantController@store')->name('restaurant.store');
@@ -54,7 +54,7 @@ Route::group(['middleware'=>'auth','middleware' => 'admin'], function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/directorio', 'DirectorioController@index')->name('directorio');
-Route::get('/d/{id}/{name}', 'DirectorioController@show')->name('directorio.detail');
+Route::get('/{id}/{ciudad}/{name}', 'DirectorioController@show')->name('directorio.detail');
 Route::post('/enviarCorreo', 'DirectorioController@enviarCorreo')->name('directorio.enviarCorreo');
 Route::post('/directorio/obtenerResultadosFiltros', 'DirectorioController@obtenerResultadosFiltros')->name('directorio.obtenerResultadosFiltros');
 

@@ -16,7 +16,7 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         if(auth()->user()){
-            if(auth()->user()->email=='admin@admin.com'){
+            if(auth()->user()->profile==1){
                 return $next($request);
             }else{
                 return redirect()->route('index');

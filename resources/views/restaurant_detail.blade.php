@@ -210,7 +210,7 @@
                <div class="row no-gutters custom-search-input">
                   <div class="col-lg-6">
                      <div class="form-group">
-                        <input name="palabra_busqueda" class="form-control" type="text" placeholder="Tipo de cocina, nombre del restaurante...">
+                        <input name="palabra_busqueda" class="form-control" type="text" placeholder="{{$restaurant->nombre}}">
                         <i class="icon_search"></i>
                      </div>
                   </div>
