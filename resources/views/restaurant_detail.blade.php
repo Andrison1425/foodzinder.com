@@ -375,11 +375,23 @@
                                                                     <div class="item_title_ind">
                                                                         <h3>{{ $plato->nombre }}</h3>
                                                                         <div class="cont-alergenos-sec">
-                                                                            <?php $alergenoPlato=json_decode($plato->alergenos); ?>
+                                                                            <?php
+
+                                                                                $alergenoPlato=json_decode($plato->alergenos);
+                                                                                $nombreAlergenos=[
+                                                                                    'Gluten','Crustáceos','Huevos','Pescado',
+                                                                                    'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                                                                                    'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                                                                                    'Moluscos','Altramuces'
+                                                                                ];
+                                                                            ?>
                                                                             @foreach($alergenoPlato as $alergeno)
                                                                                 @if($alergeno=='15' || $alergeno=='16')
                                                                                 @else
-                                                                                    <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                    <span class="cont-info-alergenos">
+                                                                                        <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                        <h6>{{$nombreAlergenos[$alergeno-1]}}</h6>
+                                                                                    </span>
                                                                                 @endif
                                                                             @endforeach
                                                                             <span class="ml-5">

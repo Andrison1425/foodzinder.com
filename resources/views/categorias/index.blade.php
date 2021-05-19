@@ -211,12 +211,21 @@
                                                 </div>
 
                                                 <div class="form-group cont-alergenos-crear">
-                                                    <?php $cantAlergenos=16;?>
+                                                    <?php
+                                                        $cantAlergenos=16;
+                                                        $nombreAlergenos=[
+                                                            'Gluten','Crustáceos','Huevos','Pescado',
+                                                            'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                                                            'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                                                            'Moluscos','Altramuces'
+                                                        ];
+                                                    ?>
                                                     @for($i = 1; $i <=$cantAlergenos; $i++)
                                                         <span>
                                                             <input type="checkbox" id="alergeno{{$i.$categoria}}" class="checkAlergeno" data-id="{{'pos'.$iCategoria}}">
                                                             <label for="alergeno{{$i.$categoria}}">
                                                                 <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" alt="">
+                                                                @if($i!==15 && $i!==16)<p>{{$nombreAlergenos[$i-1]}}</p>@endif
                                                             </label>
                                                         </span>
                                                     @endfor
@@ -276,7 +285,10 @@
                                                 <div class="cont-alergenos">
                                                     <?php $alergenos=json_decode($plato->alergenos);?>
                                                     @foreach($alergenos as $alergeno)
-                                                        <img src="{{asset('public/images/alergenos/'.$alergeno.'.png')}}" alt="">
+                                                        <span>
+                                                            <img src="{{asset('public/images/alergenos/'.$alergeno.'.png')}}" alt="">
+                                                            @if($alergeno!==15 && $alergeno!==16)<p>{{$nombreAlergenos[$alergeno-1]}}</p>@endif
+                                                        </span>
                                                     @endforeach
                                                 </div>
 
@@ -354,15 +366,20 @@
                             <label for="descripcion">Descripcion:</label>
                             <textarea name="descripcion" id="descripcion" class="form-control w-100" rows="5" v-model="editando.descripcion"></textarea>
 
-                            <?php $cantAlergenos=16;?>
-                            @for($i = 1; $i <=$cantAlergenos; $i++)
-                                <span>
-                                    <input type="checkbox" id="alergeno{{$i}}" class="checkAlergenosEdit" data-id="{{'pos'}}">
-                                    <label for="alergeno{{$i}}">
-                                        <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" class="img-alergenos-edit" alt="">
-                                    </label>
-                                </span>
+                            <?php
+                                $cantAlergenos=16;
+                            ?>
+                            <span class="cont-alergenos-edit">
+                                @for($i = 1; $i <=$cantAlergenos; $i++)
+                                    <span>
+                                        <input type="checkbox" id="alergeno{{$i}}" class="checkAlergenosEdit" data-id="{{'pos'}}">
+                                        <label for="alergeno{{$i}}">
+                                            <img src="{{asset('public/images/alergenos/'.$i.'.png')}}" class="img-alergenos-edit" alt="">
+                                            @if($i!==15 && $i!==16)<p>{{$nombreAlergenos[$i-1]}}</p>@endif
+                                        </label>
+                                    </span>
                                 @endfor
+                            </span>
                                 <input type="hidden" :value=`${JSON.stringify(editando.alergenos)}` class="numAlergenosEdit" name="alergenos" />
 
                             <div class="input-group my-3">

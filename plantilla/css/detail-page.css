@@ -1258,7 +1258,7 @@
 .img-alergeno{
     width: 4rem;
     margin:0 0 0.5rem 2%;
-    height: 5rem;
+    height: max-content;
 }
 
 .btn_contactar{
@@ -1282,12 +1282,36 @@
     color:#fff;
 }
 
-.img-alergenos-sec{
-    width: 2rem;
-    height: 3rem;
-}
-
 .img-icons-a{
     width: 2rem;
     height: 2.5rem;
+}
+
+.cont-alergenos-sec{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cont-info-alergenos{
+    width: 12%;
+    display: flex;
+    justify-content: center;
+    margin: 0 0.5rem 0.5rem 0;
+    height: max-content;
+    flex-direction: column;
+}
+
+.cont-info-alergenos h6{
+    margin-bottom: 0;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    text-align: center;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.cont-info-alergenos img{
+    width: 2rem;
+    height: auto;
 }
