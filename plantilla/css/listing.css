@@ -1062,3 +1062,14 @@ span.infobox_rate {
           color:#f67599 !important;
           cursor:pointer;
       }
+
+
+.ordenar{
+    font-size: 16px;
+}
+
+.ordenar select{
+    padding:0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}

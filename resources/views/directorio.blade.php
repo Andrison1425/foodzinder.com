@@ -453,7 +453,6 @@
 
 
 				</aside>
-                </form>
                 <?php
                     $filtros=$request->all();
                     unset($filtros["_method"]);
@@ -466,6 +465,17 @@
 						<h2 class="title-directorio m-0">
                             {{count($restaurantes_sin_paginar)}} resultados
                             <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="ordenar">Ordernar por:</label>
+                                </div>
+                                <select class="custom-select inputs" name="orden" id="ordenar">
+                                    <option value="recientes" @if($request->ordenarValue=='recientes'){{'selected'}} @endif>Más recientes</option>
+                                    <option value="antiguos" @if($request->ordenarValue=='antiguos'){{'selected'}} @endif>Más antiguos</option>
+                                    <option value="vistas" @if($request->ordenarValue=='vistas'){{'selected'}} @endif>Más Vistos</option>
+                                    <option value="az" @if($request->ordenarValue=='az'){{'selected'}} @endif>A-Z</option>
+                                </select>
+                            </div>
                         </h2>
 
 						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
@@ -575,6 +585,8 @@
 						<a href="{{ $restaurantes->links()->elements[0][ count($restaurantes->links()->elements[0]) ] }}">&raquo;</a>
 					</div> --}}
 				</div>
+                </form>
+
 				<!-- /col -->
 			</div>
 		</div>
@@ -661,8 +673,8 @@
 
 		function consultar(enviar=false)
 		{
-
             if(window.innerWidth<990 && enviar ==false){
+
                 document.querySelector("._method").value="post";
 
                 const resp=fetch("directorio/obtenerResultadosFiltros",{
@@ -685,6 +697,7 @@
                     console.log(err);
                 });
             }else{
+
                 for (let i = 0; i < all_inputs.length; i++) {
 				    var input = all_inputs[i];
                     input.style.display="none";
@@ -694,6 +707,10 @@
                 formulario.submit();
             }
 		}
+
+        document.querySelector("#ordenar").onchange=e=>{
+            consultar(true);
+        }
 
 		function broadcast(informacion_a_transmitir, url) {
 			$.ajax({

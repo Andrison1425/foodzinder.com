@@ -58,6 +58,8 @@ Route::get('/{id}/{ciudad}/{name}', 'DirectorioController@show')->name('director
 Route::post('/enviarCorreo', 'DirectorioController@enviarCorreo')->name('directorio.enviarCorreo');
 Route::post('/directorio/obtenerResultadosFiltros', 'DirectorioController@obtenerResultadosFiltros')->name('directorio.obtenerResultadosFiltros');
 
+Route::post('/directorio/obtenerResultadosNombre', 'DirectorioController@obtenerResultadosNombre')->name('directorio.obtenerResultadosNombre');
+
 //Crear middleware
 Route::get('/contactar', 'UserController@createRestaurant')->name('users.createRestaurant');
 Route::post('/users/createRestaurant', 'UserController@restaurantStore')->name('users.restaurantStore');

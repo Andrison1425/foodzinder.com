@@ -26,6 +26,7 @@
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
+
 	<!-- BASE CSS -->
 	<link href="{{asset('plantilla/css/bootstrap_customized.min.css')}}" rel="stylesheet">
 	<link href="{{asset('plantilla/css/style.css')}}" rel="stylesheet">
@@ -579,7 +580,6 @@
     <script src="{{asset('plantilla/js/specific_detail.js')}}"></script>
 	<script src="{{asset('plantilla/js/datepicker.min.js')}}"></script>
 	<script src="{{asset('plantilla/js/datepicker_func_1.js')}}"></script>
-
 	<script>
 		let boton_favorito = document.querySelector('#boton_para_favorito');
 		let restaurantId = boton_favorito.dataset.restaurantid;
@@ -755,7 +755,7 @@
             // Assign active class to nav links while scolling
             let cambiar=false;
             $('.page-section').each(function(i) {
-                if ($(this).position().top <= scrollDistance+150) {
+                if ($(this).position().top <= scrollDistance+250) {
                     document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
 
                     $('.navigation a.active').removeClass('active');

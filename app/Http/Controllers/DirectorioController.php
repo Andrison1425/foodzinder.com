@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Directorio;
 use Illuminate\Http\Request;
 use App\Restaurant;
-use Illuminate\Support\Facades\DB;
 
 class DirectorioController extends Controller
 {
@@ -96,7 +95,22 @@ class DirectorioController extends Controller
         if ($zumos_y_batidos) {array_push($filtro, ['zumos_y_batidos', 'like', 'on']);}
 
         $restaurantes_sin_paginar = Restaurant::where($filtro)->where('status', 1)->get();
-        $restaurantes = Restaurant::where($filtro)->where('status', 1)->paginate(6);
+        $restaurantes = '';
+
+        if($request->input('orden')){
+            $request['ordenarValue']=$request->input('orden');
+
+            if($request->input('orden')=='recientes'){
+                $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
+            }else if($request->input('orden')=='antiguos'){
+                $restaurantes =Restaurant::where($filtro)->where('status', 1)->paginate(6);
+            }else if($request->input('orden')=='az'){
+                $restaurantes =Restaurant::orderBy('nombre', 'asc')->where($filtro)->where('status', 1)->paginate(6);
+            }
+        }else{
+            $request['ordenarValue']='';
+            $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
+        }
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);
         return view('directorio', ["request" => $request,
@@ -165,9 +179,11 @@ class DirectorioController extends Controller
                                          ]);
     }
 
-    public function edit(Directorio $directorio)
+    public function obtenerResultadosNombre(Request $request)
     {
-        //
+        $nombre=$request->palabra_busqueda;
+        $restaurantes =Restaurant::where('nombre', 'like', "%$nombre%")->where('status', 1)->limit(6)->get();
+        return json_encode($restaurantes);
     }
 
     public function update(Request $request, Directorio $directorio)

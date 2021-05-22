@@ -20,6 +20,7 @@
 
 		<!-- GOOGLE WEB FONT -->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
 		<!-- BASE CSS -->
 		<link href="{{asset('plantilla/css/bootstrap_customized.min.css')}}" rel="stylesheet">
@@ -142,17 +143,39 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h1 class="titulo">Todos los <span class="rosa">menús</span> de tus restaurantes <span class="rosa">en imágenes</span></h1>
-						<div class="box_booking_2">
-							<form method="post" action="{{ route('directorio') }}">
-								<input name="_method" type="hidden" value="get">
+						<div class="box_booking_2" style="overflow:visible;">
+							<form method="post" class="fetchForm" action="{{ route('directorio') }}" autocomplete="off">
 								@csrf
+                                <input name="_method" class="_method" type="hidden" value="get">
 								<div class="main">
 									<div class="form-group">
-										<input name="palabra_busqueda" class="form-control" placeholder="Nombre del restaurante...">
-										<i class="icon_search"></i>
+                                        <input name="palabra_busqueda" value="" class="form-control palabraBusqueda" placeholder="Nombre del restaurante...">
+                                        <i class="icon_search"></i>
+                                        <div class="resultadosNombre ocultarNombre">
+
+                                        </div>
 									</div>
+
+
 									<div class="form-group">
-										<input name="ciudad" class="form-control" placeholder="Ciudad">
+                                    <select  name="ciudad" class="form-control selectCiudad" id="ciudad">
+                                        <option value="">Ciudad</option>
+                                        <option value="Madrid">Madrid</option>
+                                        <option value="Barcelona">Barcelona</option>
+                                        <option value="Sevilla">Sevilla</option>
+                                        <option value="Bilbao">Bilbao</option>
+                                        <option value="Zaragoza">Zaragoza</option>
+                                        <option value="Granada">Granada</option>
+                                        <option value="Córdoba">Córdoba</option>
+                                        <option value="San Sebastián">San Sebastián</option>
+                                        <option value="Salamanca">Salamanca</option>
+                                        <option value="Valencia">Valencia</option>
+                                        <option value="Toledo">Toledo</option>
+                                        <option value="Burgos">Burgos</option>
+                                        <option value="Málaga">Málaga</option>
+                                        <option value="Tarifa">Tarifa</option>
+                                        <option value="Bolonia, Cádiz">Bolonia, Cádiz</option>
+                                    </select>
 										<i class="icon_pin_alt"></i>
 									</div>
 									<button type="submit" class="btn_1 full-width mb_5">Buscar</button>
@@ -246,6 +269,8 @@
 		<script src="{{asset('plantilla/js/common_scripts.min.js')}}"></script>
 		<script src="{{asset('plantilla/js/common_func.js')}}"></script>
 		<script src="{{asset('plantilla/assets/validate.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 		<script>
 		function sliderhome() {
 			$current = $('.slider-home img.active');
@@ -266,6 +291,64 @@
     </script>
     <script>
         $("#modalMensaje").modal('show');
+        $('.selectCiudad').select2({
+            language: {
+                noResults: function() {
+                    return "Ciudad no disponible";
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            }
+        });
+        $(document).ready(function() {
+            document.querySelector(".select2-container").style.width="100%";
+            let timeout;
+
+            document.querySelector(".fetchForm").onsubmit=e=>{
+                document.querySelector("._method").value="get";
+            }
+            let resultadosNombre=document.querySelector(".resultadosNombre");
+
+            document.querySelector(".palabraBusqueda").onblur=()=>{
+                timeout=setTimeout(()=>{
+                    document.querySelector(".resultadosNombre").classList.add("ocultarNombre");
+                },500);
+            }
+
+            document.querySelector(".palabraBusqueda").oninput=e=>{
+                document.querySelector(".resultadosNombre").classList.remove("ocultarNombre");
+                clearTimeout(timeout);
+                document.querySelector("._method").value="post";
+                timeout=setTimeout(()=>{
+
+                    const resp=fetch("directorio/obtenerResultadosNombre",{
+                        headers:{
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        method:'POST',
+                        body: new FormData(document.querySelector(".fetchForm"))
+                    }).then(function(response) {
+                        if(response.ok) {
+                            return response.json();
+                        } else {
+                            throw "Error en la llamada Ajax";
+                        }
+                    })
+                    .then(function(json) {
+                        resultadosNombre.innerHTML='';
+                        json.forEach(ele=>{
+                            resultadosNombre.innerHTML+=`
+                                <a href="${ele.id}/${ele.ciudad}/${ele.nombre}">${ele.nombre}</a>
+                            `;
+                        });
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+                },1000);
+            }
+        });
     </script>
 	</body>
 </html>

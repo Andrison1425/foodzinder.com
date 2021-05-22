@@ -283,7 +283,16 @@
                                                 </div>
 
                                                 <div class="cont-alergenos">
-                                                    <?php $alergenos=json_decode($plato->alergenos);?>
+                                                    <?php
+
+                                                        $alergenos=json_decode($plato->alergenos);
+                                                        $nombreAlergenos=[
+                                                            'Gluten','Crustáceos','Huevos','Pescado',
+                                                            'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                                                            'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                                                            'Moluscos','Altramuces'
+                                                        ];
+                                                    ?>
                                                     @foreach($alergenos as $alergeno)
                                                         <span>
                                                             <img src="{{asset('public/images/alergenos/'.$alergeno.'.png')}}" alt="">
@@ -368,6 +377,13 @@
 
                             <?php
                                 $cantAlergenos=16;
+                                $nombreAlergenos=[
+                                    'Gluten','Crustáceos','Huevos','Pescado',
+                                    'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                                    'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                                    'Moluscos','Altramuces'
+                                ];
+
                             ?>
                             <span class="cont-alergenos-edit">
                                 @for($i = 1; $i <=$cantAlergenos; $i++)
