@@ -512,8 +512,10 @@
                                             $array_ordenado = array_replace( array_flip( $orden ), $arrPlatos );
                                             $platos=$array_ordenado;
                                         }
-                                        $platos=array_slice($platos,0,4);
 
+                                        if($arrPlatos){
+                                            $platos=array_slice($platos,0,4);
+                                        }
                                         $nombre=str_replace(' ', '-', $restaurant->nombre);
                                      ?>
 

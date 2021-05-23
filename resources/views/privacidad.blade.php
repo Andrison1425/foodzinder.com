@@ -8,7 +8,7 @@
     <meta name="description" content="Todos los menús de tus restaurantes en imágenes">
 	 <meta name="author" content="Ansonika">
 	 <meta name="csrf-token" content="{{ csrf_token() }}">
-	 <title>Solicitar registro - Food Zinder</title>
+	 <title>Políticas de privacidad - Food Zinder</title>
 
 	 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -167,94 +167,12 @@
                 <div class="sign_up ">
                     <div class="head">
                         <div class="title">
-                        <h3>Solicitar registro</h3>
+                        <h3>Políticas de privacidad</h3>
                     </div>
                     </div>
                     <!-- /head -->
-                    <form method="POST" action="{{ route('directorio.enviarCorreo') }}">
-                        @csrf
-                        <div class="main">
-                            <div class="form-group">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="*Nombre completo" required autocomplete="name">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                    <!--Aqui van las politicas-->
 
-                            </div>
-                            <div class="form-group">
-                                <input id="restaurante" type="text" class="form-control @error('restaurante') is-invalid @enderror" name="restaurante" value="{{ old('restaurante') }}" placeholder="Nombre del restaurante" autocomplete="restaurante">
-                                @error('restaurante')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                            </div>
-                            <div class="form-group">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="*Email" required autocomplete="email">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <select  name="ciudad" class="form-control selectCiudad @error('email') is-invalid @enderror" required id="ciudad">
-                                    <option value="" selected>*Ciudad</option>
-                                    <option value="Madrid">Madrid</option>
-                                    <option value="Barcelona">Barcelona</option>
-                                    <option value="Sevilla">Sevilla</option>
-                                    <option value="Bilbao">Bilbao</option>
-                                    <option value="Zaragoza">Zaragoza</option>
-                                    <option value="Granada">Granada</option>
-                                    <option value="Córdoba">Córdoba</option>
-                                    <option value="San Sebastián">San Sebastián</option>
-                                    <option value="Salamanca">Salamanca</option>
-                                    <option value="Valencia">Valencia</option>
-                                    <option value="Toledo">Toledo</option>
-                                    <option value="Burgos">Burgos</option>
-                                    <option value="Málaga">Málaga</option>
-                                    <option value="Tarifa">Tarifa</option>
-                                    <option value="Bolonia, Cádiz">Bolonia, Cádiz</option>
-                                </select>
-                                @error('ciudad')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <input id="telefono" type="telefono" class="form-control @error('telefono') is-invalid @enderror" name="telefono" placeholder="*Teléfono" required autocomplete="telefono">
-                                @error('telefono')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control @error('telefono') is-invalid @enderror" id="mensaje" name="mensaje" rows="3" required placeholder="*Mensaje" autocomplete="mensaje"></textarea>
-                                @error('mensaje')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <input class="form-check-input m-2" style="position:relative;" type="checkbox" value="" id="defaultCheck2">
-                                <label class="form-check-label" >
-                                    Acepto las condiciones legales y la política de protección de datos.
-                                </label>
-                                <small id="help" class="form-text text-muted">Los campos con * son obligatorios.</small>
-                            </div>
-                            <div class="text-center">
-                            <button type="submit" class="mb-1 w-100 btn-form btn btn-primary" disabled>
-                                Enviar
-                            </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
                 <!-- /box_booking -->
             </div>

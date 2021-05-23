@@ -12,10 +12,12 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
+        "ilovepdf/iloveimg-php": "^1.1",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
-        "laraveles/spanish": "^1.5"
+        "laraveles/spanish": "^1.5",
+        "tinify/tinify": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

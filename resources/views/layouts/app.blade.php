@@ -152,7 +152,6 @@
                                         <input name="palabra_busqueda" value="" class="form-control palabraBusqueda" placeholder="Nombre del restaurante...">
                                         <i class="icon_search"></i>
                                         <div class="resultadosNombre ocultarNombre">
-
                                         </div>
 									</div>
 
@@ -181,9 +180,6 @@
 									<button type="submit" class="btn_1 full-width mb_5">Buscar</button>
 								</div>
 							</form>
-
-
-
 						</div>
 					</div>
 			<!-- columna 2-->
