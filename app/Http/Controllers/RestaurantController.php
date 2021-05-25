@@ -31,7 +31,7 @@ class RestaurantController extends Controller
         return view("restaurant.create");
     }
 
-    public function comprimir($ruta){
+    public function comprimir($ruta,$id){
         //Compress Image Code Here
         $filepath = $ruta;
 
@@ -41,19 +41,16 @@ class RestaurantController extends Controller
             $source->toFile($filepath);
         } catch(\Tinify\AccountException $e) {
             // Verify your API key and account limit.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('categorias.index', ['id' => $id])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ClientException $e) {
             // Check your source image and request options.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('categorias.index', ['id' => $id])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ServerException $e) {
             // Temporary issue with the Tinify API.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('categorias.index', ['id' => $id])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ConnectionException $e) {
             // A network connection error occurred.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(Exception $e) {
-            // Something else went wrong, unrelated to the Tinify API.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('categorias.index', ['id' => $id])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         }
     }
 
@@ -107,7 +104,7 @@ class RestaurantController extends Controller
                 $name = $tmpFile->getFilename().$extension;
 
                 $tmpFile->move(public_path().'/images/restaurantes/', $name);
-                $this->comprimir(public_path().'/images/restaurantes/'.$name);
+                $this->comprimir(public_path().'/images/restaurantes/'.$name,$restaurant->id);
                 $arrNamesImgs[] = '/images/restaurantes/'.$name;
             }
             $request['imagenes'] = json_encode($arrNamesImgs) ;
