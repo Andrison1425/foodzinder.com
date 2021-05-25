@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+Route::get('/privacidad', function () {
+    return view('privacidad');
+})->name('privacidad');
+
+Route::get('/condiciones', function () {
+    return view('condiciones');
+})->name('condiciones');
+
 Auth::routes();
 
 Route::group(['middleware'=>'auth','middleware' => 'admin'], function () {

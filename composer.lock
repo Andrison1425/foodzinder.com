@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "27f0479545899b659f4adefe393cec53",
+=======
+    "content-hash": "c2f92a55ab03635382b78c4b2b7f8279",
+>>>>>>> 85c8d47664b8e9c4cb7579c3ff6bbbd861136b3f
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -758,8 +762,58 @@
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
                 "source": "https://github.com/guzzle/psr7/tree/1.8.2"
+<<<<<<< HEAD
             },
             "time": "2021-04-26T09:17:50+00:00"
+=======
+            },
+            "time": "2021-04-26T09:17:50+00:00"
+        },
+        {
+            "name": "ilovepdf/iloveimg-php",
+            "version": "v1.1.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ilovepdf/iloveimg-php.git",
+                "reference": "e825be5c31c81971b52caebd372e54846528c7f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ilovepdf/iloveimg-php/zipball/e825be5c31c81971b52caebd372e54846528c7f4",
+                "reference": "e825be5c31c81971b52caebd372e54846528c7f4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Iloveimg\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "iloveimg",
+                    "email": "info@iloveimg.com"
+                }
+            ],
+            "description": "iLoveIMG Php Api",
+            "homepage": "https://iloveimg.com/",
+            "support": {
+                "issues": "https://github.com/ilovepdf/iloveimg-php/issues",
+                "source": "https://github.com/ilovepdf/iloveimg-php/tree/v1.1.15"
+            },
+            "time": "2019-05-30T12:35:52+00:00"
+>>>>>>> 85c8d47664b8e9c4cb7579c3ff6bbbd861136b3f
         },
         {
             "name": "laravel/framework",

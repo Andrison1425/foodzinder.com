@@ -85,50 +85,30 @@
 						<a href="{{ url('/') }}"><img src="{{asset('plantilla/img/logo.svg')}}" width="140" height="35" alt=""></a>
 					</div>
 					@guest
-						<ul>
-							<li><a href="{{ route('login') }}" class="ico-login">Iniciar Sesión / Registrarse</a></li>
-						</ul>
+
 					@else
-						@if(Auth::User()->profile === 1)
-							<div class="dropdown show">
-								<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Administrador
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								    <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
-                                    <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
-                                    <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
-                                    <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-									onclick="event.preventDefault();
-													document.getElementById('logout-form').submit();">
-									{{ __('Logout') }}
-								</a>
+					@if(Auth::User()->profile === 1)
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administrador
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
+                                <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
+                                <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
+                                <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
 
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-								</div>
-							</div>
-						@else
-							<div class="dropdown show">
-								<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									{{ Auth::user()->name }}
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="{{ route('directorio') }}">Listar Restaurantes</a>
-								<a class="dropdown-item" href="{{ route('logout') }}"
-									onclick="event.preventDefault();
-													document.getElementById('logout-form').submit();">
-									{{ __('Logout') }}
-								</a>
-
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-								</div>
-							</div>
-						@endif
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            </div>
+                        </div>
+					@endif
 
 					@endguest
 				</nav>
@@ -465,17 +445,7 @@
 						<h2 class="title-directorio m-0">
                             {{count($restaurantes_sin_paginar)}} resultados
                             <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="ordenar">Ordernar por:</label>
-                                </div>
-                                <select class="custom-select inputs" name="orden" id="ordenar">
-                                    <option value="recientes" @if($request->ordenarValue=='recientes'){{'selected'}} @endif>Más recientes</option>
-                                    <option value="antiguos" @if($request->ordenarValue=='antiguos'){{'selected'}} @endif>Más antiguos</option>
-                                    <option value="vistas" @if($request->ordenarValue=='vistas'){{'selected'}} @endif>Más Vistos</option>
-                                    <option value="az" @if($request->ordenarValue=='az'){{'selected'}} @endif>A-Z</option>
-                                </select>
-                            </div>
+
                         </h2>
 
 						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
@@ -512,8 +482,10 @@
                                             $array_ordenado = array_replace( array_flip( $orden ), $arrPlatos );
                                             $platos=$array_ordenado;
                                         }
-                                        $platos=array_slice($platos,0,4);
 
+                                        if($arrPlatos){
+                                            $platos=array_slice($platos,0,4);
+                                        }
                                         $nombre=str_replace(' ', '-', $restaurant->nombre);
                                      ?>
 
@@ -552,16 +524,29 @@
 										<a href="{{ $restaurant->google_maps }}" target="_blank">VER MAPA</a>
 									@endif
 								</p>
-								<p class="icon telefono d-flex align-items-center" style="flex-wrap: wrap;">
-									<span href="#"> {{ $restaurant->telefono }} </span>
-                                    <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;"> Llamar</a>
-									@if ($restaurant->celular)
-                                    o
-										<a target="_blank" title="Ir a Whatsapp" href="https://api.whatsapp.com/send?phone=34{{ $restaurant->celular }}" class="ml-4">
-											<img class="img-fluid" style="max-width: 20px;" src="{{ asset('plantilla/img/whatsapp.png') }}" alt="Logo de Whatsapp">
-										</a>
-									@endif
-								</p>
+                                <span class="@if($restaurant->telefono) {{'telefono'}}@endif icon d-flex align-items-center">
+                                    <p class=" d-flex align-items-center" style="flex-wrap: wrap;">
+                                        @if($restaurant->telefono)
+
+                                            <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;">
+                                                <span href="#"> {{ $restaurant->telefono }} </span>
+                                                Llamar
+                                            </a>
+                                        @endif
+
+                                        @if($restaurant->celular && $restaurant->telefono)
+                                            <span class="mr-3">
+                                                o
+                                            </span>
+                                        @endif
+                                        @if ($restaurant->celular)
+
+                                            <a target="_blank" title="Ir a Whatsapp" href="https://api.whatsapp.com/send?phone=34{{ $restaurant->celular }}" >
+                                                <img class="img-fluid" style="max-width: 40px;" src="{{ asset('plantilla/img/whatsapp.png') }}" alt="Logo de Whatsapp">
+                                            </a>
+                                        @endif
+                                    </p>
+                                </span>
 								<p>
 									{{ $restaurant->horario }}
 								</p>
@@ -606,8 +591,8 @@
 						</ul>
 					</div>
 					<ul class="additional_links">
-						<li><a href="#0">Términos y condiciones</a></li>
-						<li><a href="#0">Políticas de privacidad</a></li>
+                        <li><a href="{{route('condiciones')}}">Términos y condiciones</a></li>
+                        <li><a href="{{route('privacidad')}}">Políticas de privacidad</a></li>
 						<li><span>{{date('Y')}} © Food Zinder</span></li>
 					</ul>
 				</div>
@@ -707,10 +692,6 @@
                 formulario.submit();
             }
 		}
-
-        document.querySelector("#ordenar").onchange=e=>{
-            consultar(true);
-        }
 
 		function broadcast(informacion_a_transmitir, url) {
 			$.ajax({

@@ -51,6 +51,32 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index', ['id' => $request->id])->with('Notificacion','Categoría agregada');
     }
 
+    public function comprimir($ruta){
+        //Compress Image Code Here
+        $filepath = $ruta;
+
+        try {
+            \Tinify\setKey(env("TINIFY_API_KEY"));
+            $source = \Tinify\fromFile($filepath);
+            $source->toFile($filepath);
+        } catch(\Tinify\AccountException $e) {
+            // Verify your API key and account limit.
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        } catch(\Tinify\ClientException $e) {
+            // Check your source image and request options.
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        } catch(\Tinify\ServerException $e) {
+            // Temporary issue with the Tinify API.
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        } catch(\Tinify\ConnectionException $e) {
+            // A network connection error occurred.
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        } catch(Exception $e) {
+            // Something else went wrong, unrelated to the Tinify API.
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        }
+    }
+
     public function agregarProducto(Request $request)
     {
         if ($request->input('file')) {
@@ -67,8 +93,19 @@ class CategoriaController extends Controller
             // this just to help us get file info.
             $tmpFile = new File($tmpFilePath);
 
-            $name = $tmpFile->getFilename().'.png';
+            //get file extension
+            $extension = $tmpFile->getMimeType();
+
+            if($extension=='image/png'){
+                $extension='.png';
+            }else{
+                $extension='.jpg';
+            }
+            $name = $tmpFile->getFilename().$extension;
             $tmpFile->move(public_path().'/images/platos/', $name);
+
+            $this->comprimir(public_path().'/images/platos/'.$name);
+
             // Preparamos el producto:
             $plato['nombre'] = $request->input('nombre');
             $plato['precio'] = $request->input('precio');
@@ -127,8 +164,18 @@ class CategoriaController extends Controller
              // this just to help us get file info.
              $tmpFile = new File($tmpFilePath);
 
-             $name = $tmpFile->getFilename().'.png';
+             $extension = $tmpFile->getMimeType();
+
+             if($extension=='image/png'){
+                $extension='.png';
+             }else{
+                $extension='.jpg';
+             }
+             $name = $tmpFile->getFilename().$extension;
+
              $tmpFile->move(public_path().'/images/platos/', $name);
+
+             $this->comprimir(public_path().'/images/platos/'.$name);
 
              $imagen='/images/platos/'.$name;
 
