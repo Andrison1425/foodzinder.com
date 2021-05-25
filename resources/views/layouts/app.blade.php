@@ -75,64 +75,44 @@
 						<img src="{{asset('plantilla/img/logo.svg')}}" width="200" height="50" alt="">
 					</a>
 				</div>
-				<a href="#0" class="open_close">
-					<i class="icon_menu"></i><span>Menu</span>
-				</a>
-				<nav class="main-menu">
-					<div id="header_menu">
-						<a href="#0" class="open_close">
-							<i class="icon_close"></i><span>Menu</span>
-						</a>
-						<a href="{{ url('/') }}"><img src="{{asset('plantilla/img/logo.svg')}}" width="140" height="35" alt=""></a>
-					</div>
 					@guest
-						<ul>
-							<li><a href="{{ route('login') }}" class="ico-login">Iniciar Sesión / Registrarse</a></li>
-						</ul>
+
 					@else
 						@if(Auth::User()->profile === 1)
-							<div class="dropdown show user-link">
-								<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Administrador
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
-                                    <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
-                                    <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
-                                    <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-									onclick="event.preventDefault();
-													document.getElementById('logout-form').submit();">
-									{{ __('Logout') }}
-								</a>
+                            <a href="#0" class="open_close">
+                                <i class="icon_menu"></i><span>Menu</span>
+                            </a>
+                            <nav class="main-menu">
+                                <div id="header_menu">
+                                    <a href="#0" class="open_close">
+                                        <i class="icon_close"></i><span>Menu</span>
+                                    </a>
+                                    <a href="{{ url('/') }}"><img src="{{asset('plantilla/img/logo.svg')}}" width="140" height="35" alt=""></a>
+                                </div>
+                                <div class="dropdown show user-link">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administrador
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
+                                        <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
+                                        <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
+                                        <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-								</div>
-							</div>
-						@else
-							<div class="dropdown show user-link">
-								<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									{{ Auth::user()->name }}
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="{{ route('directorio') }}">Listar Restaurantes</a>
-								<a class="dropdown-item" href="{{ route('logout') }}"
-									onclick="event.preventDefault();
-													document.getElementById('logout-form').submit();">
-									{{ __('Logout') }}
-								</a>
-
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-								</div>
-							</div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    </div>
+                                </div>
+				            </nav>
 						@endif
 
 					@endguest
-				</nav>
 			</div>
 		</header>
 		<!-- /header -->
@@ -221,8 +201,8 @@
 							</ul>
 						</div>
 						<ul class="additional_links">
-							<li><a href="#0">Términos y condiciones</a></li>
-							<li><a href="#0">Políticas de privacidad</a></li>
+                            <li><a href="{{route('condiciones')}}">Términos y condiciones</a></li>
+                            <li><a href="{{route('privacidad')}}">Políticas de privacidad</a></li>
 							<li><span>{{ date('Y') }} © Food Zinder</span></li>
 						</ul>
 					</div>
@@ -334,15 +314,16 @@
                     .then(function(json) {
                         resultadosNombre.innerHTML='';
                         json.forEach(ele=>{
+                            let nombre=ele.nombre.replace(' ', '-')
                             resultadosNombre.innerHTML+=`
-                                <a href="${ele.id}/${ele.ciudad}/${ele.nombre}">${ele.nombre}</a>
+                                <a href="${ele.id}/${ele.ciudad}/${nombre}">${ele.nombre}</a>
                             `;
                         });
                     })
                     .catch(function(err) {
                         console.log(err);
                     });
-                },1000);
+                },500);
             }
         });
     </script>

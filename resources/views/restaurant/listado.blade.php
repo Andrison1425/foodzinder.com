@@ -17,6 +17,7 @@
     <table id="tabla_listado_restaurantes" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Restaurant</th>
                 <th>Dirección</th>
                 <th>Teléfono</th>
@@ -27,8 +28,9 @@
         <tbody>
         @foreach ($restaurantes as $resto)
         <tr>
+            <td class="text-center">{{ $resto->id }}</td>
             <td class="text-center">
-            <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
+                <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
             </td>
             <td class="text-center">{{ $resto->direccion }}</td>
             <td class="text-center">{{ $resto->telefono }}</td>

@@ -106,52 +106,33 @@
                 <a href="{{ url('/') }}"><img src="{{asset('plantilla/img/logo.svg')}}" width="140" height="35" alt=""></a>
             </div>
             @guest
-                <ul>
-                    <li><a href="{{ route('login') }}" class="ico-login">Iniciar Sesión / Registrarse</a></li>
-                </ul>
-            @else
-                @if(Auth::User()->profile === 1)
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Administrador
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
-                            <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
-                            <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
-                            <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+					@else
+					@if(Auth::User()->profile === 1)
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administrador
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
+                                <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
+                                <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
+                                <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            </div>
                         </div>
-                    </div>
-                @else
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('directorio') }}">Listar Restaurantes</a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+					@endif
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                        </div>
-                    </div>
-                @endif
-
-            @endguest
+					@endguest
+				</nav>
         </nav>
     </div>
 </header>
@@ -193,8 +174,8 @@
                     </ul>
                 </div>
                 <ul class="additional_links">
-                    <li><a href="#0">Términos y condiciones</a></li>
-                    <li><a href="#0">Políticas de privacidad</a></li>
+                    <li><a href="{{route('condiciones')}}">Términos y condiciones</a></li>
+                    <li><a href="{{route('privacidad')}}">Políticas de privacidad</a></li>
                     <li><span>{{date('Y')}} © Food Zinder</span></li>
                 </ul>
             </div>

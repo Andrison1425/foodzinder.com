@@ -72,7 +72,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">+34</span>
                     </div>
-                    <input type="text" name="telefono" class="form-control" style="height:max-content;" id="telefono" aria-describedby="basic-addon3">
+                    <input type="text" name="telefono" class="form-control" value="{{$restaurant->telefono}}" style="height:max-content;" id="telefono" aria-describedby="basic-addon3">
                 </div>
             </div>
             <div class="form-group col-md-4 col-sm-6">
@@ -81,7 +81,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">+34</span>
                     </div>
-                    <input type="text" name="celular" class="form-control" style="height:max-content;" id="celular" aria-describedby="basic-addon3">
+                    <input type="text" name="celular" class="form-control" value="{{$restaurant->celular}}" style="height:max-content;" id="celular" aria-describedby="basic-addon3">
                 </div>
             </div>
             <div class="form-group col-md-6">

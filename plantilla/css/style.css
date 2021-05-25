@@ -5573,7 +5573,13 @@ Author URI: http://themeforest.net/user/Ansonika/
   }
 
   .telefono::before {
-    font-family: "Font Awesome 5 Free"; color: #F67599; font-weight: 900; content: "\f879"; margin-left: -18px; padding-right: 3px;
+    font-family: "Font Awesome 5 Free";
+    color: #F67599;
+    font-weight: 900;
+    content: "\f879";
+    margin-left: -18px;
+    padding-right: 3px;
+    margin-bottom: 20px;
   }
 
   .user-link {

@@ -175,7 +175,6 @@ class RestaurantController extends Controller
 
         unset($request["filenames"]);
         unset($request["submit"]);
-
         $restaurant->update($request->all());
         return redirect(route('restaurant.index'))->with('Notificacion', 'Restaurante editado exitosamente');
 

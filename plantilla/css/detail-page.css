@@ -1262,12 +1262,7 @@
 }
 
 .btn_contactar{
-    position: fixed;
-    top: 130px;
-    left: 7px;
-    opacity: 1;
     cursor: pointer;
-    z-index: 1000;
     background-color: #F67599;
     color: #fff;
     width: 2rem;

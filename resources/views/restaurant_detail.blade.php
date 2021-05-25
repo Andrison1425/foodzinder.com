@@ -55,6 +55,16 @@
 			color: #fff;
 			border-radius: 25px;
 		}
+
+        .telefono::before{
+            margin-left: 5px !important;
+        }
+
+        .telefono p a{
+            color:#F67599 !important;
+            text-decoration: none !important;
+            text-shadow: black 0px 0px 0.5rem;
+        }
 	</style>
 </head>
 
@@ -85,9 +95,7 @@
 
 	{{-- botón flotante --}}
 	<button type="button" class="btn btn-default botonflotanteparaguardado" data-toggle="modal" data-target="#modalLista">Ver mi lista</button> {{-- end botón flotante --}}
-    <button class="btn btn_contactar" onClick="history.back()">
-        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </button>
+
     <!-- Modal-mi-lista -->
 	<div class="modal fade" id="modalLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -198,92 +206,13 @@
 		</div>
 	</div>{{-- end Modal-new-item --}}
 
-	<header class="header_in clearfix">
-      <div id="logo">
-         <a href="{{url('/')}}">
-            <img src="{{asset('plantilla/img/logo.svg')}}" width="200" height="50" alt="">
-         </a>
-      </div>
-      <div class="row justify-content-center text-center">
-         <div class="col-xl-8 col-lg-10 col-md-8">
-            <form id="form_principal" method="post" action="{{ route('directorio') }}" class="form-busqueda">
-               <input name="_method" type="hidden" value="get">
-               <div class="row no-gutters custom-search-input">
-                  <div class="col-lg-6">
-                     <div class="form-group">
-                        <input name="palabra_busqueda" class="form-control" type="text" placeholder="{{$restaurant->nombre}}">
-                        <i class="icon_search"></i>
-                     </div>
-                  </div>
-                  <div class="col-lg-4">
-                     <div class="form-group">
-                     <input name="ciudad" class="form-control no_border_r" type="text" placeholder="{{$restaurant->ciudad}}">
-                        <i class="icon_pin_alt"></i>
-                     </div>
-                  </div>
-                  <div class="col-lg-2">
-                     <input type="submit" value="Buscar">
-                  </div>
-               </div>
-               <!-- /row -->
-            </form>
-			</div>
-         <nav class="main-menu">
-            <div id="header_menu">
-               <a href="#0" class="open_close">
-                  <i class="icon_close"></i><span>Menu</span>
-               </a>
-               <a href="{{ url('/') }}"><img src="{{asset('plantilla/img/logo.svg')}}" width="140" height="35" alt=""></a>
-            </div>
-            @guest
-               <ul>
-                  <li><a href="{{ route('login') }}" class="ico-login">Iniciar Sesión / Registrarse</a></li>
-               </ul>
-            @else
-               @if(Auth::User()->profile === 1)
-                  <div class="dropdown show">
-                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Administrador
-                     </a>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
-                        <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
-                        <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
-                        <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                     </a>
-
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                     </form>
-                     </div>
-                  </div>
-               @else
-                  <div class="dropdown show">
-                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ Auth::user()->name }}
-                     </a>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                     <a class="dropdown-item" href="{{ route('directorio') }}">Listar Restaurantes</a>
-                     <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                     </a>
-
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                     </form>
-                     </div>
-                  </div>
-               @endif
-
-            @endguest
-         </nav>
-      </div>
+	<header class="header_in clearfix d-flex align-items-center justify-content-between">
+        <button class="btn btn_contactar ml-2 " onClick="history.back()">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <h2 class="m-0 ml-2" style="color:#f67599;">
+            {{$restaurant->nombre}}
+        </h2>
    </header>
 <!-- /header -->
 
@@ -314,7 +243,6 @@
                         <div class="container full-width">
                             <div class="row">
                                 <div class="col-xl-4 col-lg-5 col-md-6" style="text-shadow: 0 0 0.5rem black;">
-                                    <h1>{{$restaurant->nombre}}</h1>
                                     @if ($restaurant->google_maps)
                                         {{$restaurant->direccion}} - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
                                     @else
@@ -326,6 +254,29 @@
                                         <a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
                                     </div>
                                 </div>
+                                <span class="@if($restaurant->telefono) {{'telefono'}}@endif icon d-flex align-items-center">
+                                    <p class=" d-flex align-items-center" style="flex-wrap: wrap;">
+                                        @if($restaurant->telefono)
+
+                                            <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;">
+                                                <span href="#"> {{ $restaurant->telefono }} </span>
+                                                Llamar
+                                            </a>
+                                        @endif
+
+                                        @if($restaurant->celular && $restaurant->telefono)
+                                            <span class="mr-3">
+                                                o
+                                            </span>
+                                        @endif
+                                        @if ($restaurant->celular)
+
+                                            <a target="_blank" title="Ir a Whatsapp" href="https://api.whatsapp.com/send?phone=34{{ $restaurant->celular }}" >
+                                                <img class="img-fluid" style="max-width: 40px;" src="{{ asset('plantilla/img/whatsapp.png') }}" alt="Logo de Whatsapp">
+                                            </a>
+                                        @endif
+                                    </p>
+                                </span>
                             </div>
                             <!-- /row -->
                         </div>
@@ -446,8 +397,8 @@
 						</ul>
 					</div>
 					<ul class="additional_links">
-						<li><a href="#0">Términos y condiciones</a></li>
-						<li><a href="#0">Políticas de privacidad</a></li>
+                        <li><a href="{{route('condiciones')}}">Términos y condiciones</a></li>
+                        <li><a href="{{route('privacidad')}}">Políticas de privacidad</a></li>
 						<li><span>{{date('Y')}} © Food Zinder</span></li>
 					</ul>
 				</div>
