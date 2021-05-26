@@ -240,6 +240,16 @@ class RestaurantController extends Controller
 
         $restaurantes=Restaurant::whereIn("id",$prioridad)->get();
 
+        $arrRestaurantes=[];
+        foreach($restaurantes as $restaurante){
+            $arrRestaurantes[$restaurante->id]=$restaurante;
+        }
+
+        if($prioridad){
+            $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
+            $restaurantes=$array_ordenado;
+        }
+
         return view('restaurant.listadoAprobar',["restaurantes"=>$restaurantes]);
     }
 
@@ -257,5 +267,45 @@ class RestaurantController extends Controller
         ]);
 
         return redirect()->route('restaurant.listado')->with("Notificacion','La prioridad del restaurante de ID $restauranteId ha cambiado");
+    }
+
+    public function cambiarPrioridad(Request $request)
+    {
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+
+        $admin->update([
+            'prioridad'=>$request->prioridad
+        ]);
+
+        return redirect()->route('restaurant.listadoPrioridad')->with("Notificacion','La prioridad de los restaurantes ha cambiado");
+    }
+
+    public function quitarPrioridad($restauranteId)
+    {
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+        $prioridad=json_decode($admin->prioridad);
+
+        foreach ($prioridad as $key => $value) {
+            if($value==$restauranteId){
+                unset($prioridad[$key]);
+            }
+        }
+        $arr=[];
+
+        foreach ($prioridad as $key => $value) {
+            $arr[]=$value;
+        }
+
+        $admin->update([
+            'prioridad'=>json_encode($arr)
+        ]);
+
+        return redirect()->route('restaurant.listadoPrioridad')->with("Notificacion','Se ha quitado la prioridad al restaurante de ID $restauranteId");
     }
 }

@@ -450,7 +450,12 @@
 
 						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
 					</div>
-					@foreach ($restaurantes as $restaurant)
+					@foreach ($restaurants as $restaurant)
+                     <?php
+                        if(is_int($restaurant)){
+                            continue;
+                        }
+                     ?>
 						<div class="row resultados">
 
 							{{-- START - SLIDER --}}

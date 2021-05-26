@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Directorio;
 use Illuminate\Http\Request;
 use App\Restaurant;
+use App\User;
 
 class DirectorioController extends Controller
 {
@@ -97,26 +98,30 @@ class DirectorioController extends Controller
         $restaurantes_sin_paginar = Restaurant::where($filtro)->where('status', 1)->get();
         $restaurantes = '';
 
-        if($request->input('orden')){
-            $request['ordenarValue']=$request->input('orden');
+        $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
 
-            if($request->input('orden')=='recientes'){
-                $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
-            }else if($request->input('orden')=='antiguos'){
-                $restaurantes =Restaurant::where($filtro)->where('status', 1)->paginate(6);
-            }else if($request->input('orden')=='az'){
-                $restaurantes =Restaurant::orderBy('nombre', 'asc')->where($filtro)->where('status', 1)->paginate(6);
-            }
-        }else{
-            $request['ordenarValue']='';
-            $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
+        $arrRestaurantes=[];
+        foreach($restaurantes as $restaurante){
+            $arrRestaurantes[$restaurante->id]=$restaurante;
+        }
+
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+        $prioridad=json_decode($admin->prioridad);
+
+        if($prioridad){
+            $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
+            $arrRestaurantes=$array_ordenado;
         }
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);
         return view('directorio', ["request" => $request,
                                    "restaurantes" => $restaurantes,
                                    'cantidades' => $cantidades,
-                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar
+                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar,
+                                   "restaurants"=>$arrRestaurantes
                                    ]);
     }
 
@@ -168,6 +173,7 @@ class DirectorioController extends Controller
         }
 
         $orden = json_decode($restaurant->posiciones);
+
         if($orden && $arrPlatos){
             $array_ordenado = array_replace( array_flip( $orden ), $arrPlatos );
             $platos=$array_ordenado;

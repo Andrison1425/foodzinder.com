@@ -41,6 +41,8 @@ Route::group(['middleware'=>'auth','middleware' => 'admin'], function () {
 
     Route::get('/restaurant/listado/prioridad', 'RestaurantController@listadoPrioridad')->name('restaurant.listadoPrioridad');
     Route::post('/restaurant/listado/priorizar/{id}', 'RestaurantController@priorizar')->name('restaurant.priorizar');
+    Route::post('/restaurant/listado/cambiarPrioridad/', 'RestaurantController@cambiarPrioridad')->name('restaurant.cambiarPrioridad');
+    Route::post('/restaurant/listado/quitarPrioridad/{id}', 'RestaurantController@quitarPrioridad')->name('restaurant.quitarPrioridad');
 
     Route::get('/users/index', 'UserController@index')->name('users.index');
     Route::get('/users/agregar', 'UserController@agregar')->name('users.agregar');
