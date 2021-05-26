@@ -39,7 +39,8 @@ Route::group(['middleware'=>'auth','middleware' => 'admin'], function () {
     Route::get('/restaurant/changestatus/{id}', 'RestaurantController@cambiarStatus')->name('restaurant.cambiar_status');
     Route::post('/restaurant/organizarImgs/{restauranteId}/', 'RestaurantController@organizarImgs')->name('restaurant.organizarImgs');
 
-    Route::get('/restaurant/listado/aprobar', 'RestaurantController@listadoAprobar')->name('restaurant.listadoAprobar');
+    Route::get('/restaurant/listado/prioridad', 'RestaurantController@listadoPrioridad')->name('restaurant.listadoPrioridad');
+    Route::post('/restaurant/listado/priorizar/{id}', 'RestaurantController@priorizar')->name('restaurant.priorizar');
 
     Route::get('/users/index', 'UserController@index')->name('users.index');
     Route::get('/users/agregar', 'UserController@agregar')->name('users.agregar');

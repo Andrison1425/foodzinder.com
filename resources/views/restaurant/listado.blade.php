@@ -17,7 +17,7 @@
     <table id="tabla_listado_restaurantes" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Priorizar</th>
                 <th>Restaurant</th>
                 <th>Dirección</th>
                 <th>Teléfono</th>
@@ -28,7 +28,12 @@
         <tbody>
         @foreach ($restaurantes as $resto)
         <tr>
-            <td class="text-center">{{ $resto->id }}</td>
+            <td class="text-center">
+                <form action="{{route('restaurant.priorizar',['id'=>$resto->id])}}" method="post">
+                    @csrf
+                    <button type="submit" class=" btn btn-success">Priorizar</button>
+                </form>
+            </td>
             <td class="text-center">
                 <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
             </td>

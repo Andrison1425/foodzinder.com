@@ -88,6 +88,12 @@
                         <span class="nav-link-text">Lista de usuarios</span>
                     </a>
                 </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+                    <a class="nav-link" href="{{route('restaurant.listadoPrioridad')}}">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="nav-link-text">Restaurantes con prioridad</span>
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">

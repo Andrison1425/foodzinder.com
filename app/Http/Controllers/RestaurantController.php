@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Restaurant;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\File;
+use App\User;
 
 class RestaurantController extends Controller
 {
@@ -229,5 +228,34 @@ class RestaurantController extends Controller
         ]);
 
         return redirect()->route('categorias.index', ['id' => $restauranteId])->with('Notificacion','Las imágenes se han organizado');
+    }
+
+    public function listadoPrioridad()
+    {
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+        $prioridad=json_decode($admin->prioridad);
+
+        $restaurantes=Restaurant::whereIn("id",$prioridad)->get();
+
+        return view('restaurant.listadoAprobar',["restaurantes"=>$restaurantes]);
+    }
+
+    public function priorizar($restauranteId)
+    {
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+        $prioridad=json_decode($admin->prioridad);
+        $prioridad[]=$restauranteId;
+
+        $admin->update([
+            'prioridad'=>json_encode($prioridad)
+        ]);
+
+        return redirect()->route('restaurant.listado')->with("Notificacion','La prioridad del restaurante de ID $restauranteId ha cambiado");
     }
 }

@@ -61,19 +61,16 @@ class CategoriaController extends Controller
             $source->toFile($filepath);
         } catch(\Tinify\AccountException $e) {
             // Verify your API key and account limit.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ClientException $e) {
             // Check your source image and request options.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ServerException $e) {
             // Temporary issue with the Tinify API.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ConnectionException $e) {
             // A network connection error occurred.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(Exception $e) {
-            // Something else went wrong, unrelated to the Tinify API.
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+            return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         }
     }
 
