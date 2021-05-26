@@ -100,28 +100,28 @@ class DirectorioController extends Controller
 
         $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
 
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+
+        $prioridad=json_decode($admin->prioridad);
+
         $arrRestaurantes=[];
         foreach($restaurantes as $restaurante){
             $arrRestaurantes[$restaurante->id]=$restaurante;
         }
 
-        $admin = User::where('email', '=' , "admin@admin.com")->get();
-        foreach ($admin as $key => $value) {
-            $admin=$value;
-        }
-        $prioridad=json_decode($admin->prioridad);
-
         if($prioridad){
             $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
-            $arrRestaurantes=$array_ordenado;
+            $restaurantes->setCollection(collect($array_ordenado));
         }
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);
         return view('directorio', ["request" => $request,
                                    "restaurantes" => $restaurantes,
                                    'cantidades' => $cantidades,
-                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar,
-                                   "restaurants"=>$arrRestaurantes
+                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar
                                    ]);
     }
 

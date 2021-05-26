@@ -450,7 +450,7 @@
 
 						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
 					</div>
-					@foreach ($restaurants as $restaurant)
+					@foreach ($restaurantes as $restaurant)
                      <?php
                         if(is_int($restaurant)){
                             continue;
