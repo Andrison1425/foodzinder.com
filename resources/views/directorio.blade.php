@@ -27,6 +27,7 @@
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
     <!-- BASE CSS -->
     <link href="{{asset('plantilla/css/bootstrap_customized.min.css')}}" rel="stylesheet">
@@ -53,28 +54,45 @@
          </div>
          <div class="row justify-content-center text-center">
             <div class="col-xl-8 col-lg-10 col-md-8">
-					<form id="form_principal" method="post" action="{{ route('directorio') }}" class="form-busqueda">
-						<input name="_method" class="_method" type="hidden" value="get">
-                  <div class="row no-gutters custom-search-input">
-                     <div class="col-lg-6">
-                        <div class="form-group">
-                           <input name="palabra_busqueda" class="form-control" type="text" value="{{ ($request->palabra_busqueda != null) ? $request->palabra_busqueda : "" }}" placeholder="Nombre del restaurante...">
-                           <i class="icon_search"></i>
+                <form id="form_principal" method="get" autocomplete="off" action="{{ route('directorio') }}" class="form-busqueda fetchForm">
+                    <div class="row no-gutters custom-search-input">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input name="palabra_busqueda" value="" class="form-control palabraBusqueda" placeholder="Nombre del restaurante...">
+                                <i class="icon_search"></i>
+                                <div class="resultadosNombre ocultarNombre"></div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="col-lg-4">
-                        <div class="form-group">
-								<input name="ciudad" class="form-control no_border_r" value="{{ ($request->ciudad != null) ? $request->ciudad : "" }}" type="text" placeholder="Ciudad">
-                           <i class="icon_pin_alt"></i>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <select  name="ciudad" class="form-control selectCiudad" id="ciudad">
+                                    <option value="">Ciudad</option>
+                                    <!-- <option value="Madrid">Madrid</option>
+                                    <option value="Barcelona">Barcelona</option>
+                                    <option value="Sevilla">Sevilla</option>
+                                    <option value="Bilbao">Bilbao</option>
+                                    <option value="Zaragoza">Zaragoza</option>
+                                    <option value="Granada">Granada</option>
+                                    <option value="Córdoba">Córdoba</option>
+                                    <option value="San Sebastián">San Sebastián</option>
+                                    <option value="Salamanca">Salamanca</option>
+                                    <option value="Valencia">Valencia</option>
+                                    <option value="Toledo">Toledo</option>
+                                    <option value="Burgos">Burgos</option>
+                                    <option value="Málaga">Málaga</option> -->
+                                    <option value="Tarifa">Tarifa</option>
+                                    <option value="Bolonia, Cádiz">Bolonia, Cádiz</option>
+                                </select>
+                                <i class="icon_pin_alt"></i>
+                            </div>
                         </div>
-                     </div>
-                     <div class="col-lg-2">
-                        <input type="submit" value="Buscar">
-                     </div>
+                        <div class="col-lg-2">
+                            <input type="submit" value="Buscar">
+                        </div>
 
-                  </div>
-                  <!-- /row -->
-               </form>
+                    </div>
+                    <!-- /row -->
+                </form>
             </div>
 				<nav class="main-menu">
 					<div id="header_menu">
@@ -173,7 +191,8 @@
 										<li>
 											<label class="container_check">Restaurante<small>{{ count($cantidades['restaurante']) }}</small>
 											  <input {{ $request->restaurante != null ? 'checked': '' }} name="restaurante" class="inputs" onchange="consultar()" type="checkbox">
-											  <span class="checkmark"></span>
+                                              <input value="{{$request->palabra_busqueda}}" name="palabra_busqueda" class="inputs" type="text">
+                                              <span class="checkmark"></span>
 											</label>
 										</li>
 										<li>
@@ -563,7 +582,7 @@
 					@endforeach
 
 					{{-- PAGINACIÓN --}}
-					{{$restaurantes->links()}}
+					{{$restaurantes->withQueryString()->links()}}
 
 
 					{{-- <!-- /row -->
@@ -648,9 +667,68 @@
     <script src="{{asset('plantilla/js/sticky_sidebar.min.js')}}"></script>
 	 <script src="{{asset('plantilla/js/specific_listing.js')}}"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 	 <script src="{{ asset('js/lightslider.js') }}"></script>
 
 	<script>
+
+        $('.selectCiudad').select2({
+            language: {
+                noResults: function() {
+                    return "Ciudad no disponible";
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            }
+        });
+        $(document).ready(function() {
+            document.querySelector(".select2-container").style.width="100%";
+            let timeout;
+
+            let resultadosNombre=document.querySelector(".resultadosNombre");
+
+            document.querySelector(".palabraBusqueda").onblur=()=>{
+                timeout=setTimeout(()=>{
+                    document.querySelector(".resultadosNombre").classList.add("ocultarNombre");
+                },500);
+            }
+            console.log(document.querySelector(".palabraBusqueda"));
+            document.querySelector(".palabraBusqueda").oninput=e=>{
+                console.log("a")
+                document.querySelector(".resultadosNombre").classList.remove("ocultarNombre");
+                clearTimeout(timeout);
+                timeout=setTimeout(()=>{
+
+                    const resp=fetch("directorio/obtenerResultadosNombre",{
+                        headers:{
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        method:'POST',
+                        body: new FormData(document.querySelector(".fetchForm"))
+                    }).then(function(response) {
+                        if(response.ok) {
+                            return response.json();
+                        } else {
+                            throw "Error en la llamada Ajax";
+                        }
+                    })
+                    .then(function(json) {
+                        resultadosNombre.innerHTML='';
+                        json.forEach(ele=>{
+                            let nombre=ele.nombre.replace(' ', '-')
+                            resultadosNombre.innerHTML+=`
+                                <a href="${ele.id}/${ele.ciudad}/${nombre}">${ele.nombre}</a>
+                            `;
+                        });
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+                },500);
+            }
+        });
+
         let formulario = $('#form_principal');
 		let all_inputs = $('.inputs');
 
@@ -665,7 +743,6 @@
 		{
             if(window.innerWidth<990 && enviar ==false){
 
-                document.querySelector("._method").value="post";
 
                 const resp=fetch("directorio/obtenerResultadosFiltros",{
                     headers:{
@@ -693,7 +770,6 @@
                     input.style.display="none";
 				    formulario.append(input);
 			    }
-                document.querySelector("._method").value="get";
                 formulario.submit();
             }
 		}

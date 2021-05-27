@@ -5821,4 +5821,7 @@ Author URI: http://themeforest.net/user/Ansonika/
 .resultadosNombre a{
     padding: 1rem;
     display: block;
+    text-align: start;
 }
+
+

@@ -1073,3 +1073,7 @@ span.infobox_rate {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.select2-container--default .select2-selection--single{
+    border:none;
+}

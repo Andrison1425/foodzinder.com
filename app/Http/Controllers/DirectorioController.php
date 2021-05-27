@@ -112,10 +112,10 @@ class DirectorioController extends Controller
             $arrRestaurantes[$restaurante->id]=$restaurante;
         }
 
-        if($prioridad){
+        if($prioridad && $restaurantes->currentPage()== 1){
             $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
             //dd($restaurantes->getCollection());
-            $restaurantes->setCollection(collect($array_ordenado));
+            $restaurantes->setCollection(collect(array_slice($array_ordenado,0,6)));
         }
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);

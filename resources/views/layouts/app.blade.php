@@ -124,9 +124,8 @@
 					<div class="col-md-6">
 						<h1 class="titulo">Todos los <span class="rosa">menús</span> de tus restaurantes <span class="rosa">en imágenes</span></h1>
 						<div class="box_booking_2" style="overflow:visible;">
-							<form method="post" class="fetchForm" action="{{ route('directorio') }}" autocomplete="off">
-								@csrf
-                                <input name="_method" class="_method" type="hidden" value="get">
+							<form method="get" class="fetchForm" action="{{ route('directorio') }}" autocomplete="off">
+
 								<div class="main">
 									<div class="form-group">
                                         <input name="palabra_busqueda" value="" class="form-control palabraBusqueda" placeholder="Nombre del restaurante...">
@@ -137,24 +136,24 @@
 
 
 									<div class="form-group">
-                                    <select  name="ciudad" class="form-control selectCiudad" id="ciudad">
-                                        <option value="">Ciudad</option>
-                                        <option value="Madrid">Madrid</option>
-                                        <option value="Barcelona">Barcelona</option>
-                                        <option value="Sevilla">Sevilla</option>
-                                        <option value="Bilbao">Bilbao</option>
-                                        <option value="Zaragoza">Zaragoza</option>
-                                        <option value="Granada">Granada</option>
-                                        <option value="Córdoba">Córdoba</option>
-                                        <option value="San Sebastián">San Sebastián</option>
-                                        <option value="Salamanca">Salamanca</option>
-                                        <option value="Valencia">Valencia</option>
-                                        <option value="Toledo">Toledo</option>
-                                        <option value="Burgos">Burgos</option>
-                                        <option value="Málaga">Málaga</option>
-                                        <option value="Tarifa">Tarifa</option>
-                                        <option value="Bolonia, Cádiz">Bolonia, Cádiz</option>
-                                    </select>
+                                        <select  name="ciudad" class="form-control selectCiudad" id="ciudad">
+                                            <option value="">Ciudad</option>
+                                            <!-- <option value="Madrid">Madrid</option>
+                                            <option value="Barcelona">Barcelona</option>
+                                            <option value="Sevilla">Sevilla</option>
+                                            <option value="Bilbao">Bilbao</option>
+                                            <option value="Zaragoza">Zaragoza</option>
+                                            <option value="Granada">Granada</option>
+                                            <option value="Córdoba">Córdoba</option>
+                                            <option value="San Sebastián">San Sebastián</option>
+                                            <option value="Salamanca">Salamanca</option>
+                                            <option value="Valencia">Valencia</option>
+                                            <option value="Toledo">Toledo</option>
+                                            <option value="Burgos">Burgos</option>
+                                            <option value="Málaga">Málaga</option> -->
+                                            <option value="Tarifa">Tarifa</option>
+                                            <option value="Bolonia, Cádiz">Bolonia, Cádiz</option>
+                                        </select>
 										<i class="icon_pin_alt"></i>
 									</div>
 									<button type="submit" class="btn_1 full-width mb_5">Buscar</button>
@@ -281,9 +280,6 @@
             document.querySelector(".select2-container").style.width="100%";
             let timeout;
 
-            document.querySelector(".fetchForm").onsubmit=e=>{
-                document.querySelector("._method").value="get";
-            }
             let resultadosNombre=document.querySelector(".resultadosNombre");
 
             document.querySelector(".palabraBusqueda").onblur=()=>{
@@ -295,7 +291,6 @@
             document.querySelector(".palabraBusqueda").oninput=e=>{
                 document.querySelector(".resultadosNombre").classList.remove("ocultarNombre");
                 clearTimeout(timeout);
-                document.querySelector("._method").value="post";
                 timeout=setTimeout(()=>{
 
                     const resp=fetch("directorio/obtenerResultadosNombre",{
