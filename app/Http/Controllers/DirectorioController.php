@@ -108,12 +108,13 @@ class DirectorioController extends Controller
         $prioridad=json_decode($admin->prioridad);
 
         $arrRestaurantes=[];
-        foreach($restaurantes as $restaurante){
+        foreach($restaurantes_sin_paginar as $restaurante){
             $arrRestaurantes[$restaurante->id]=$restaurante;
         }
 
         if($prioridad){
             $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
+            //dd($restaurantes->getCollection());
             $restaurantes->setCollection(collect($array_ordenado));
         }
 
