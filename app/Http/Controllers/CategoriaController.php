@@ -56,7 +56,7 @@ class CategoriaController extends Controller
         $filepath = $ruta;
 
         try{
-            \Tinify\setKey(env("TINIFY_API_KEY"));
+            \Tinify\setKey("Z8WHnRhMQhWzYhfb7qTqLwLqr8RTkZnZ");
             $source = \Tinify\fromFile($filepath);
             $source->toFile($filepath);
             dd("entró");
