@@ -35,7 +35,7 @@ class RestaurantController extends Controller
         $filepath = $ruta;
 
         try {
-            \Tinify\setKey(env("TINIFY_API_KEY"));
+            \Tinify\setKey(env("Z8WHnRhMQhWzYhfb7qTqLwLqr8RTkZnZ"));
             $source = \Tinify\fromFile($filepath);
             $source->toFile($filepath);
         } catch(\Tinify\AccountException $e) {
