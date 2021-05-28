@@ -548,11 +548,11 @@
 										<a href="{{ $restaurant->google_maps }}" target="_blank">VER MAPA</a>
 									@endif
 								</p>
-                                <span class="@if($restaurant->telefono) {{'telefono'}}@endif icon d-flex align-items-center">
+                                <span class=" icon d-flex align-items-start">
                                     <p class=" d-flex align-items-center" style="flex-wrap: wrap;">
                                         @if($restaurant->telefono)
 
-                                            <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;">
+                                            <a href="tel:{{ $restaurant->telefono }}"class=" @if($restaurant->telefono) {{'telefono'}}@endif" style="margin-right:10px;">
                                                 <span href="#"> {{ $restaurant->telefono }} </span>
                                                 Llamar
                                             </a>
