@@ -61,15 +61,16 @@ class CategoriaController extends Controller
             $source->toFile($filepath);
             dd("entró");
         } catch(\Tinify\AccountException $e) {
+            dd("entró 64");
             // Verify your API key and account limit.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(\Tinify\ClientException $e) {
+        } catch(\Tinify\ClientException $e) {dd("entró 67");
             // Check your source image and request options.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(\Tinify\ServerException $e) {
+        } catch(\Tinify\ServerException $e) {dd("entró 70");
             // Temporary issue with the Tinify API.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(\Tinify\ConnectionException $e) {
+        } catch(\Tinify\ConnectionException $e) {dd("entró 73");
             // A network connection error occurred.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         }catch(\Exception $e) {
