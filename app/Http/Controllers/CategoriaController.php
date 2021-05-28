@@ -52,11 +52,10 @@ class CategoriaController extends Controller
     }
 
     public function comprimir($ruta){
-        dd("entró 55");
         //Compress Image Code Here
         $filepath = $ruta;
 
-        try {
+        try{
             \Tinify\setKey(env("TINIFY_API_KEY"));
             $source = \Tinify\fromFile($filepath);
             $source->toFile($filepath);
