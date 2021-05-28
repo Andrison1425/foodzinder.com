@@ -29,9 +29,18 @@
         @foreach ($restaurantes as $resto)
         <tr>
             <td class="text-center">
+
+            <?php
+                $priorizar=true;
+                if(in_array($resto->id, $prioridad)){
+                    $priorizar=false;
+                }
+            ?>
                 <form action="{{route('restaurant.priorizar',['id'=>$resto->id])}}" method="post">
-                    @csrf
-                    <button type="submit" class=" btn btn-success">Priorizar</button>
+                    @if($priorizar)
+                        @csrf
+                        <button type="submit" class=" btn btn-success">Priorizar</button>
+                    @endif
                 </form>
             </td>
             <td class="text-center">

@@ -108,6 +108,13 @@ class DirectorioController extends Controller
         $prioridad=json_decode($admin->prioridad);
 
         $arrRestaurantes=[];
+        $cont2=count($restaurantes_sin_paginar);
+        foreach($restaurantes_sin_paginar as $restaurante){
+            if(in_array($restaurante->id, $prioridad)){
+                $cont2--;
+            }
+        }
+
 
         if($prioridad && $restaurantes->currentPage()==1){
             foreach($restaurantes_sin_paginar as $restaurante){
@@ -121,6 +128,7 @@ class DirectorioController extends Controller
             foreach($restaurantes as $restaurante){
                 if(in_array($restaurante->id, $prioridad)){
                     unset($restaurantes[$cont]);
+                    unset($restaurantes_sin_paginar[$cont]);
                 }
                 $cont++;
             }
@@ -130,7 +138,7 @@ class DirectorioController extends Controller
         return view('directorio', ["request" => $request,
                                    "restaurantes" => $restaurantes,
                                    'cantidades' => $cantidades,
-                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar
+                                   "restaurantes_sin_paginar" => $cont2
                                    ]);
     }
 

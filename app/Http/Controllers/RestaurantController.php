@@ -16,15 +16,16 @@ class RestaurantController extends Controller
     }
     public function listado()
     {
-        $restaurantes = Restaurant::where('status','!=', 3)->get();
-        return view('restaurant.listado', ['restaurantes' => $restaurantes]);
+        $restaurantes = Restaurant::get();
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+        $prioridad=json_decode($admin->prioridad);
+
+        return view('restaurant.listado', ['restaurantes' => $restaurantes,'prioridad'=>$prioridad]);
     }
 
-    public function listadoAprobar()
-    {
-        $restaurantes = Restaurant::where('status','=', 3)->get();
-        return view('restaurant.listadoAprobar', ['restaurantes' => $restaurantes]);
-    }
 
     public function create(){
         return view("restaurant.create");

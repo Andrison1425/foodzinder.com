@@ -462,7 +462,7 @@
 				<div class="col-lg-9">
 					<div class="row align-items-center justify-content-between p-2">
 						<h2 class="title-directorio m-0">
-                            {{count($restaurantes_sin_paginar)}} resultados
+                            {{$restaurantes_sin_paginar}} resultados
                             <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
 
                         </h2>
