@@ -72,6 +72,10 @@ class CategoriaController extends Controller
         } catch(\Tinify\ConnectionException $e) {
             // A network connection error occurred.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        }catch(\Exception $e) {
+            dd("Error linea 76");
+            // Something else went wrong, unrelated to the Tinify API.
+            //return redirect('ROUTE_HERE')->with('error', $e->getMessage());
         }
     }
 
