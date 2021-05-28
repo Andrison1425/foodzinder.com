@@ -59,6 +59,7 @@ class CategoriaController extends Controller
             \Tinify\setKey(env("TINIFY_API_KEY"));
             $source = \Tinify\fromFile($filepath);
             $source->toFile($filepath);
+            dd("entró");
         } catch(\Tinify\AccountException $e) {
             // Verify your API key and account limit.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
