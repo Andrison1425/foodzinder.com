@@ -59,22 +59,19 @@ class CategoriaController extends Controller
             \Tinify\setKey("Z8WHnRhMQhWzYhfb7qTqLwLqr8RTkZnZ");
             $source = \Tinify\fromFile($filepath);
             $source->toFile($filepath);
-            dd("entró");
         } catch(\Tinify\AccountException $e) {
-            dd("entró 64");
             // Verify your API key and account limit.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(\Tinify\ClientException $e) {dd("entró 67");
+        } catch(\Tinify\ClientException $e) {
             // Check your source image and request options.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(\Tinify\ServerException $e) {dd("entró 70");
+        } catch(\Tinify\ServerException $e) {
             // Temporary issue with the Tinify API.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
-        } catch(\Tinify\ConnectionException $e) {dd("entró 73");
+        } catch(\Tinify\ConnectionException $e) {
             // A network connection error occurred.
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         }catch(\Exception $e) {
-            dd("Error linea 76");
             // Something else went wrong, unrelated to the Tinify API.
             //return redirect('ROUTE_HERE')->with('error', $e->getMessage());
         }
