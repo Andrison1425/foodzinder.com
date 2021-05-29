@@ -108,28 +108,31 @@ class DirectorioController extends Controller
         $prioridad=json_decode($admin->prioridad);
 
         $arrRestaurantes=[];
-
-        $cont=0;
-
         foreach($restaurantes_sin_paginar as $restaurante){
-            $cont++;
-            if($cont>6){
-                if(!in_array($restaurante->id, $prioridad)){
-                    $arrRestaurantes[$restaurante->id]=$restaurante;
-                }
+            $arrRestaurantes[$restaurante->id]=$restaurante;
+        }
+
+        if($prioridad){
+            $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
+        }
+
+        $arrRestaurantes=[];
+
+        foreach($array_ordenado as $restaurante){
+            if(is_int($restaurante)){
+                continue;
             }else{
                 $arrRestaurantes[$restaurante->id]=$restaurante;
             }
         }
-
-        $array_ordenado = array_replace( array_flip( $prioridad ), $arrRestaurantes );
-        $restaurantes->setCollection(collect(array_slice($array_ordenado,($restaurantes->currentPage()*6)-6,$restaurantes->currentPage()*6)));
+        $arrRestaurantes=array_slice($arrRestaurantes,($restaurantes->currentPage()*6)-6,6);
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);
         return view('directorio', ["request" => $request,
-                                   "restaurantes" => $restaurantes,
+                                   "restaurantes" => $arrRestaurantes,
+                                   "links"=>$restaurantes,
                                    'cantidades' => $cantidades,
-                                   "restaurantes_sin_paginar" => $cont
+                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar
                                    ]);
     }
 

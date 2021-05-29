@@ -462,7 +462,7 @@
 				<div class="col-lg-9">
 					<div class="row align-items-center justify-content-between p-2">
 						<h2 class="title-directorio m-0">
-                            {{$restaurantes_sin_paginar}} resultados
+                            {{count($restaurantes_sin_paginar)}} resultados
                             <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
 
                         </h2>
@@ -470,11 +470,7 @@
 						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
 					</div>
 					@foreach ($restaurantes as $restaurant)
-                     <?php
-                        if(is_int($restaurant)){
-                            continue;
-                        }
-                     ?>
+
 						<div class="row resultados">
 
 							{{-- START - SLIDER --}}
@@ -582,7 +578,7 @@
 					@endforeach
 
 					{{-- PAGINACIÓN --}}
-					{{$restaurantes->withQueryString()->links()}}
+					{{$links->withQueryString()->links()}}
 
 
 					{{-- <!-- /row -->
