@@ -239,7 +239,7 @@ class RestaurantController extends Controller
         }
         $prioridad=json_decode($admin->prioridad);
 
-        $restaurantes=Restaurant::whereIn("id",$prioridad)->get();
+        $restaurantes = Restaurant::get();
 
         $arrRestaurantes=[];
         foreach($restaurantes as $restaurante){
