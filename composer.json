@@ -17,6 +17,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "laraveles/spanish": "^1.5",
+        "mailchimp/marketing": "^3.0",
+        "spatie/laravel-newsletter": "^4.8",
         "tinify/tinify": "^1.5"
     },
     "require-dev": {

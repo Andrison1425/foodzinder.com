@@ -198,7 +198,7 @@
                             <div class="form-group">
                                 <input class="form-check-input m-2" style="position:relative;" type="checkbox" value="" id="defaultCheck2">
                                 <label class="form-check-label" >
-                                    Acepto las condiciones legales y la política de protección de datos.
+                                    Acepto las <a href="{{route('condiciones')}}">condiciones legales</a> y la <a href="{{route('privacidad')}}">política de protección de datos</a>.
                                 </label>
                                 <small id="help" class="form-text text-muted">Los campos con * son obligatorios.</small>
                             </div>

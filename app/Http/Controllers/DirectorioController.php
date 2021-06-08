@@ -6,6 +6,7 @@ use App\Directorio;
 use Illuminate\Http\Request;
 use App\Restaurant;
 use App\User;
+use Newsletter;
 
 class DirectorioController extends Controller
 {
@@ -203,9 +204,14 @@ class DirectorioController extends Controller
         return json_encode($restaurantes);
     }
 
-    public function update(Request $request, Directorio $directorio)
+    public function suscribirse(Request $request)
     {
-        //
+        if ( ! Newsletter::isSubscribed($request->email_newsletter) ) {
+            Newsletter::subscribe($request->email_newsletter);
+            return redirect()->route('index',[$request->id])->with("Notificacion","Gracias por suscribirte!");
+        }else{
+            return redirect()->route('index',[$request->id])->with("Notificacion","Gracias por suscribirte!");
+        }
     }
 
     public function destroy(Directorio $directorio)

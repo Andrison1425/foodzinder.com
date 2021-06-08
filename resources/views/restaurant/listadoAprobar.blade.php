@@ -28,21 +28,21 @@
     </div>
     <div class="row">
     <div class="col" style="overflow:auto;">
-        <div class="cont-list drag-sort-enable w-100 list-group list-group-flush">
+        <div class="cont-list drag-sort-enable w-100 list-group list-group-flush contenedor">
             @foreach ($restaurantes as $resto)
                 <?php
                     if(is_int($resto)){
                         continue;
                     }
                 ?>
-                <li class="agarrar d-flex justify-content-between list-group-item" data-pos="{{$resto->id}}">
-                    <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
-                    <a class="m-1" href="{{ route('restaurant.edit', ['id' => $resto->id]) }}">
-                        <form method="POST" action="{{ route('restaurant.quitarPrioridad',['id'=>$resto->id]) }}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Quitar prioridad</button>
-                        </form>
-                    </a>
+                <li class="agarrar d-flex justify-content-between list-group-item fila" data-pos="{{$resto->id}}">
+                    <div class="cont-flechas" style="font-size:1.5rem;">
+                        <i class="fa fa-arrow-up flechas-up" role="button" aria-hidden="true"></i>
+                        <i class="fa fa-arrow-down flechas-down" role="button" aria-hidden="true"></i>
+                    </div>
+                    <p style="flex:1;" class="pl-4 m-0 d-flex align-items-center">
+                        <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
+                    </p>
                 </li>
             @endforeach
         </div>
@@ -53,53 +53,37 @@
 @endsection
 
 @section('scripts')
-    <script>
-/* Made with love by @fitri
- This is a component of my ReactJS project
- https://codepen.io/fitri/full/oWovYj/ */
- function enableDragSort(listClass) {
-  const sortableLists = document.getElementsByClassName(listClass);
-  Array.prototype.map.call(sortableLists, (list) => {enableDragList(list)});
-}
+<script>
+    let flechasUp=document.querySelectorAll(".flechas-up");
+    let flechasDown=document.querySelectorAll(".flechas-down");
+    let filas=document.querySelectorAll(".fila");
+    let contenedor=document.querySelector(".contenedor");
+    let arrPos=[];
 
-function enableDragList(list) {
-  Array.prototype.map.call(list.children, (item) => {enableDragItem(item)});
-}
+    flechasUp.forEach((flecha,i)=>{
+        flecha.onclick=e=>{
+            arrPos=[];
+            contenedor.insertBefore(flecha.parentNode.parentNode,flecha.parentNode.parentNode.previousElementSibling);
+            document.querySelectorAll(".agarrar").forEach(ele=>{
+                arrPos.push(ele.getAttribute("data-pos"));
+                document.querySelector(".guardarCambios").classList.add("mostrarBoton");
+                document.querySelector(".posiciones").value=JSON.stringify(arrPos);
+            })
+            console.log(arrPos)
+        }
+    });
 
-function enableDragItem(item) {
-  item.setAttribute('draggable', true)
-  item.ondrag = handleDrag;
-  item.ondragend = handleDrop;
-}
-
-function handleDrag(item) {
-  const selectedItem = item.target,
-        list = selectedItem.parentNode,
-        x = event.clientX,
-        y = event.clientY;
-
-  selectedItem.classList.add('drag-sort-active');
-  let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
-
-  if (list === swapItem.parentNode) {
-    swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
-    list.insertBefore(selectedItem, swapItem);
-  }
-}
-
-function handleDrop(item) {
-    arrPos=[];
-    document.querySelectorAll(".agarrar").forEach(ele=>{
-        arrPos.push(ele.getAttribute("data-pos"));
-        document.querySelector(".guardarCambios").classList.add("mostrarBoton");
-        document.querySelector(".posiciones").value=JSON.stringify(arrPos);
-    })
-    console.log(arrPos)
-
-  item.target.classList.remove('drag-sort-active');
-}
-
-(()=> {enableDragSort('drag-sort-enable')})();
-
-    </script>
+    flechasDown.forEach((flecha,i)=>{
+        flecha.onclick=e=>{
+            arrPos=[];
+            contenedor.insertBefore(flecha.parentNode.parentNode.nextElementSibling,flecha.parentNode.parentNode);
+            document.querySelectorAll(".agarrar").forEach(ele=>{
+                arrPos.push(ele.getAttribute("data-pos"));
+                document.querySelector(".guardarCambios").classList.add("mostrarBoton");
+                document.querySelector(".posiciones").value=JSON.stringify(arrPos);
+            })
+            console.log(arrPos)
+        }
+    });
+</script>
 @endsection

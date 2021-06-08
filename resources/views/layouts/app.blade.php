@@ -219,10 +219,12 @@
 						<div class="dont-collapse-sm" id="collapse_4">
 							<div id="newsletter">
 								<div id="message-newsletter"></div>
-								<form method="post" action="assets/newsletter.php" name="newsletter_form" id="newsletter_form">
-									<div class="form-group">
-										<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Tu email">
-										<button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+								<form method="post" action="{{route('directorio.suscribirse')}}" name="newsletter_form" id="newsletter_form">
+                                    @csrf
+                                    <div class="form-group">
+										<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" required placeholder="Tu email">
+										<button type="submit"><i class="arrow_carrot-right"></i></button>
+                                        <input type="hidden"  id="submit-newsletter">
 									</div>
 								</form>
 							</div>

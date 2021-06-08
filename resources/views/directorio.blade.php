@@ -506,6 +506,7 @@
                                         if($arrPlatos){
                                             $platos=array_slice($platos,0,4);
                                         }
+                                        //$nombre = preg_replace("/[^a-zA-Z0-9\_\-]+/", "-", $restaurant->nombre);
                                         $nombre=str_replace(' ', '-', $restaurant->nombre);
                                      ?>
 

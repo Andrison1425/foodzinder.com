@@ -63,7 +63,7 @@
         .telefono p a{
             color:#F67599 !important;
             text-decoration: none !important;
-            text-shadow: black 0px 0px 0.5rem;
+            text-shadow: white 0px 0px 0.5rem;
         }
 	</style>
 </head>
@@ -242,18 +242,18 @@
                     <div class="main_info">
                         <div class="container full-width">
                             <div class="row">
-                                <div class="col-xl-4 col-lg-5 col-md-6" style="text-shadow: 0 0 0.5rem black;">
+                                <div class="col-12 mb-3" style="text-shadow: 0 0 0.5rem black;">
                                     @if ($restaurant->google_maps)
                                         {{$restaurant->direccion}} - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
                                     @else
                                         {{$restaurant->direccion}}
                                     @endif
                                 </div>
-                                <div class="col-xl-8 col-lg-7 col-md-6">
+                                <!-- <div class="col-xl-8 col-lg-7 col-md-6">
                                     <div class="buttons clearfix">
                                         <a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
                                     </div>
-                                </div>
+                                </div> -->
                                 <span class="@if($restaurant->telefono) {{'telefono'}}@endif icon d-flex align-items-center">
                                     <p class=" d-flex align-items-center" style="flex-wrap: wrap;">
                                         @if($restaurant->telefono)
@@ -322,40 +322,42 @@
                                                     <div class="col-md-4">
                                                         <div class="item">
                                                             <div class="strip">
-                                                                <a @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}})" href="#" class="strip_info" data-toggle="modal" data-target="#exampleModalCenter">
-                                                                    <img  src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
-                                                                    <div class="item_title_ind">
-                                                                        <h3>{{ $plato->nombre }}</h3>
-                                                                        <div class="cont-alergenos-sec">
-                                                                            <?php
+                                                                <a href="#">
+                                                                    <a  @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}})" href="#" class="strip_info" >
+                                                                        <img  src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
+                                                                        <div class="item_title_ind">
+                                                                            <h3>{{ $plato->nombre }}</h3>
+                                                                            <div class="cont-alergenos-sec">
+                                                                                <?php
 
-                                                                                $alergenoPlato=json_decode($plato->alergenos);
-                                                                                $nombreAlergenos=[
-                                                                                    'Gluten','Crustáceos','Huevos','Pescado',
-                                                                                    'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
-                                                                                    'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
-                                                                                    'Moluscos','Altramuces'
-                                                                                ];
-                                                                            ?>
-                                                                            @foreach($alergenoPlato as $alergeno)
-                                                                                @if($alergeno=='15' || $alergeno=='16')
-                                                                                @else
-                                                                                    <span class="cont-info-alergenos">
-                                                                                        <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
-                                                                                        <h6>{{$nombreAlergenos[$alergeno-1]}}</h6>
-                                                                                    </span>
-                                                                                @endif
-                                                                            @endforeach
-                                                                            <span class="ml-5">
+                                                                                    $alergenoPlato=json_decode($plato->alergenos);
+                                                                                    $nombreAlergenos=[
+                                                                                        'Gluten','Crustáceos','Huevos','Pescado',
+                                                                                        'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                                                                                        'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                                                                                        'Moluscos','Altramuces'
+                                                                                    ];
+                                                                                ?>
                                                                                 @foreach($alergenoPlato as $alergeno)
                                                                                     @if($alergeno=='15' || $alergeno=='16')
-                                                                                        <img class="img-icons-a" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                    @else
+                                                                                        <span class="cont-info-alergenos">
+                                                                                            <img class="img-alergenos-sec" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                            <h6>{{$nombreAlergenos[$alergeno-1]}}</h6>
+                                                                                        </span>
                                                                                     @endif
                                                                                 @endforeach
-                                                                            </span>
+                                                                                <span class="ml-5">
+                                                                                    @foreach($alergenoPlato as $alergeno)
+                                                                                        @if($alergeno=='15' || $alergeno=='16')
+                                                                                            <img class="img-icons-a" src="{{asset('public/images/alergenos/'.$alergeno)}}.png">
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                </span>
+                                                                            </div>
+                                                                            <span>{{ $plato->precio }} €</span>
                                                                         </div>
-                                                                        <span>{{ $plato->precio }} €</span>
-                                                                    </div>
+                                                                    </a>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -531,7 +533,8 @@
     <script src="{{asset('plantilla/js/specific_detail.js')}}"></script>
 	<script src="{{asset('plantilla/js/datepicker.min.js')}}"></script>
 	<script src="{{asset('plantilla/js/datepicker_func_1.js')}}"></script>
-	<script>
+	<!-- <script>
+
 		let boton_favorito = document.querySelector('#boton_para_favorito');
 		let restaurantId = boton_favorito.dataset.restaurantid;
 
@@ -563,12 +566,13 @@
 			}
 		}
 
-	</script>
+	</script> -->
 
 	{{-- STARTS VUEJS --}}
 	<script>
 
-		const restauranteID = "{{ $restaurant->id }}";
+//		const restauranteID = "{{ $restaurant->id }}";
+        let modalMostrado=false;
 
 		const app = new Vue({
 			el: "#app",
@@ -589,6 +593,8 @@
 			},
 			methods: {
 				itemClicado: function (categoria, id, imagen, nombre, precio, descripcion,alergenos){
+                    $("#exampleModalCenter").modal('show');
+                    modalMostrado=true;
 					this.newItem = {
 						categoria: categoria,
 						id: id,
@@ -667,21 +673,21 @@
 					}
 				}
 			},
-			mounted(){
-				// buscamos el item en local storage:
-				let carritoEnLocalStorage = localStorage.getItem(`carrito-resto-${restauranteID}`);
-				if (!carritoEnLocalStorage) {
-					// no existe en local storage
-					localStorage.setItem(`carrito-resto-${restaurantId}`, JSON.stringify( this.carritoActual ));
-				} else {
-					this.carritoActual = JSON.parse( carritoEnLocalStorage );
-				}
-			},
-			watch: {
-				carritoActual: function(){
-					localStorage.setItem(`carrito-resto-${restaurantId}`, JSON.stringify( this.carritoActual ));
-				}
-			}
+			// mounted(){
+			// 	// buscamos el item en local storage:
+			// 	let carritoEnLocalStorage = localStorage.getItem(`carrito-resto-${restauranteID}`);
+			// 	if (!carritoEnLocalStorage) {
+			// 		// no existe en local storage
+			// 		localStorage.setItem(`carrito-resto-${restaurantId}`, JSON.stringify( this.carritoActual ));
+			// 	} else {
+			// 		this.carritoActual = JSON.parse( carritoEnLocalStorage );
+			// 	}
+			// },
+			// watch: {
+			// 	carritoActual: function(){
+			// 		localStorage.setItem(`carrito-resto-${restaurantId}`, JSON.stringify( this.carritoActual ));
+			// 	}
+			// }
 		})
 	</script>
 
@@ -718,6 +724,22 @@
     </script>
 
     <script>
+
+        $('#exampleModalCenter').on('hide.bs.modal', function (e) {
+            modalMostrado=false;
+            history.pushState(null, null, window.location.pathname);
+        })
+
+        window.addEventListener('popstate', function(event) {
+
+            if (modalMostrado == false) {
+                history.back();
+            }else {
+                //history.pushState(null, null, window.location.pathname);
+                $('#exampleModalCenter').modal('hide')
+            }
+        }, false);
+
         $("#modalMensaje").modal('show');
     </script>
 </body>

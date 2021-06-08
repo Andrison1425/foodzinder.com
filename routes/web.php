@@ -68,6 +68,7 @@ Route::get('/directorio', 'DirectorioController@index')->name('directorio');
 Route::get('/{id}/{ciudad}/{name}', 'DirectorioController@show')->name('directorio.detail');
 Route::post('/enviarCorreo', 'DirectorioController@enviarCorreo')->name('directorio.enviarCorreo');
 Route::post('/directorio/obtenerResultadosFiltros', 'DirectorioController@obtenerResultadosFiltros')->name('directorio.obtenerResultadosFiltros');
+Route::post('/directorio/suscribirse', 'DirectorioController@suscribirse')->name('directorio.suscribirse');
 
 Route::post('/directorio/obtenerResultadosNombre', 'DirectorioController@obtenerResultadosNombre')->name('directorio.obtenerResultadosNombre');
 
