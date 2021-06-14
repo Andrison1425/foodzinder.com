@@ -97,7 +97,7 @@ class RestaurantController extends Controller
                 $extension = $tmpFile->getMimeType();
 
                 if($extension=='image/png'){
-                    $extension='.png';
+                    $extension='.jpg';
                 }else{
                     $extension='.jpg';
                 }
@@ -156,7 +156,7 @@ class RestaurantController extends Controller
                 $extension = $tmpFile->getMimeType();
 
                 if($extension=='image/png'){
-                    $extension='.png';
+                    $extension='.jpg';
                 }else{
                     $extension='.jpg';
                 }

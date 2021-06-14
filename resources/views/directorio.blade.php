@@ -462,7 +462,7 @@
 				<div class="col-lg-9">
 					<div class="row align-items-center justify-content-between p-2">
 						<h2 class="title-directorio m-0">
-                            {{count($restaurantes_sin_paginar)}} resultados
+                            {{$num_restaurants}} resultados
                             <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
 
                         </h2>
@@ -506,8 +506,6 @@
                                         if($arrPlatos){
                                             $platos=array_slice($platos,0,4);
                                         }
-                                        //$nombre = preg_replace("/[^a-zA-Z0-9\_\-]+/", "-", $restaurant->nombre);
-                                        $nombre=str_replace(' ', '-', $restaurant->nombre);
                                      ?>
 
                                      @foreach ($platos as $plato)
@@ -517,7 +515,7 @@
                                                 style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
 
-                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'ciudad'=>$restaurant->ciudad,'name'=>$nombre]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
+                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'ciudad'=>strtolower($restaurant->ciudad),'name'=> $restaurant->nombreUrl]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
                                             </div>
                                         @else
                                             <div
@@ -572,7 +570,7 @@
 									{{ $restaurant->horario }}
 								</p>
 								<p>
-								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id, 'ciudad'=>$restaurant->ciudad, 'name'=>$nombre]) }}">Ver menú completo »</a>
+								    <a class="btn_1" href="{{ route('directorio.detail', ['id' => $restaurant->id, 'ciudad'=>strtolower($restaurant->ciudad), 'name'=>$restaurant->nombreUrl]) }}">Ver menú completo »</a>
 								</p>
 							</div>
 						</div>

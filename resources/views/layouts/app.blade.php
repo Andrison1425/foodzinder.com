@@ -34,6 +34,11 @@
 		<link href="{{asset('plantilla/css/custom.css')}}" rel="stylesheet">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
+        <style>
+            .select2-container--default .select2-selection--single{
+                height: 62px !important;
+            }
+        </style>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-S399JM7G5X"></script>
         <script>
@@ -223,8 +228,7 @@
                                     @csrf
                                     <div class="form-group">
 										<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" required placeholder="Tu email">
-										<button type="submit"><i class="arrow_carrot-right"></i></button>
-                                        <input type="hidden"  id="submit-newsletter">
+										<button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
 									</div>
 								</form>
 							</div>
@@ -310,12 +314,16 @@
                     })
                     .then(function(json) {
                         resultadosNombre.innerHTML='';
-                        json.forEach(ele=>{
-                            let nombre=ele.nombre.replace(' ', '-')
+                        for (const key in json) {
+                            let nombre=json[key].nombre.replace(' ', '-');
+                            nombre=nombre.normalize('NFD')
+                                .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi,"$1$2")
+                                .normalize();
+
                             resultadosNombre.innerHTML+=`
-                                <a href="${ele.id}/${ele.ciudad}/${nombre}">${ele.nombre}</a>
+                                <a href="${json[key].id}/${json[key].ciudad}/${nombre}">${json[key].nombre}</a>
                             `;
-                        });
+                        }
                     })
                     .catch(function(err) {
                         console.log(err);

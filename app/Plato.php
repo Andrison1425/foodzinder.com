@@ -9,4 +9,9 @@ class Plato extends Model
     protected $table = 'platos';
 
     protected $guarded = [];
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class,'restaurant_id','id');
+    }
 }

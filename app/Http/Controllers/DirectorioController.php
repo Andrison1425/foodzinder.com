@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Directorio;
 use Illuminate\Http\Request;
 use App\Restaurant;
+use App\Plato;
 use App\User;
 use Newsletter;
 
@@ -12,7 +13,6 @@ class DirectorioController extends Controller
 {
     public function index(Request $request)
     {
-
         $palabra_busqueda = (!empty($request->input("palabra_busqueda"))) ? '%'.$request->input("palabra_busqueda").'%' : "%";
         $ciudad = (!empty($request->input("ciudad"))) ? '%'.$request->input("ciudad").'%' : '%';
         $precio1 = (!empty($request->input('precio1'))) ? 'on' : null;
@@ -97,6 +97,8 @@ class DirectorioController extends Controller
         if ($zumos_y_batidos) {array_push($filtro, ['zumos_y_batidos', 'like', 'on']);}
 
         $restaurantes_sin_paginar = Restaurant::where($filtro)->where('status', 1)->get();
+        $platos = Plato::where('nombre', 'like', $palabra_busqueda)->get();
+
         $restaurantes = '';
 
         $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
@@ -105,10 +107,14 @@ class DirectorioController extends Controller
         foreach ($admin as $key => $value) {
             $admin=$value;
         }
+        $arrRestaurantes=[];
+
+        foreach($platos as $plato){
+            $arrRestaurantes[$plato->restaurant->id]=$plato->restaurant;
+        }
 
         $prioridad=json_decode($admin->prioridad);
 
-        $arrRestaurantes=[];
         foreach($restaurantes_sin_paginar as $restaurante){
             $arrRestaurantes[$restaurante->id]=$restaurante;
         }
@@ -123,9 +129,12 @@ class DirectorioController extends Controller
             if(is_int($restaurante)){
                 continue;
             }else{
+                $restaurante['nombreUrl']=$this->formatear($restaurante->nombre);
                 $arrRestaurantes[$restaurante->id]=$restaurante;
             }
         }
+        $num_restaurants=count($arrRestaurantes);
+
         $arrRestaurantes=array_slice($arrRestaurantes,($restaurantes->currentPage()*6)-6,6);
 
         $cantidades = $this->TraerCantidades($restaurantes_sin_paginar);
@@ -133,8 +142,52 @@ class DirectorioController extends Controller
                                    "restaurantes" => $arrRestaurantes,
                                    "links"=>$restaurantes,
                                    'cantidades' => $cantidades,
-                                   "restaurantes_sin_paginar" => $restaurantes_sin_paginar
+                                   "num_restaurants" => $num_restaurants
                                    ]);
+    }
+
+    function formatear($cadena){
+
+        //Codificamos la cadena en formato utf8 en caso de que nos de errores
+
+        //Ahora reemplazamos las letras
+        $cadena = str_replace(
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+            $cadena
+        );
+
+        $cadena = str_replace(
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('n', 'N', 'c', 'C'),
+            $cadena
+        );
+
+        $cadena=str_replace(' ', '-', $cadena);
+        $cadena=str_replace("'", '', $cadena);
+        $cadena=strtolower($cadena);
+
+        return $cadena;
     }
 
     public function TraerCantidades($restaurantes)
@@ -201,7 +254,18 @@ class DirectorioController extends Controller
     {
         $nombre=$request->palabra_busqueda;
         $restaurantes =Restaurant::where('nombre', 'like', "%$nombre%")->where('status', 1)->limit(6)->get();
-        return json_encode($restaurantes);
+        $platos = Plato::where('nombre', 'like', "%$nombre%")->limit(6)->get();
+        $arrRestaurantes=[];
+
+        foreach($platos as $plato){
+            $arrRestaurantes[$plato->restaurant->id]=$plato->restaurant;
+        }
+
+        foreach($restaurantes as $restaurant){
+            $arrRestaurantes[$restaurant->id]=$restaurant;
+        }
+
+        return json_encode($arrRestaurantes);
     }
 
     public function suscribirse(Request $request)
