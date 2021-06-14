@@ -149,14 +149,14 @@
                             </span>
                             <a href="#" class="open_filters"><i class="icon_close"></i></a></div>
                         <!-- /filter_type -->
-						<div class="filter_type">
+						<!-- <div class="filter_type">
 							<h4><a href="#filter_1" data-toggle="collapse" class="opened">Distancia</a></h4>
 							<div class="collapse show" id="filter_1">
                         <div class="distance"> Radio alrededor del área seleccionada</div>
                         <div class="add_bottom_15"><input type="range" min="1" max="50" step="1" value="5" data-orientation="horizontal"></div>
                         <div class="distance"><span></span> km</div>
 							</div>
-								</div>
+								</div> -->
                         <!-- /filter_type -->
 						<div class="filter_type">
 							<h4><a href="#filter_2" data-toggle="collapse" class="opened">Precio</a></h4>
@@ -535,7 +535,9 @@
 
 							<div class="col-md-4 info">
 								<h2>
-									{{ $restaurant->nombre }}
+                                    <a style="color:black;" href="{{ route('directorio.detail', ['id' => $restaurant->id, 'ciudad'=>strtolower($restaurant->ciudad), 'name'=>$restaurant->nombreUrl]) }}">
+									    {{ $restaurant->nombre }}
+                                    </a>
 								</h2>
 								<p class="icon ubicacion">
 									{{ $restaurant->direccion }} - {{ $restaurant->ciudad }}

@@ -316,7 +316,7 @@
                                             <h2>{{$categoria}}</h2>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row observable">
                                             @foreach($platos as $plato)
                                                 @if($plato->categoria==$categoria)
                                                     <div class="col-md-4">
@@ -693,34 +693,46 @@
 
         <!-- Scroll Spy -->
     <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const mainNav=document.querySelector("#mainNav");
 
-        $(function() {
-            $('a.ancla').click(function(e){
-                e.preventDefault();
-                let ancla = $(this).attr('href');
-                var position = $(ancla).offset();
-                $('html, body').animate({scrollTop:position.top-60}, 200);
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.previousElementSibling.getAttribute('id');
+                    if (entry.intersectionRatio > 0) {
+                        const element = document.querySelector(`.navigation a[href="#${id}"]`);
+                        element.classList.add('active');
+
+                        mainNav.scrollTo(element.offsetLeft+element.clientWidth/2 - (mainNav.clientWidth / 2),0)
+                    } else {
+                        document.querySelector(`.navigation a[href="#${id}"]`).classList.remove('active');
+                    }
+                })
+            },{rootMargin:"-20% 0px -70% 0px"});
+
+            // Track all sections that have an `id` applied
+            document.querySelectorAll('.observable').forEach((section) => {
+                observer.observe(section);
+            });
+
+            function scrollToAnchor(id){
+                const yOffset = -100;
+                const element = document.getElementById(id);
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+                window.scrollTo({top: y});
+            }
+
+            document.querySelectorAll(".navigation a").forEach(a=>{
+                a.onclick=e=>{
+                    e.preventDefault();
+                    let id=e.target.href.split('#');
+                    scrollToAnchor(id[1])
+                }
             })
-        })
-
-        $("#toTop").click(function(){
-            $('html, body').animate({scrollTop:0}, 200);
         });
 
-        $(window).scroll(function() {
-            var scrollDistance = $(window).scrollTop() - $(window).height();
-            // Assign active class to nav links while scolling
-            let cambiar=false;
-            $('.page-section').each(function(i) {
-                if ($(this).position().top <= scrollDistance+250) {
-                    document.querySelector("#mainNav").scrollLeft=document.querySelectorAll(".navigation>li")[i].offsetLeft-30;
 
-                    $('.navigation a.active').removeClass('active');
-                    $('.navigation a').eq(i).addClass('active');
-                }
-
-            });
-        }).scroll();
     </script>
 
     <script>
