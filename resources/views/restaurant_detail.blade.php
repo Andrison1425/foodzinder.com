@@ -314,7 +314,7 @@
                                                             <div class="strip">
                                                                 <a href="#">
                                                                     <a  @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}})" href="#" class="strip_info" >
-                                                                        <img  src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
+                                                                        <img  loading="lazy" src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
                                                                         <div class="item_title_ind">
                                                                             <h3>{{ $plato->nombre }}</h3>
                                                                             <div class="cont-alergenos-sec">
