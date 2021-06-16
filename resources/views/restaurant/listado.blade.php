@@ -7,10 +7,10 @@
 @section('content')
 
 <div class="container-fluid p-2 mt-5">
-    <div class="row">
-    <div class="col text-center">
-    <h4>Lista de restaurantes</h4>
-    </div>
+    <div>
+        <div class="text-center" style="margin-bottom: -3.5rem;">
+            <h4 class="title-table">Lista de restaurantes</h4>
+        </div>
     </div>
     <div class="row">
     <div class="col" style="overflow:auto;">
@@ -108,7 +108,19 @@
 @section('scripts')
 <script>
 
-    let table=$('#tabla_listado_restaurantes').DataTable();
+    let table=$('#tabla_listado_restaurantes').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ restaurantes por páginas",
+            "zeroRecords": "Ningún restaurante encontrado",
+            "info": "Mostrando _PAGE_ de _PAGES_ resultados",
+            "infoEmpty": "Ningún resultado",
+            "infoFiltered": "(filtrado de _MAX_ total restaurantes)",
+            "paginate":{
+                'next':'Siguiente',
+                'previous':'Anterior'
+            }
+        }
+    });
 
     document.querySelectorAll(".formEliminar").forEach(form=>{
         form.onsubmit=e=>{
