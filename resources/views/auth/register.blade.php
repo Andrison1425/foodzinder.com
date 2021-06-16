@@ -77,9 +77,9 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="main">
-                                <a href="#0" class="social_bt facebook">Regístrate con Facebook</a>
+                                <!-- <a href="#0" class="social_bt facebook">Regístrate con Facebook</a>
                                 <a href="#0" class="social_bt google">Regístrate con Google</a>
-                                <div class="divider"><span>O</span></div>
+                                <div class="divider"><span>O</span></div> -->
                                 <div class="form-group">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Nombre completo" required autocomplete="name" autofocus>
 

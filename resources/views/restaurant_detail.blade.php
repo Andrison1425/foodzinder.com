@@ -15,10 +15,10 @@
 
 	<!-- Favicons-->
 	<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" >
-    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('plantilla/img/img-compartir.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('plantilla/img/img-compartir.png')}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('plantilla/img/img-compartir.png')}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('plantilla/img/img-compartir.png')}}">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('public/'.$imagenes[0])}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('public/'.$imagenes[0])}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('public/'.$imagenes[0])}}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('public/'.$imagenes[0])}}">
 	<!-- GOOGLE WEB FONT -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
@@ -56,15 +56,6 @@
 			border-radius: 25px;
 		}
 
-        .telefono::before{
-            margin-left: 5px !important;
-        }
-
-        .telefono p a{
-            color:#F67599 !important;
-            text-decoration: none !important;
-            text-shadow: white 0px 0px 0.5rem;
-        }
 	</style>
 </head>
 
@@ -206,13 +197,14 @@
 		</div>
 	</div>{{-- end Modal-new-item --}}
 
-	<header class="header_in clearfix d-flex align-items-center justify-content-between">
+	<header class="header_in d-flex align-items-center justify-content-between">
         <button class="btn btn_contactar ml-2 " onClick="history.back()">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </button>
-        <h2 class="m-0 ml-2" style="color:#f67599;">
+        <h2 class="m-0 ml-2 headerTitle" style="color:#f67599;">
             {{$restaurant->nombre}}
         </h2>
+        <a href="{{ url('/') }}"><img src="{{asset('plantilla/img/logo.svg')}}" width="140" height="35" alt=""></a>
    </header>
 <!-- /header -->
 
@@ -220,7 +212,7 @@
 
 		<div class="hero_in detail_page background-image">
 			<div class="wrapper opacity-mask img-fluid" data-opacity-mask="#00000078">
-                <div id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide h-100" style="background-color:black;" data-ride="carousel">
                     <div class="carousel-inner h-100" style="opacity:0.6;">
                         @foreach ($imagenes as $imagen)
                             @if($loop->index==0)
@@ -242,9 +234,9 @@
                     <div class="main_info">
                         <div class="container full-width">
                             <div class="row">
-                                <div class="col-12 mb-3" style="text-shadow: 0 0 0.5rem black;">
+                                <div class="col-12 mb-3 txtDireccion d-flex" >
                                     @if ($restaurant->google_maps)
-                                        {{$restaurant->direccion}} - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
+                                        <span>{{$restaurant->direccion}}</span> - <a href="{{ $restaurant->google_maps }}" target="_blank">Ver en mapa</a>
                                     @else
                                         {{$restaurant->direccion}}
                                     @endif
@@ -254,13 +246,11 @@
                                         <a id="boton_para_favorito" onclick="guardarEnLocalStorage(event)" data-restaurantid="{{ $restaurant->id }}" href="#" class="btn_hero wishlist"><i class="icon_heart"></i>Agregar a favoritos</a>
                                     </div>
                                 </div> -->
-                                <span class="@if($restaurant->telefono) {{'telefono'}}@endif icon d-flex align-items-center">
+                                <span class="d-block d-flex align-items-center">
                                     <p class=" d-flex align-items-center" style="flex-wrap: wrap;">
                                         @if($restaurant->telefono)
-
-                                            <a href="tel:{{ $restaurant->telefono }}" style="margin:0 10px;">
-                                                <span href="#"> {{ $restaurant->telefono }} </span>
-                                                Llamar
+                                            <a class="telefono btnTelefono icon" href="tel:{{ $restaurant->telefono }}">
+                                                <span href="#"> {{ $restaurant->telefono }} Llamar</span>
                                             </a>
                                         @endif
 
@@ -611,13 +601,14 @@
 				restarCantidad: function (){
 					if (this.newItem.cantidad >= 2) {
 						this.newItem.cantidad--;
-						this.newItem.precioCantidad = this.newItem.precioUnitario * this.newItem.cantidad;
+						this.newItem.precioCantidad = Number(Math.round((this.newItem.precioUnitario * this.newItem.cantidad)* 100) / 100).toFixed(2);
 					}
 				},
 
 				sumarCantidad: function (){
+
 					this.newItem.cantidad++;
-					this.newItem.precioCantidad = this.newItem.precioUnitario * this.newItem.cantidad;
+					this.newItem.precioCantidad =Number(Math.round((this.newItem.precioUnitario * this.newItem.cantidad)* 100) / 100).toFixed(2);
 				},
 
 				agregarAMiLista: function (){

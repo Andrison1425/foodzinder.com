@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
+<?php
+    $filtros=$request->all();
+    unset($filtros["_method"]);
+    unset($filtros["palabra_busqueda"]);
+    unset($filtros["_token"]);
+    unset($filtros["ciudad"]);
+    $numFiltros=sizeof($filtros);
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -112,9 +119,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="{{route('restaurant.index')}}">Ir al tablero</a>
-                                <a class="dropdown-item" href="{{ route('restaurant.create') }}">Registrar Restaurante</a>
-                                <a class="dropdown-item" href="{{route('restaurant.listado')}}">Listar Restaurantes</a>
-                                <a class="dropdown-item" href="{{route('users.index')}}">Listar Usuarios</a>
+                                <a class="dropdown-item" href="{{route('directorio')}}">Ir al directorio</a>
+                                <a class="dropdown-item" href="{{ route('restaurant.create') }}">Añadir Restaurante</a>
+                                <a class="dropdown-item" href="{{route('restaurant.listado')}}">Administrar Restaurantes</a>
+                                <a class="dropdown-item" href="{{route('users.index')}}">Usuarios</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
@@ -137,10 +145,14 @@
 	<main class="bg_gray pattern add_top_menu">
 
 		<!-- /page_header -->
+
         <div class="container margin_30_40">
 			<div class="row">
                 <form class="filtroAjax">
-				<aside class="col-lg-3" id="sidebar">
+                <aside class="col-lg-3" id="sidebar">
+                    @if($numFiltros!=0)
+                        <p class="txtFiltrosAplicados">{{$numFiltros}} filtros aplicados</p>
+                    @endif
 					<div class="filter_col">
                         <div class="inner_bt">
                             <span class="borrar-filtros" onclick="borrrarFiltros()">
@@ -452,22 +464,14 @@
 
 
 				</aside>
-                <?php
-                    $filtros=$request->all();
-                    unset($filtros["_method"]);
-                    unset($filtros["palabra_busqueda"]);
-                    unset($filtros["_token"]);
-                    $numFiltros=sizeof($filtros);
-                ?>
+
 				<div class="col-lg-9">
 					<div class="row align-items-center justify-content-between p-2">
 						<h2 class="title-directorio m-0">
                             {{$num_restaurants}} resultados
-                            <p style="font-size:16px;color:gray;">{{$numFiltros}} filtros aplicados</p>
-
                         </h2>
 
-						<a href="#0" class="open_filters btn_filters">Ver Filtros</a>
+						<a href="#0" class="open_filters btn_filters">Ver Filtros @if($numFiltros!=0){{"($numFiltros)"}}@endif</a>
 					</div>
 					@foreach ($restaurantes as $restaurant)
 

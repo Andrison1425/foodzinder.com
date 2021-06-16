@@ -20,6 +20,16 @@
     <input type="hidden" name="prioridad" class="posiciones" value="[]">
     <input class="btn btn-success d-none guardarCambios float-right m-2" type="submit" value="Guardar cambios">
 </form>
+
+<div class="cont-paginacion">
+    <?php
+        $cont=ceil(count($restaurantes)/6);
+    ?>
+    @for ($i = 0; $i < $cont; $i++)
+        <li>{{$i+1}}</li>
+    @endfor
+</div>
+
 <div class="container-fluid p-2 mt-5">
     <div class="row">
     <div class="col text-center">
@@ -69,20 +79,44 @@
                 document.querySelector(".guardarCambios").classList.add("mostrarBoton");
                 document.querySelector(".posiciones").value=JSON.stringify(arrPos);
             })
-            console.log(arrPos)
         }
     });
 
     flechasDown.forEach((flecha,i)=>{
         flecha.onclick=e=>{
             arrPos=[];
-            contenedor.insertBefore(flecha.parentNode.parentNode.nextElementSibling,flecha.parentNode.parentNode);
+            if(flecha.parentNode.parentNode.nextElementSibling==null){
+                contenedor.insertBefore(flecha.parentNode.parentNode,document.querySelectorAll(".agarrar")[0]);
+            }else{
+                contenedor.insertBefore(flecha.parentNode.parentNode.nextElementSibling,flecha.parentNode.parentNode);
+            }
             document.querySelectorAll(".agarrar").forEach(ele=>{
                 arrPos.push(ele.getAttribute("data-pos"));
                 document.querySelector(".guardarCambios").classList.add("mostrarBoton");
                 document.querySelector(".posiciones").value=JSON.stringify(arrPos);
             })
-            console.log(arrPos)
+        }
+    });
+
+    let pags=document.querySelectorAll(".cont-paginacion>li");
+
+    filas.forEach(fila=>{
+
+    });
+
+    let page=1;
+
+    pags.forEach((pag,index)=>{
+        pag.onclick=e=>{
+            page=Number(e.target.innerHTML);
+            pags.forEach((pag,e)=>{
+
+
+
+            });
+            console.log(page);
+            //pag.classList.add("liActive");
+            //pag.classList.add("tres")
         }
     });
 </script>

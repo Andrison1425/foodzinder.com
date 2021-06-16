@@ -78,9 +78,9 @@
 								 <div class="main">
 										 <form method="POST" action="{{ route('login') }}">
 										 @csrf
-											  <a href="#0" class="social_bt facebook">Continuar con Facebook</a>
+											  <!-- <a href="#0" class="social_bt facebook">Continuar con Facebook</a>
 											  <a href="#0" class="social_bt google">Continuar con Google</a>
-											  <div class="divider"><span>O</span></div>
+											  <div class="divider"><span>O</span></div> -->
 											  <div class="form-group">
 													<label>Email</label>
 													<input type="email" class="form-control" name="email" id="email" required>
@@ -108,7 +108,7 @@
 														 <span class="checkmark"></span>
 														 </label>
 													</div>
-													<div class="float-right mt-1"><a id="forgot" href="{{ route('password.request') }}">Olvidaste tu contraseña?</a></div>
+													<div class="float-right mt-1"><a id="forgot" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></div>
 											  </div>
 											  <div class="text-center">
 													<button type="submit" value="Iniciar Sesión" class="btn_1 full-width mb_5">Iniciar Sesión</button>

@@ -1,10 +1,156 @@
 .btn-dashboard a{
-    background-color: #F67599;
-    height: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
     font-size: 1.3rem;
+    width: 14rem;
+    height: 7rem;
+    flex-direction: column;
+    background: white;
+    color: gray;
+    border-radius:10px ;
+    transition: all 0.2s linear;
 }
 
+.btn-dashboard a i{
+    color:#F67599;
+}
+
+.btn-dashboard a:hover{
+    background-color:#F67599;
+    color:white;
+    text-decoration: none;
+}
+
+.btn-dashboard a:hover i{
+    color:white;
+}
+
+.contentList{
+    width: 100%;
+}
+
+.imgPrin{
+    width: 80%;
+}
+
+.contRow{
+    padding:0 17%;
+}
+
+.contImgPrin{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.cont-paginacion{
+    display: flex;
+}
+
+.cont-paginacion li{
+    list-style: none;
+    margin:0 5px;
+}
+
+.liActive{
+    background-color: blue;
+}
+
+.tres::after{
+    content: " ...";
+}
+
+.tresA::before{
+    content: "... ";
+}
+
+.ocultarLi{
+    display: none;
+}
+
+.inputBuscar{
+    padding:1.2rem 1.7rem 1.2rem 1rem  !important;
+    border-radius: 11px !important;
+    box-shadow: #80808066 0 0 0.1rem 0.1rem;
+    margin: 1.5rem 1rem 1.5rem 0;
+}
+
+#icon-buscador{
+    margin: 0 0 0 -2.5rem;
+    color: #808080c7;
+}
+
+.cont-encabezado{
+    display: flex;
+}
+
+.cont-encabezado a:hover{
+    text-decoration: none;
+}
+
+.cont-encabezado h2{
+    margin:0 5px 0 0;
+}
+
+.status-info{
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.cont-opc-rest button, .cont-btn-ver button{
+    background-color: #E9ECEF;
+    color:#868E96;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0.4rem 1.1rem;
+    border-radius: 21px;
+    transition: all 0.2s linear;
+}
+
+.cont-opc-rest button:hover, .cont-btn-ver button:hover{
+    color:white;
+    background-color: black;
+}
+
+.cont-info-sec{
+    padding-left: 2rem;
+    color:#868E96;
+}
+
+.cont-info-sec i{
+    color:black;
+    width: 15px;
+}
+
+#tabla_listado_restaurantes{
+    width: 100%;
+    border: none;
+}
+
+.fila{
+    transition:all 0.2s linear;
+    background-color: white;
+}
+
+.fila:hover{
+    background-color: #F7F7F7;
+    box-shadow: #80808057 0 0 0.5rem;
+}
+
+.fila td{
+    height: 11rem;
+}
+
+.cont-sec-right{
+    flex:1;
+}
+
+.img-resto{
+    width: 6rem;
+    border: solid 1px;
+    height: 6rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+}

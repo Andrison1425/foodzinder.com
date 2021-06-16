@@ -21,6 +21,7 @@
     <link href="{{asset('plantilla/admin_section/css/admin.css')}}" rel="stylesheet">
     <!-- Icon fonts-->
     <link href="{{asset('plantilla/admin_section/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('plantilla/css/icons.css')}}">
     <!-- Plugin styles -->
     <link href="{{asset('plantilla/admin_section/vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
     <!-- Your custom styles -->

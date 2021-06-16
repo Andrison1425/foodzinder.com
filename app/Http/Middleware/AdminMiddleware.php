@@ -19,10 +19,10 @@ class AdminMiddleware
             if(auth()->user()->profile==1){
                 return $next($request);
             }else{
-                return redirect()->route('index');
+                return redirect()->route('directorio');
             }
         }else{
-            return redirect()->route('index');
+            return redirect()->route('directorio');
         }
     }
 }

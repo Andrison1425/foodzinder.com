@@ -22,7 +22,6 @@ class RestaurantController extends Controller
             $admin=$value;
         }
         $prioridad=json_decode($admin->prioridad);
-
         return view('restaurant.listado', ['restaurantes' => $restaurantes,'prioridad'=>$prioridad]);
     }
 

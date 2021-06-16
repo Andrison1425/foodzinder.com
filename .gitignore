@@ -4,6 +4,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/app/Http/Middleware/HttpsProtocol.php
 .env
 .env.backup
 .phpunit.result.cache
@@ -13,4 +14,3 @@ npm-debug.log
 yarn-error.log
 composer.lock
 /public/categorias/**/*.png
-/app/Http/Middleware/HttpsProtocol.php

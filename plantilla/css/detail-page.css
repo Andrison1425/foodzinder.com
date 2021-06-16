@@ -1311,3 +1311,42 @@
     height: auto;
     align-self: center;
 }
+
+
+.txtDireccion{
+    font-size: 20px;
+    width: max-content;
+    max-width: 100%;
+}
+
+.txtDireccion>span{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.txtDireccion>a{
+    min-width: max-content;
+}
+
+.headerTitle{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.btnTelefono{
+    margin: 0px 10px;
+    color: #F67599 !important;
+    text-decoration: none !important;
+    border-radius: 25px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.telefono::before{
+    margin: 0 7px 0 5px !important;
+}
+
