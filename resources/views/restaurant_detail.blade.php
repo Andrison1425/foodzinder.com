@@ -729,6 +729,7 @@
     <script>
 
         $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
+            console.log(e.from)
             if(e.from!==1){
                 let img=document.querySelectorAll(".img-portada")[e.from+1]
                 img.style.backgroundImage=`url(${img.getAttribute("data-img")})`;
