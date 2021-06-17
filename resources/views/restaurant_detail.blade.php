@@ -218,7 +218,7 @@
                             @if($loop->index==0)
                                 <div class="carousel-item active h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});" data-toggle="modal" data-target=".bd-example-modal-lg"></div>
                             @else
-                                <div class="carousel-item h-100 img-portada" style="background:url({{asset('public/'.$imagen)}});" data-toggle="modal" data-target=".bd-example-modal-lg"></div>
+                                <div class="carousel-item h-100 img-portada" data-img="{{asset('public/'.$imagen)}}" data-toggle="modal" data-target=".bd-example-modal-lg"></div>
                             @endif
                         @endforeach
                     </div>
@@ -727,6 +727,13 @@
     </script>
 
     <script>
+
+        $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
+            if(e.from!==1){
+                let img=document.querySelectorAll(".img-portada")[e.from+1]
+                img.style.backgroundImage=`url(${img.getAttribute("data-img")})`;
+            }
+        });
 
         $('#exampleModalCenter').on('hide.bs.modal', function (e) {
             modalMostrado=false;
