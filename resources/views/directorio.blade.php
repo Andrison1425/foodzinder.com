@@ -516,17 +516,24 @@
                                         @if($loop->index == 3)
                                             <div
                                                 class="li-slider"
-                                                style=" background-image:url({{asset('public'.$plato->imagen)}});"
+                                                data-img="{{asset('public'.$plato->imagen)}}"
                                             >
-
-                                            <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'ciudad'=>strtolower($restaurant->ciudad),'name'=> $restaurant->nombreUrl]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
+                                                <a href="{{ route('directorio.detail', ['id' => $restaurant->id,'ciudad'=>strtolower($restaurant->ciudad),'name'=> $restaurant->nombreUrl]) }}" class="ver-menu">VER MENÚ COMPLETO</a>
                                             </div>
-                                        @else
+                                        @endif
+                                        @if($loop->index == 2)
+                                            <div
+                                                class="li-slider"
+                                                data-img="{{asset('public'.$plato->imagen)}}"
+                                            >
+                                            </div>
+                                        @endif
+                                        @if($loop->index < 2)
                                             <div
                                                 class="li-slider"
                                                 style=" background-image:url({{asset('public'.$plato->imagen)}});"
                                             >
-                                        </div>
+                                            </div>
                                         @endif
                                      @endforeach
 

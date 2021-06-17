@@ -1087,3 +1087,7 @@ span.infobox_rate {
     color: gray;
     margin: 0 0 3px 5px;
 }
+
+.slide-ocultar{
+    display: none;
+}

@@ -33,6 +33,14 @@ for (let i = 0; i < sliders.length; i++) {
             }
         }
 
+        if(margenSlider==50){
+            element.querySelectorAll(".li-slider")[2].style.backgroundImage=`url(${element.querySelectorAll(".li-slider")[2].getAttribute("data-img")})`;
+        }
+        if(margenSlider==100){
+            element.querySelectorAll(".li-slider")[3].style.backgroundImage=`url(${element.querySelectorAll(".li-slider")[2].getAttribute("data-img")})`;
+        }
+
+
         if(margenSlider===100){
             contSliders[i].querySelectorAll(".arrow")[1].style.display="none";
             contSliders[i].querySelector(".cont-flechas").style.width="50%";

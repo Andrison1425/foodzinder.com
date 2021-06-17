@@ -2,7 +2,6 @@ const slide=document.querySelectorAll('.li-slider');
 const slider=document.querySelector(".content-slider ul");
 const contSliders=document.querySelectorAll(".content-slider");
 const sliders=document.querySelectorAll(".content-slider ul");
-const btnFlechas=document.querySelectorAll(".cont-flechas span");
 const flechas=document.querySelectorAll(".cont-flechas img");
 
 slide.forEach(ele=>{
@@ -31,6 +30,13 @@ for (let i = 0; i < sliders.length; i++) {
             if(margenSlider!==0){
                 margenSlider-=50;
             }
+        }
+        console.log(margenSlider)
+        if(margenSlider==50){console.log("a")
+            element.querySelectorAll(".li-slider")[2].classList.remove("slide-ocultar");
+        }
+        if(margenSlider==0){console.log("b")
+            element.querySelectorAll(".li-slider")[3].classList.remove("slide-ocultar");
         }
 
         if(margenSlider===100){
