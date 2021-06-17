@@ -55,6 +55,14 @@ class UserController extends Controller
         return view("users.index", ['users' => $users]);
     }
 
+    public function destroy(Request $request)
+    {
+        $user = User::find($request->input('id'));
+        $user->delete();
+        $users = User::where('email', '!=' , "admin@admin.com")->get();
+        return redirect()->route('users.index', ['users' => $users])->with('Notificacion', 'Usuario eliminado exitosamente');
+    }
+
     public function createRestaurant(){
         return view("users.createRestaurant");
     }

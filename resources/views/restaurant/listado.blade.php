@@ -32,10 +32,6 @@
                 ?>
                 <tr class="fila" id="{{$loop->index}}" data-pos="{{$resto->id}}">
                     <td class="p-5 d-flex" style="">
-                        <?php
-
-
-                        ?>
                         <img class="img-resto" src="{{asset('public/'.$imagen)}}" alt="">
                         <div class="cont-sec-right d-flex justify-content-between h-100 flex-column">
                             <div class="d-flex cont-encabezado justify-content-between">

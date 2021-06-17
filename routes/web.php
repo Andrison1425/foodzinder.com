@@ -47,6 +47,7 @@ Route::group(['middleware'=>'auth','middleware' => 'admin'], function () {
     Route::get('/users/index', 'UserController@index')->name('users.index');
     Route::get('/users/agregar', 'UserController@agregar')->name('users.agregar');
     Route::post('/users/crear', 'UserController@crear')->name('users.crear');
+    Route::post('/users/destroy', 'UserController@destroy')->name('users.destroy');
     Route::get('/users/edit/{id}', 'UserController@edit')->name('users.edit');
     Route::post('/users/update', 'UserController@update')->name('users.update');
 

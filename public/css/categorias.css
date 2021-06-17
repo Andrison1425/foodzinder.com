@@ -178,3 +178,18 @@ img{
 .checkImg:checked ~ label{
     opacity: 1;
 }
+
+.categoria-link{
+    color:#f67599 !important;
+}
+
+.btn-opc:hover {
+    color: white;
+    background-color: black;
+}
+
+.btn-opc{
+    background-color: #E9ECEF;
+    color: #868E96;
+    transition: all 0.2s linear;
+}

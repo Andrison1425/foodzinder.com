@@ -169,3 +169,42 @@
 .pagination .active{
     color:white !important;
 }
+
+.cont-botones-nav{
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+ }
+
+ .cont-botones-nav a{
+    min-width: max-content;
+    margin: 1rem;
+    background-color: white;
+    color: gray;
+    padding: 0.7rem 1rem;
+    border-radius: 14px;
+ }
+
+ .cont-botones-nav a i{
+     color:#f67599;
+     width: 20px;
+ }
+
+ .cont-botones-nav .active i{
+    color:white;
+}
+
+ .cont-botones-nav a:hover{
+     text-decoration: none;
+ }
+
+ .cont-botones-nav .active{
+     background-color: #f67599;
+     color:white;
+ }
+
+
+.btn-guardar{
+    background-color: #f67599 !important;
+    color:white !important;
+}

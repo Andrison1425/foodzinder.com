@@ -3,12 +3,26 @@
 @section('custom-links')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css" integrity="sha512-jO9KUHlvIF4MH/OTiio0aaueQrD38zlvFde9JoEA+AQaCNxIJoX4Kjse3sO2kqly84wc6aCtdm9BIUpYdvFYoA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{asset('public/css/categorias.css')}}">
-
+    <style>
+        #app{
+            display: flex;
+            padding-right: 4rem;
+        }
+    </style>
 @endsection
 
 @section('content')
 
-
+<div class="cont-botones-nav">
+    <a href="{{ route('restaurant.edit', ['id' => $restaurante->id]) }}">
+        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+        <span>Editar información</span>
+    </a>
+    <a href="#"  class="active">
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <span>Editar Menú</span>
+    </a>
+</div>
 
 <div class="container mt-4">
     <div class="row justify-content-center">
@@ -147,11 +161,11 @@
                 @foreach($restaurante->categorias as $categoria)
                     @if($loop->index==0)
                         <li class="nav-item">
-                            <a class="nav-link active" id="categoria-tab" data-toggle="tab" href="#categoria{{$loop->index}}" role="tab" aria-controls="categoria{{$loop->index}}" aria-selected="true">{{$categoria}}</a>
+                            <a class="nav-link active categoria-link" id="categoria-tab" data-toggle="tab" href="#categoria{{$loop->index}}" role="tab" aria-controls="categoria{{$loop->index}}" aria-selected="true">{{$categoria}}</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" id="categoria-tab" data-toggle="tab" href="#categoria{{$loop->index}}" role="tab" aria-controls="categoria{{$loop->index}}" aria-selected="false">{{$categoria}}</a>
+                            <a class="nav-link categoria-link" id="categoria-tab" data-toggle="tab" href="#categoria{{$loop->index}}" role="tab" aria-controls="categoria{{$loop->index}}" aria-selected="false">{{$categoria}}</a>
                         </li>
                     @endif
                 @endforeach
@@ -171,8 +185,10 @@
                 <div class="tab-pane fade @if($loop->index==0){{'show active'}}@endif" id="categoria{{$loop->index}}" role="tabpanel" aria-labelledby="categoria{{$loop->index}}-tab">
                     <div class="row">
                         <div class="col-12 d-flex align-items-center justify-content-between" style="flex-wrap: wrap;">
-                            <a  class="my-2 btn-primary btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
-                            <button class="my-2 btn-secondary btn" data-toggle="modal" data-target="#editarCategoriaModal" >Editar categoría</button>
+                            <a  class="my-2 btn-guardar btn" data-toggle="collapse" href="#idp{{$loop->index}}" role="button" aria-expanded="false" aria-controls="idp{{$loop->index}}">Agregar plato</a>
+                            <button class="my-2 btn-secondary btn" data-toggle="modal" data-target="#editarCategoriaModal" >
+                                Editar categoría
+                            </button>
                         </div>
                         <div class="collapse multi-collapse p-0 float-right" id="idp{{$loop->index}}">
                             <div class="card card-body p-1">
@@ -302,12 +318,18 @@
                                                 </div>
 
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}} )" href="#" class="btn btn-info btn-sm mr-2">Editar</a>
+                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}} )" href="#" class="btn btn-opc btn-sm mr-2">
+                                                        <i class="icon_pencil-edit edit-orden "></i>
+                                                        Editar
+                                                    </a>
 
                                                     <form method="POST" action="{{ route('categorias.eliminarProducto',['id'=>$plato->id,'restauranteId'=>$restaurante->id]) }}" enctype="multipart/form-data">
                                                         @method("delete")
                                                         @csrf
-                                                        <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                                                        <button type="submit" class="btn btn-opc btn-sm">
+                                                            <i class="fa fa-trash-o " aria-hidden="true"></i>
+                                                            Borrar
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </div>

@@ -31,9 +31,21 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{($user->profile === 1) ? "Administrador" : "Usuario"}}</td>
-                        <td>
-                            <a href="{{ route('users.edit', ['id' => $user->id]) }}">
-                                <button class="btn btn-info">Cambiar perfil</button>
+                        <td class="cont-opc-rest d-flex">
+                            <a class="m-1" href="{{ route('users.edit', ['id' => $user->id]) }}">
+                                <button type="button" class="btn btn-sm">
+                                    <i class="icon_pencil-edit edit-orden mr-2"></i>
+                                    Editar
+                                </button>
+                            </a>
+                            <a class="m-1" href="#">
+                                <form method="POST" class="formEliminar" action="{{route('users.destroy',['id'=>$user->id])}}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm">
+                                        <i class="fa fa-trash-o mr-2" aria-hidden="true"></i>
+                                        Eliminar
+                                    </button>
+                                </form>
                             </a>
                         </td>
                     </tr>
@@ -46,5 +58,15 @@
 @endsection
 
 @section('scripts')
-
+<script>
+    document.querySelectorAll(".formEliminar").forEach(form=>{
+        form.onsubmit=e=>{
+            e.preventDefault();
+            let confirmar=confirm("¿Seguro que desea eliminar a este usuario? Los cambios son permanentes");
+            if(confirmar){
+                form.submit();
+            }
+        }
+    });
+</script>
 @endsection

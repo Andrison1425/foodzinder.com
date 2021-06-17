@@ -2,6 +2,9 @@
     list-style: none;
 }
 
+#app{
+    padding-right: 4rem;
+}
 
 /* Tamaño del scroll */
 #progressbar::-webkit-scrollbar {
@@ -38,6 +41,12 @@ header{
 
 .scroll li{
     padding:0 1rem;
+    cursor:pointer;
+}
+
+.scroll h6{
+    color:#CACED7;
+
 }
 
 .active{
@@ -77,3 +86,103 @@ header{
     margin: 10px;
     border: 1px solid grey;
  }
+
+
+ .caracteristicas{
+     padding:0 1rem;
+ }
+
+ .caracteristicas label{
+    background-color: white;
+    border-radius: 13px;
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+    border:solid 2px white;
+ }
+
+ .caracteristicas input{
+    display: none;
+}
+
+.caracteristicas input:checked ~ label{
+    border:solid 2px #f67599;
+}
+
+.title-tipo{
+    display: block;
+    font-weight: bold;
+    color:#f67599;
+    width: 100%;
+    padding-left: 1.5rem;
+}
+
+.form-check{
+    padding-left: 2.25rem;
+}
+
+.fs-title{
+    margin-bottom: 2rem;
+}
+
+.container_check {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .container_check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .container_check input:checked ~ .checkmark {
+    background-color: #F67599;
+    border: 1px solid transparent;
+  }
+  .container_check .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #d2d8dd;
+    background-color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .container_check .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .container_check input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .cont-tipos>.row{
+      width: 100%;
+  }
