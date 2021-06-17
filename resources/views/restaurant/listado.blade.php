@@ -23,7 +23,7 @@
         <tbody class="tbody">
             @foreach ($restaurantes as $resto)
                 <?php
-                    if(is_int($resto) || !$resto->imagenes ||$resto->nombre!=='Algo2 dfg'){
+                    if(is_int($resto)){
                         continue;
                     }else{
                         $imagenes=json_decode($resto->imagenes,true);
@@ -31,7 +31,7 @@
                     }
                 ?>
                 <tr class="fila" id="{{$loop->index}}" data-pos="{{$resto->id}}">
-                    <td class="p-3 p-md-5 d-flex" style="">
+                    <td class="p-3 p-md-5 d-flex" >
                         <img class="img-resto" src="{{asset('public/'.$imagen)}}" alt="">
                         <div class="cont-sec-right d-flex justify-content-between h-100 flex-column">
                             <div class="d-flex cont-encabezado justify-content-between">
