@@ -4,17 +4,20 @@
     align-items: center;
     color: #fff;
     font-size: 1.3rem;
-    width: 14rem;
-    height: 7rem;
+    width: 16rem;
+    height: 8rem;
     flex-direction: column;
     background: white;
     color: gray;
     border-radius:10px ;
     transition: all 0.2s linear;
+    box-shadow: 0 2px 20px -9px #00000026;
+
 }
 
 .btn-dashboard a i{
     color:#F67599;
+    font-size:30px
 }
 
 .btn-dashboard a:hover{
@@ -234,6 +237,15 @@
 
  .cont-botones-nav .active{
      background-color: #f67599;
+     color:white;
+ }
+
+ .cont-botones-nav a:hover{
+    text-decoration: none;
+    color:gray;
+}
+
+ .cont-botones-nav .active:hover{
      color:white;
  }
 

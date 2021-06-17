@@ -23,7 +23,7 @@
         <tbody class="tbody">
             @foreach ($restaurantes as $resto)
                 <?php
-                    if(is_int($resto)){
+                    if(is_int($resto) || $resto->id!==133){
                         continue;
                     }else{
                         $imagenes=json_decode($resto->imagenes,true);
@@ -84,7 +84,7 @@
                                 </span>
                             </div>
                             <span>
-                                <a class="cont-btn-ver" href="{{ route('categorias.index', ['id' => $resto->id]) }}">
+                                <a class="cont-btn-ver" target="_blank" href="{{ route('directorio.detail', ['id' => $resto->id, 'ciudad'=>strtolower($resto->ciudad), 'name'=>$resto->nombreUrl]) }}">
                                     <button type="button" class="btn btn-ver btn-sm">Ver restaurante</button>
                                 </a>
                             </span>

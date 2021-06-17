@@ -14,6 +14,51 @@ class RestaurantController extends Controller
     {
         return view('restaurant.index');
     }
+
+    function formatear($cadena){
+
+        //Codificamos la cadena en formato utf8 en caso de que nos de errores
+
+        //Ahora reemplazamos las letras
+        $cadena = str_replace(
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+            $cadena
+        );
+
+        $cadena = str_replace(
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+            $cadena );
+
+        $cadena = str_replace(
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('n', 'N', 'c', 'C'),
+            $cadena
+        );
+
+        $cadena=str_replace(' ', '-', $cadena);
+        $cadena=str_replace("'", '', $cadena);
+        $cadena=strtolower($cadena);
+
+        return $cadena;
+    }
+
     public function listado()
     {
         $restaurantes = Restaurant::get();
@@ -21,6 +66,16 @@ class RestaurantController extends Controller
         foreach ($admin as $key => $value) {
             $admin=$value;
         }
+
+        foreach($restaurantes as $restaurante){
+            if(is_int($restaurante)){
+                continue;
+            }else{
+                $restaurante['nombreUrl']=$this->formatear($restaurante->nombre);
+                $arrRestaurantes[$restaurante->id]=$restaurante;
+            }
+        }
+
         $prioridad=json_decode($admin->prioridad);
         return view('restaurant.listado', ['restaurantes' => $restaurantes,'prioridad'=>$prioridad]);
     }
@@ -172,7 +227,24 @@ class RestaurantController extends Controller
         unset($request["filenames"]);
         unset($request["submit"]);
         $restaurant->update($request->all());
-        return redirect(route('restaurant.index'))->with('Notificacion', 'Restaurante editado exitosamente');
+
+        $restaurantes = Restaurant::get();
+        $admin = User::where('email', '=' , "admin@admin.com")->get();
+        foreach ($admin as $key => $value) {
+            $admin=$value;
+        }
+
+        foreach($restaurantes as $restaurante){
+            if(is_int($restaurante)){
+                continue;
+            }else{
+                $restaurante['nombreUrl']=$this->formatear($restaurante->nombre);
+                $arrRestaurantes[$restaurante->id]=$restaurante;
+            }
+        }
+
+        $prioridad=json_decode($admin->prioridad);
+        return view('restaurant.listado', ['restaurantes' => $restaurantes,'prioridad'=>$prioridad])->with('Notificacion', 'Restaurante editado exitosamente');
 
     }
 
@@ -242,7 +314,12 @@ class RestaurantController extends Controller
 
         $arrRestaurantes=[];
         foreach($restaurantes as $restaurante){
-            $arrRestaurantes[$restaurante->id]=$restaurante;
+            if(is_int($restaurante)){
+                continue;
+            }else{
+                $restaurante['nombreUrl']=$this->formatear($restaurante->nombre);
+                $arrRestaurantes[$restaurante->id]=$restaurante;
+            }
         }
 
         if($prioridad){

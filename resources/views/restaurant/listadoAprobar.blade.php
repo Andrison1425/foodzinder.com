@@ -64,6 +64,8 @@
                 <?php
                     if(is_int($resto)){
                         continue;
+                    }else{
+                        $ruta=['id' => $resto->id, 'ciudad'=>strtolower($resto->ciudad), 'name'=>$resto->nombreUrl];
                     }
                 ?>
                 <li class="agarrar d-flex justify-content-between list-group-item fila pl-1" data-pos="{{$resto->id}}">
@@ -77,9 +79,8 @@
                     <p style="flex:1;" class="pl-4 m-0 d-flex align-items-center">
                         <a href="{{ url('/restaurant/show/'.$resto->id) }}">{{ $resto->nombre }}</a>
                     </p>
-
                     <div class="cont-opc-rest">
-                        <a class="m-1" href="{{ url('/restaurant/show/'.$resto->id) }}">
+                        <a class="m-1" target="_blank" href="{{ route('directorio.detail', $ruta) }}">
                             <button type="button" class="btn btn-sm">
                                 Ver restaurante
                             </button>

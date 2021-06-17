@@ -70,7 +70,7 @@
 
 @endif
     <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-        <a class="navbar-brand" href="{{route('index')}}"><img src="{{asset('plantilla/img/logo.svg')}}" data-retina="true" alt="logo" width="142" height="36"></a>
+        <a class="navbar-brand" href="{{route('index')}}"><img src="{{asset('plantilla/img/logo2.svg')}}" data-retina="true" alt="logo" width="142" height="36"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
