@@ -37,6 +37,14 @@
             .select2-container--default .select2-selection--single{
                 height: 62px !important;
             }
+
+            .bloquear{
+                display: none;
+            }
+
+            .desbloquear{
+                display: block;
+            }
         </style>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-S399JM7G5X"></script>
@@ -169,9 +177,9 @@
 			<!-- columna 2-->
 					<div class="col-md-6">
 						<div class="slider-home">
-							<img src="{{asset('plantilla/img/platos/home-plato-01-min.png')}}" alt="" class="active img-fluid center">
-							<img src="{{asset('plantilla/img/platos/home-plato-02-min.png')}}" alt="" class="img-fluid center">
-							<img src="{{asset('plantilla/img/platos/home-plato-03-min.png')}}" alt="" class="img-fluid center">
+							<img src="{{asset('plantilla/img/platos/home-plato-01-min.png')}}" alt="" class="active img-fluid center bloquear desbloquear">
+							<img src="{{asset('plantilla/img/platos/home-plato-02-min.png')}}" alt="" class="img-fluid center bloquear">
+							<img src="{{asset('plantilla/img/platos/home-plato-03-min.png')}}" alt="" class="img-fluid center bloquear">
 						</div>
 					</div>
 				</div>
@@ -257,12 +265,16 @@
 			$current = $('.slider-home img.active');
 			if ($current.length == 0) {
 			$('.slider-home img:first-child').addClass('active');
+            $('.slider-home img:first-child').addClass('desbloquear');
 			} else {
 			$next = $current.removeClass('active').next();
+            $next = $current.removeClass('desbloquear').next();
 			if ($next.length == 0) {
 				$('.slider-home img:first-child').addClass('active');
+                $('.slider-home img:first-child').addClass('desbloquear');
 			} else {
 				$next.addClass('active');
+                $next.addClass('desbloquear');
 			}
 			}
 		}
