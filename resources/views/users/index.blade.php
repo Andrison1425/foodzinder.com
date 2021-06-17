@@ -5,12 +5,23 @@
 @endsection
 
 @section('custom-links')
+<style>
+    #app{
+        overflow-x: scroll;
+    }
+</style>
 @endsection
 
 @section('content')
 <div class="container-fluid p-4">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 d-flex align-items-center">
+            <div class="cont-botones-nav p-0">
+                <a href="{{route('users.agregar')}}">
+                    <i class="icon_profile"></i>
+                    <span>Agregar nuevo usuario</span>
+                </a>
+            </div>
             <h3>LISTA DE USUARIOS</h3>
         </div>
     </div>

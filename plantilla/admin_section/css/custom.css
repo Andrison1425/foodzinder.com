@@ -39,6 +39,40 @@
     padding:0 17%;
 }
 
+@media (max-width:650px){
+    .contRow{
+        justify-content: center !important;
+    }
+}
+
+.title-listado{
+    margin-bottom: -3.5rem;
+}
+
+@media (max-width:1250px){
+    .title-listado{
+        margin-bottom: 0;
+    }
+
+    .cont-encabezado{
+        flex-direction: column;
+    }
+
+    .cont-opc-rest{
+        margin-top: 7px;
+    }
+}
+
+@media (max-width:750px){
+    .img-resto{
+        display: none;
+    }
+
+    #tabla_listado_restaurantes_filter, #tabla_listado_restaurantes_length{
+        float: left;
+    }
+}
+
 .contImgPrin{
     text-align: center;
     margin-bottom: 3rem;

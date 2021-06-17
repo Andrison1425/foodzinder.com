@@ -4,6 +4,17 @@ let btnBack=document.querySelectorAll("[name=back]");
 let sec=document.querySelectorAll(".sec");
 let titleSec=document.querySelectorAll(".scroll li");
 
+titleSec.forEach((li,i)=>{
+    li.onclick=()=>{
+        sec.forEach(seccion=>seccion.classList.remove('sec_active'));
+        sec[i].classList.add('sec_active');
+
+        titleSec.forEach(seccion=>seccion.classList.remove('active'));
+        titleSec[i].classList.add('active');
+        titleSec[i].scrollIntoView(false);
+    }
+});
+
 btnNext.forEach((btn,i)=>{
     btn.onclick=()=>{
         sec.forEach(seccion=>seccion.classList.remove('sec_active'));

@@ -8,7 +8,7 @@
 
 <div class="container-fluid p-2 mt-5">
     <div>
-        <div class="text-center" style="margin-bottom: -3.5rem;">
+        <div class="text-center title-listado">
             <h4 class="title-table">Lista de restaurantes</h4>
         </div>
     </div>
@@ -31,7 +31,7 @@
                     }
                 ?>
                 <tr class="fila" id="{{$loop->index}}" data-pos="{{$resto->id}}">
-                    <td class="p-5 d-flex" style="">
+                    <td class="p-3 p-md-5 d-flex" style="">
                         <img class="img-resto" src="{{asset('public/'.$imagen)}}" alt="">
                         <div class="cont-sec-right d-flex justify-content-between h-100 flex-column">
                             <div class="d-flex cont-encabezado justify-content-between">

@@ -35,7 +35,7 @@
             </a>
         </div>
         <div class=" btn-dashboard mb-2">
-            <a href="{{route('users.agregar')}}">
+            <a href="{{route('users.index')}}">
                 <i class="icon_profile"></i>
                 Usuarios
             </a>

@@ -12,6 +12,16 @@
         #app{
             display: flex;
         }
+
+        @media (max-width:1200px){
+            #app{
+                flex-direction: column;
+            }
+
+            .cont-botones-nav{
+                flex-direction: row;
+            }
+        }
     </style>
 @endsection
 
@@ -29,7 +39,7 @@
     </a>
 </div>
 
-<form id="msform" class="container py-3 float-left mb-3" method="POST" action="{{ route('restaurant.update',['id'=>$restaurant->id]) }}" enctype="multipart/form-data">
+<form id="msform" class="container-fluid py-3 float-left mb-3" method="POST" action="{{ route('restaurant.update',['id'=>$restaurant->id]) }}" enctype="multipart/form-data">
     <h2 class="mb-4">{{$restaurant->nombre}}</h2>
     @csrf
     <!-- progressbar -->
@@ -182,7 +192,7 @@
             </div>
 
         </div>
-                <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
+        <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
     </div>
 
     <div class="sec" id="sec3">
@@ -338,59 +348,59 @@
                 </div>
             </div>{{-- END-COL --}}
         </div> {{-- END-ROW --}}
-                <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
+        <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
     </div>
 
     <div class="sec container-fluid" id="sec4">
         <h2 class="fs-title mt-3">Platos</h2>
         <div class="row">
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="vegetariano" type="checkbox" {{ $restaurant->vegetariano === 'on' ? 'checked' : '' }} class="form-check-input" id="Vegetariano">
                 <label class="form-check-label" for="Vegetariano">Vegetariano</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="vegano" type="checkbox" {{ $restaurant->vegano === 'on' ? 'checked' : '' }} class="form-check-input" id="Vegano">
                 <label class="form-check-label" for="Vegano">Vegano</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="marisco" type="checkbox" {{ $restaurant->marisco === 'on' ? 'checked' : '' }} class="form-check-input" id="Marisco">
                 <label class="form-check-label" for="Marisco">Marisco</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="atun" type="checkbox" {{ $restaurant->atun === 'on' ? 'checked' : '' }} class="form-check-input" id="Atún">
                 <label class="form-check-label" for="Atún">Atún</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="sushi" type="checkbox" {{ $restaurant->sushi === 'on' ? 'checked' : '' }} class="form-check-input" id="Sushi">
                 <label class="form-check-label" for="Sushi">Sushi</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="pescado" type="checkbox" {{ $restaurant->pescado === 'on' ? 'checked' : '' }} class="form-check-input" id="Pescado">
                 <label class="form-check-label" for="Pescado">Pescado</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="carne" type="checkbox" {{ $restaurant->carne === 'on' ? 'checked' : '' }} class="form-check-input" id="Carne">
                 <label class="form-check-label" for="Carne">Carne</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="paella" type="checkbox" {{ $restaurant->paella === 'on' ? 'checked' : '' }} class="form-check-input" id="Paella">
                 <label class="form-check-label" for="Paella">Paella</label>
             </div>
 
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="pasta" type="checkbox" {{ $restaurant->pasta === 'on' ? 'checked' : '' }} class="form-check-input" id="Pasta">
                 <label class="form-check-label" for="Pasta">Pasta</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="pizza" type="checkbox" {{ $restaurant->pizza === 'on' ? 'checked' : '' }} class="form-check-input" id="Pizza">
                 <label class="form-check-label" for="Pizza">Pizza</label>
             </div>
-            <div class="form-group form-check col-3 caracteristicas">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
                 <input  name="zumos_y_batidos" type="checkbox" {{ $restaurant->zumos_y_batidos === 'on' ? 'checked' : '' }} class="form-check-input" id="Zumos">
                 <label class="form-check-label" for="Zumos">Zumos y Batidos</label>
             </div>
         </div>
-                <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
+        <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
     </div>
 
     <div class="sec" id="sec5">

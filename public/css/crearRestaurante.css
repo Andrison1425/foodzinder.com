@@ -36,12 +36,18 @@ header{
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    width: max-content;
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;  /* Ocultar scroll */
 }
 
 .scroll li{
     padding:0 1rem;
     cursor:pointer;
+    white-space: nowrap;
 }
 
 .scroll h6{

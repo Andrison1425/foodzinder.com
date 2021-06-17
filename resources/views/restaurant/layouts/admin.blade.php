@@ -30,6 +30,17 @@
     <!-- VUEJS -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
+    <style>
+        .nav-opc-admin{
+            font-size: 14px;
+            color:white !important;
+        }
+
+        .nav-opc-admin i{
+            margin-right: 3px;
+        }
+    </style>
+
     @yield('custom-links')
 </head>
 
@@ -66,47 +77,63 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tablero">
-                    <a class="nav-link" href="{{route('restaurant.index')}}">
-                        <i class="fa fa-fw fa-dashboard"></i>
+                    <a class="nav-link nav-opc-admin" href="{{route('restaurant.index')}}">
+                        <!-- <i class="fa fa-fw fa-dashboard"></i> -->
                         <span class="nav-link-text">Tablero</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="{{route('restaurant.create')}}">
-                    <i class="fa fa-fw fa-plus-circle"></i>
-                        <span class="nav-link-text">Añadir restaurante</span>
+                    <a class="nav-link nav-opc-admin" href="{{route('restaurant.listado')}}">
+                    <!-- <i class="fa fa-fw fa-plus-circle"></i> -->
+                        <span class="nav-link-text">Restaurantes</span>
                     </a>
+                    <ul style="list-style:none;">
+                        <li>
+                            <a class="nav-link nav-opc-admin" href="{{route('restaurant.create')}}">
+                                Añadir Nuevo
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link nav-opc-admin" href="{{route('restaurant.listadoPrioridad')}}">
+                                Ordenar
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
-                    <a class="nav-link" href="{{route('restaurant.listado')}}">
-                        <i class="fa fa-fw fa-list"></i>
-                        <span class="nav-link-text">Lista de restaurantes</span>
+                    <a class="nav-link nav-opc-admin" href="{{route('users.index')}}">
+                        <!-- <i class="fa fa-fw fa-list"></i> -->
+                        <span class="nav-link-text">Usuarios</span>
                     </a>
+                    <ul style="list-style:none;">
+                        <li>
+                            <a class="nav-link nav-opc-admin" href="{{route('users.agregar')}}">
+                                Añadir usuario
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
-                    <a class="nav-link" href="{{route('users.index')}}">
-                        <i class="fa fa-fw fa-list"></i>
-                        <span class="nav-link-text">Lista de usuarios</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
-                    <a class="nav-link" href="{{route('restaurant.listadoPrioridad')}}">
-                        <i class="fa fa-fw fa-list"></i>
-                        <span class="nav-link-text">Restaurantes con prioridad</span>
+                    <a class="nav-link nav-opc-admin" href="{{route('directorio')}}">
+                        <!-- <i class="fa fa-fw fa-list"></i> -->
+                        <span class="nav-link-text">Ir al directorio</span>
                     </a>
                 </li>
             </ul>
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
                     <a class="nav-link text-center" id="sidenavToggler">
-                        <i class="fa fa-fw fa-angle-left"></i>
+                       <i class="fa fa-fw fa-angle-left"></i>
                     </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#logout"><i class="fa fa-fw fa-sign-out"></i>Cerrar sesión</a>
+                    <a class="nav-link nav-opc-admin" data-toggle="modal" data-target="#logout">
+                        <!-- <i class="fa fa-fw fa-sign-out"></i> -->
+                        Cerrar sesión
+                    </a>
                 </li>
             </ul>
         </div>
@@ -120,7 +147,7 @@
     <footer class="sticky-footer">
         <div class="container">
             <div class="text-center">
-                <small>Copyright © FOOGRA 2020</small>
+                <small>Copyright © Foodzinder 2021</small>
             </div>
         </div>
     </footer>

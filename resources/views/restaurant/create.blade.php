@@ -8,11 +8,21 @@
 @section('custom-links')
     <link rel="stylesheet" href="{{asset('public/css/crearRestaurante.css')}}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css" integrity="sha512-jO9KUHlvIF4MH/OTiio0aaueQrD38zlvFde9JoEA+AQaCNxIJoX4Kjse3sO2kqly84wc6aCtdm9BIUpYdvFYoA==" crossorigin="anonymous" />
+
+    <style>
+        @media (max-width:760px) {
+            #app{
+                width: 100%;
+            }
+        }
+    </style>
 @endsection
 
 <!-- multistep form -->
 @section('content')
-<form id="msform" class="container bg-white py-3 float-left mb-3" method="POST" action="{{ route('restaurant.store') }}" enctype="multipart/form-data">
+<form id="msform" class="container-fluid py-3 float-left mb-3" method="POST" action="{{ route('restaurant.store') }}" enctype="multipart/form-data">
+    <h2 class="mb-4">Añadir nuevo restaurante</h2>
+
     @csrf
     <!-- progressbar -->
     <ul id="progressbar">
@@ -90,244 +100,292 @@
                 <input name="google_maps" type="text" class="form-control" value="{{ old('google_maps') }}" id="google_maps" placeholder="Ejemplo: https://goo.gl/maps/U4ovQFQCftxehew8A">
             </div>
         </div>
-        <input type="button" name="next" class="btn btn-success m-3 float-right" value="Siguiente" />
+        <input type="button" name="next" role="button" class="btn btn-guardar m-3 float-right" value="Siguiente" />
     </div>
 
     <div class="sec" id="sec2">
         <h2 class="fs-title mt-3">Características</h2>
         <div class="row p-2">
-            <div class="col-md-9 col-12">
+            <div class="col-12">
                 <div class="row">
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input name="admite_reservas" type="checkbox" class="form-check-input" id="reservas">
-                        <label class="form-check-label" for="reservas">Admite Reservas</label>
+                        <label class="form-check-label" for="reservas">
+                            <img src="{{ asset('plantilla/img/filtros_img/admite-reservas.png') }}">
+                            Admite Reservas
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input name="para_llevar" type="checkbox" class="form-check-input" id="llevar">
-                        <label class="form-check-label" for="llevar">Para llevar</label>
+                        <label class="form-check-label" for="llevar">
+                            <img src="{{ asset('plantilla/img/filtros_img/para-llevar.png') }}">
+                            Para llevar</label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input name="domicilio" type="checkbox" class="form-check-input" id="domicilio">
-                        <label class="form-check-label" for="domicilio">A Domicilio</label>
+                        <label class="form-check-label" for="domicilio">
+                            <img src="{{ asset('plantilla/img/filtros_img/a-domicilio.png') }}">
+                            A Domicilio
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input  name="terraza_exterior" type="checkbox" class="form-check-input" id="terraza">
-                        <label class="form-check-label" for="terraza">Terraza Exterior</label>
+                        <label class="form-check-label" for="terraza">
+                            <img src="{{ asset('plantilla/img/filtros_img/terraza-exterior.png') }}">
+                            Terraza Exterior
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input name="wifi_gratuito" type="checkbox" class="form-check-input" id="wifi">
-                        <label class="form-check-label" for="wifi">Wifi Gratuito</label>
+                        <label class="form-check-label" for="wifi">
+                            <img src="{{ asset('plantilla/img/filtros_img/wifi-gratis.png') }}">
+                            Wifi Gratuito
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input  name="sin_gluten" type="checkbox" class="form-check-input" id="gluten">
-                        <label class="form-check-label" for="gluten">Sin Glúten</label>
+                        <label class="form-check-label" for="gluten">
+                            <img src="{{ asset('plantilla/img/filtros_img/gluten-free.png') }}">
+                            Sin Glúten
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input  name="accesible" type="checkbox" class="form-check-input" id="accesible">
-                        <label class="form-check-label" for="accesible">Accesible</label>
+                        <label class="form-check-label" for="accesible">
+                            <img src="{{ asset('plantilla/img/filtros_img/accesible.png') }}">
+                            Accesible
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input  name="admite_mascotas" type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Admite Mascotas</label>
+                        <label class="form-check-label" for="exampleCheck1">
+                            <img src="{{ asset('plantilla/img/filtros_img/admite-mascotas.png') }}">
+                            Admite Mascotas
+                        </label>
                     </div>
-                    <div class="form-group form-check col-lg-4 col-6">
+                    <div class="form-group form-check col-lg-4 col-6 caracteristicas">
                         <input  name="plastic_free" type="checkbox" class="form-check-input" id="plastic">
-                        <label class="form-check-label" for="plastic">Plastic Free</label>
+                        <label class="form-check-label" for="plastic">
+                            <img src="{{ asset('plantilla/img/filtros_img/plastic-free.png') }}">
+                            Plastic Free
+                        </label>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                Soy más de
-                <div class="row p-2">
-                    <div class="form-group form-check col-12">
-                        <input name="dulce" type="checkbox" class="form-check-input" id="dulce">
-                        <label class="form-check-label" for="dulce">Dulce</label>
-                    </div>
-                    <div class="form-group form-check col-12">
-                        <input  name="salado" type="checkbox" class="form-check-input" id="salado">
-                        <label class="form-check-label" for="salado">Salado</label>
-                    </div>
-                </div>
-            </div>
+
         </div>
-        <input type="button" name="next" class="btn btn-success m-3 float-right" value="Siguiente" />
-        <input type="button" name="back" class="btn btn-warning m-3 float-right" value="Anterior" />
+        <input type="button" name="next" role="button" class="btn btn-guardar m-3 float-right" value="Siguiente" />
+        <input type="button" name="back" class="btn btn-secondary m-3 float-right" value="Anterior" />
     </div>
 
     <div class="sec" id="sec3">
         <h2 class="fs-title mt-3">Tipo de restaurante</h2>
-        <div class="row p-2">
-            <div class="col-md-3 col-6">
-                <div class="row">
-                    <p>Precio</p>
-                    <div class="form-check form-group col-12">
-                        <input name="precio1" class="form-check-input" type="checkbox" id="precio1">
-                        <label class="form-check-label" for="precio1">
-                        $
+        <div class="row p-2 cont-tipos">
+            <div class="row">
+                <p class="title-tipo">Precio</p>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="precio1">
+                        <input name="precio1" class="form-check-input d-none" type="checkbox" id="precio1">
+                        <span class="checkmark"></span>
+                        <span>Bajo ($)</span>
+                    </label>
+                </div>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="precio2">
+                        <input name="precio2" class="form-check-input d-none" type="checkbox" id="precio2">
+                        <span class="checkmark"></span>
+                        <span>Medio ($$)</span>
+                    </label>
+                </div>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="precio3">
+                        <input name="precio3" class="form-check-input d-none" type="checkbox" id="precio3">
+                        <span class="checkmark"></span>
+                        <span>Alto ($$$)</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+               <p class="title-tipo">
+                   Sabores
+               </p>
+                <div class="row p-2 ">
+                    <div class="form-group form-check">
+                        <label class="form-check-label container_check" for="dulce">
+                            <input name="dulce" type="checkbox" class="form-check-input" id="dulce">
+                            <span class="checkmark"></span>
+                            Dulce
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="precio2" class="form-check-input" type="checkbox" id="precio2">
-                        <label class="form-check-label" for="precio2">
-                        $$
-                        </label>
-                    </div>
-                    <div class="form-check form-group col-12">
-                        <input name="precio3" class="form-check-input" type="checkbox" id="precio3">
-                        <label class="form-check-label" for="precio3">
-                        $$$
+                    <div class="form-group form-check">
+                        <label class="form-check-label container_check" for="salado">
+                            <input name="salado" type="checkbox" class="form-check-input" id="salado">
+                            <span class="checkmark"></span>
+                            Salado
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
-                <div class="row">
-                    <p>Tipo de Establecimiento</p>
-                    <div class="form-check form-group col-12">
+            <div class="row">
+                <p class="title-tipo"> Tipo de Establecimiento</p>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="restaurante">
                         <input name="restaurante" class="form-check-input" type="checkbox" id="restaurante">
-                        <label class="form-check-label" for="restaurante">
-                            Restaurante
-                        </label>
-                    </div>
-                    <div class="form-check form-group col-12">
+                        <span class="checkmark"></span>
+                        Restaurante
+                    </label>
+                </div>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="cafeteria">
                         <input name="cafeteria" class="form-check-input" type="checkbox" id="cafeteria">
-                        <label class="form-check-label" for="cafeteria">
-                            Cafetería
-                        </label>
-                    </div>
-                    <div class="form-check form-group col-12">
+                        <span class="checkmark"></span>
+                        Cafetería
+                    </label>
+                </div>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="bar">
                         <input name="bar" class="form-check-input" type="checkbox" id="bar">
-                        <label class="form-check-label" for="bar">
-                            Bar
-                        </label>
-                    </div>
-                    <div class="form-check form-group col-12">
+                        <span class="checkmark"></span>
+                        Bar
+                    </label>
+                </div>
+                <div class="form-check form-group">
+                    <label class="form-check-label container_check" for="restaurante_playa">
                         <input name="restaurante_playa" class="form-check-input" type="checkbox" id="restaurante_playa">
-                        <label class="form-check-label" for="restaurante_playa">
-                            Restaurante Playa
-                        </label>
-                    </div>
+                        <span class="checkmark"></span>
+                        Restaurante Playa
+                    </label>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="row">
+                <p class="title-tipo">Comidas</p>
                 <div class="row">
-                    <p>Comidas</p>
-                    <div class="form-check form-group col-12">
-                        <input name="desayuno" class="form-check-input" type="checkbox" id="desayuno">
-                        <label class="form-check-label" for="desayuno">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="desayuno">
+                            <input name="desayuno" class="form-check-input" type="checkbox" id="desayuno">
+                            <span class="checkmark"></span>
                             Desayuno
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="brunch" class="form-check-input" type="checkbox" id="brunch">
-                        <label class="form-check-label" for="brunch">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="brunch">
+                            <input name="brunch" class="form-check-input" type="checkbox" id="brunch">
+                            <span class="checkmark"></span>
                             Brunch
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="almuerzo" class="form-check-input" type="checkbox" id="almuerzo">
-                        <label class="form-check-label" for="almuerzo">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="almuerzo">
+                            <input name="almuerzo" class="form-check-input" type="checkbox" id="almuerzo">
+                            <span class="checkmark"></span>
                             Almuerzo
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="merienda" class="form-check-input" type="checkbox" id="merienda">
-                        <label class="form-check-label" for="merienda">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="merienda">
+                            <input name="merienda" class="form-check-input" type="checkbox" id="merienda">
+                            <span class="checkmark"></span>
                             Merienda
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="cena" class="form-check-input" type="checkbox" id="cena">
-                        <label class="form-check-label" for="cena">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="cena">
+                            <input name="cena" class="form-check-input" type="checkbox" id="cena">
+                            <span class="checkmark"></span>
                             Cena
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="row">
+                <p class="title-tipo">Tipo de Cocina</p>
                 <div class="row">
-                    <p>Tipo de Cocina</p>
-                    <div class="form-check form-group col-12">
-                        <input name="local" class="form-check-input" type="checkbox" id="local">
-                        <label class="form-check-label" for="local">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="local">
+                            <input name="local" class="form-check-input" type="checkbox" id="local">
+                            <span class="checkmark"></span>
                             Local
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="nacional" class="form-check-input" type="checkbox" id="nacional">
-                        <label class="form-check-label" for="nacional">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="nacional">
+                            <input name="nacional" class="form-check-input" type="checkbox" id="nacional">
+                            <span class="checkmark"></span>
                             Nacional
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="internacional" class="form-check-input" type="checkbox" id="internacional">
-                        <label class="form-check-label" for="internacional">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="internacional">
+                            <input name="internacional" class="form-check-input" type="checkbox" id="internacional">
+                            <span class="checkmark"></span>
                             Internacional
                         </label>
                     </div>
-                    <div class="form-check form-group col-12">
-                        <input name="fusion" class="form-check-input" type="checkbox" id="fusion">
-                        <label class="form-check-label" for="fusion">
+                    <div class="form-check form-group">
+                        <label class="form-check-label container_check" for="fusion">
+                            <input name="fusion" class="form-check-input" type="checkbox" id="fusion">
+                            <span class="checkmark"></span>
                             Fusión
                         </label>
                     </div>
                 </div>
             </div>{{-- END-COL --}}
         </div> {{-- END-ROW --}}
-        <input type="button" name="next" class="btn btn-success m-3 float-right" value="Siguiente" />
-        <input type="button" name="back" class="btn btn-warning m-3 float-right" value="Anterior" />
+        <input type="button" name="next" role="button" class="btn btn-guardar m-3 float-right" value="Siguiente" />
+        <input type="button" name="back" class="btn btn-secondary m-3 float-right" value="Anterior" />
     </div>
 
     <div class="sec container-fluid" id="sec4">
         <h2 class="fs-title mt-3">Platos</h2>
-        <div class="form-group form-check col-12">
-            <input  name="vegetariano" type="checkbox" class="form-check-input" id="Vegetariano">
-            <label class="form-check-label" for="Vegetariano">Vegetariano</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="vegano" type="checkbox" class="form-check-input" id="Vegano">
-            <label class="form-check-label" for="Vegano">Vegano</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="marisco" type="checkbox" class="form-check-input" id="Marisco">
-            <label class="form-check-label" for="Marisco">Marisco</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="atun" type="checkbox" class="form-check-input" id="Atún">
-            <label class="form-check-label" for="Atún">Atún</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="sushi" type="checkbox" class="form-check-input" id="Sushi">
-            <label class="form-check-label" for="Sushi">Sushi</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="pescado" type="checkbox" class="form-check-input" id="Pescado">
-            <label class="form-check-label" for="Pescado">Pescado</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="carne" type="checkbox" class="form-check-input" id="Carne">
-            <label class="form-check-label" for="Carne">Carne</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="paella" type="checkbox" class="form-check-input" id="Paella">
-            <label class="form-check-label" for="Paella">Paella</label>
-        </div>
+        <div class="row">
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="vegetariano" type="checkbox" class="form-check-input" id="Vegetariano">
+                <label class="form-check-label" for="Vegetariano">Vegetariano</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="vegano" type="checkbox" class="form-check-input" id="Vegano">
+                <label class="form-check-label" for="Vegano">Vegano</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="marisco" type="checkbox" class="form-check-input" id="Marisco">
+                <label class="form-check-label" for="Marisco">Marisco</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="atun" type="checkbox" class="form-check-input" id="Atún">
+                <label class="form-check-label" for="Atún">Atún</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="sushi" type="checkbox" class="form-check-input" id="Sushi">
+                <label class="form-check-label" for="Sushi">Sushi</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="pescado" type="checkbox" class="form-check-input" id="Pescado">
+                <label class="form-check-label" for="Pescado">Pescado</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="carne" type="checkbox" class="form-check-input" id="Carne">
+                <label class="form-check-label" for="Carne">Carne</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="paella" type="checkbox" class="form-check-input" id="Paella">
+                <label class="form-check-label" for="Paella">Paella</label>
+            </div>
 
-        <div class="form-group form-check col-12">
-            <input  name="pasta" type="checkbox" class="form-check-input" id="Pasta">
-            <label class="form-check-label" for="Pasta">Pasta</label>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="pasta" type="checkbox"class="form-check-input" id="Pasta">
+                <label class="form-check-label" for="Pasta">Pasta</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="pizza" type="checkbox" class="form-check-input" id="Pizza">
+                <label class="form-check-label" for="Pizza">Pizza</label>
+            </div>
+            <div class="form-group form-check col-6 col-md-4 col-lg-3 caracteristicas">
+                <input  name="zumos_y_batidos" type="checkbox" class="form-check-input" id="Zumos">
+                <label class="form-check-label" for="Zumos">Zumos y Batidos</label>
+            </div>
         </div>
-        <div class="form-group form-check col-12">
-            <input  name="pizza" type="checkbox" class="form-check-input" id="Pizza">
-            <label class="form-check-label" for="Pizza">Pizza</label>
-        </div>
-        <div class="form-group form-check col-12">
-            <input  name="zumos_y_batidos" type="checkbox" class="form-check-input" id="Zumos">
-            <label class="form-check-label" for="Zumos">Zumos y Batidos</label>
-        </div>
-
-        <input type="button" name="next" class="btn btn-success m-3 float-right" value="Siguiente" />
-        <input type="button" name="back" class="btn btn-warning m-3 float-right" value="Anterior" />
+        <input type="button" name="next" role="button" class="btn btn-guardar m-3 float-right" value="Siguiente" />
+        <input type="button" name="back" class="btn btn-secondary m-3 float-right" value="Anterior" />
     </div>
 
     <div class="sec" id="sec5">
@@ -336,10 +394,10 @@
             <div class="col">
                 <div class="input-group">
                     {{-- para recortar --}}
-                    <label for="original_image" class="btn btn-success">
+                    <label for="original_image" class="btn btn-guardar">
                         Agregar imagen +
-                    </label>
-                    <h6> Haz click sobre una imagen para eliminarla</h6>
+                    </label><br>
+                    <h6 style="color:gray; width:100%;"> Haz click sobre una imagen para eliminarla</h6>
                     <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
                     {{-- recortado (oculto) --}}
                     <input id="imagen1" type="text" name="filenames" class="form-control d-none" required>
@@ -352,8 +410,8 @@
                 </div>
             </div>
         </div> {{-- END-CONTAINER --}}
-        <input type="submit" class="btn btn-primary m-3 float-right" value="Crear restaurante" />
-        <input type="button" class="btn btn-warning m-3 float-right" value="Anterior" />
+        <input type="submit" class="btn btn-guardar m-3 float-right" value="Crear restaurante" />
+        <input type="button" class="btn btn-secondary m-3 float-right" value="Anterior" />
     </div>
 </form>
 

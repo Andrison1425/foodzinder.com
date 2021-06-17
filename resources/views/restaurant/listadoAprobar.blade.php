@@ -35,6 +35,10 @@
     p a{
         color:black;
     }
+
+    #app{
+        overflow-x: scroll;
+    }
 </style>
 
 @endsection
@@ -53,8 +57,8 @@
     <h4 style="font-weight:700;">Restaurantes con prioridad:</h4>
     </div>
     </div>
-    <div class="row w-75">
-    <div class="col" style="overflow:auto;">
+    <div class="row w-100">
+    <div class="col" style="min-width:700px; overflow:auto;">
         <div class="cont-list drag-sort-enable w-100 list-group list-group-flush contenedor">
             @foreach ($restaurantes as $resto)
                 <?php

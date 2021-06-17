@@ -8,6 +8,16 @@
             display: flex;
             padding-right: 4rem;
         }
+
+        @media (max-width:1200px){
+            #app{
+                flex-direction: column;
+            }
+
+            .cont-botones-nav{
+                flex-direction: row;
+            }
+        }
     </style>
 @endsection
 
@@ -264,7 +274,7 @@
                         <div class="row drag-sort-enable">
                             @foreach($platos as $plato)
                                 @if($plato->categoria==$categoria)
-                                    <div class="col-12 col-sm-6 col-md-4 col-xl-3 my-3 d-flex agarrar" data-pos="{{$plato->pos}}">
+                                    <div class="col-12 col-sm-6 col-md-4 my-3 d-flex agarrar" data-pos="{{$plato->pos}}">
                                         <div class="card">
                                             <div class="btn-group dropright">
                                                 <button type="button" class="btn btn-secondary dropdown-toggle opc-plato" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
