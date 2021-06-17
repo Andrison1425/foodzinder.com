@@ -20,7 +20,7 @@
 
 		<!-- GOOGLE WEB FONT -->
         <link rel="preload" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+        <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"as="style" onload="this.onload=null;this.rel='stylesheet'"/>
 
 		<!-- BASE CSS -->
 		<link href="{{asset('plantilla/css/bootstrap_customized.min.css')}}" rel="stylesheet">
@@ -32,7 +32,6 @@
 
 		<!-- YOUR CUSTOM CSS -->
 		<link href="{{asset('plantilla/css/custom.css')}}" rel="stylesheet">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
         <style>
             .select2-container--default .select2-selection--single{
