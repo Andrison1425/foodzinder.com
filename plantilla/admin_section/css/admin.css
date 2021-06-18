@@ -180,8 +180,18 @@ body.fixed-nav {
   }
   #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
     padding: 1em;
-    padding-left: 18px;
+    padding-left: 27px;
   }
+
+  .nav-opc-admin{
+    transition: all 0.2s linear;
+}
+
+.nav-opc-admin:hover{
+    color:#F67599 !important;
+}
+
+
   #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
   #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
     padding-left: 0;

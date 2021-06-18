@@ -211,6 +211,9 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    padding-bottom: 5rem;
+    justify-content: space-between;
  }
 
  .cont-botones-nav a{
@@ -253,4 +256,19 @@
 .btn-guardar{
     background-color: #f67599 !important;
     color:white !important;
+}
+
+.cont-botones-nav{
+    flex-direction: row;
+    justify-content: flex-start;
+    height: max-content;
+    padding-bottom: 2rem;
+}
+
+.btn-volver{
+    display: none;
+}
+
+.cont-btn-sec{
+    display: contents !important;
 }

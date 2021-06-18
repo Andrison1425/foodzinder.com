@@ -18,9 +18,7 @@
                 flex-direction: column;
             }
 
-            .cont-botones-nav{
-                flex-direction: row;
-            }
+
         }
     </style>
 @endsection
@@ -29,13 +27,19 @@
 @section('content')
 
 <div class="cont-botones-nav">
-    <a href="#" class="active">
-        <i class="fa fa-address-card-o" aria-hidden="true"></i>
-        <span>Editar información</span>
-    </a>
-    <a href="{{ route('categorias.index', ['id' => $restaurant->id]) }}">
-        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-        <span>Editar Menú</span>
+    <span class="d-flex flex-column cont-btn-sec">
+        <a href="#" class="active">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            <span>Editar información</span>
+        </a>
+        <a href="{{ route('categorias.index', ['id' => $restaurant->id]) }}">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <span>Editar Menú</span>
+        </a>
+    </span>
+    <a href="{{route('restaurant.listado')}}" class="active btn-volver">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <span>Volver a la lista de restaurantes</span>
     </a>
 </div>
 

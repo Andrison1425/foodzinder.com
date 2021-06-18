@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
+<?php
+    $nombreAlergenos=[
+        'Gluten','Crustáceos','Huevos','Pescado',
+        'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+        'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+        'Moluscos','Altramuces'
+    ];
+?>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,6 +62,47 @@
 			color: #fff;
 			border-radius: 25px;
 		}
+
+        .tooltip-a{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin:0 0 0.5rem 0.4rem;
+        }
+
+        .tooltip-a span{
+            display: none;
+            transition: all 0.5s ease;
+        }
+
+        .tooltip-a span::after{
+            margin-top: 9px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #2B222A;
+            content: " ";
+            font-size: 0;
+            line-height: 0;
+            margin-left: -5px;
+            width: 0;
+        }
+
+        .tooltip-a:hover span{
+            position: absolute;
+            display: flex;
+            top: -44px;
+            background-color: #2B222A;
+            border-radius: 5px;
+            color: #fff;
+            padding: 10px;
+            text-transform: none;
+            width: max-content;
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            height: 40px;
+        }
 
 	</style>
 </head>
@@ -166,7 +214,10 @@
                     </div>
 
                     <div class="row mt-2">
-                        <img  v-for="alergeno in newItem.alergenos" :src=`{{asset('public/images/alergenos')}}${'/'+alergeno}.png` class="img-alergeno" alt="">
+                        <span v-for="alergeno in newItem.alergenos" class="tooltip-a">
+                            <span>@{{newItem.nombreAlergenos[alergeno-1]}}</span>
+                            <img :src=`{{asset('public/images/alergenos')}}${'/'+alergeno}.png` class="img-alergeno" alt="">
+                        </span>
                     </div>
 				</div>
 			</div>
@@ -316,18 +367,12 @@
                                                                     <a  @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}})" href="#" class="strip_info" >
                                                                         <img  loading="lazy" src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
                                                                         <div class="item_title_ind">
+                                                                            <?php
+                                                                                $alergenoPlato=json_decode($plato->alergenos);
+                                                                            ?>
                                                                             <h3>{{ $plato->nombre }}</h3>
                                                                             <div class="cont-alergenos-sec">
-                                                                                <?php
 
-                                                                                    $alergenoPlato=json_decode($plato->alergenos);
-                                                                                    $nombreAlergenos=[
-                                                                                        'Gluten','Crustáceos','Huevos','Pescado',
-                                                                                        'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
-                                                                                        'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
-                                                                                        'Moluscos','Altramuces'
-                                                                                    ];
-                                                                                ?>
                                                                                 @foreach($alergenoPlato as $alergeno)
                                                                                     @if($alergeno=='15' || $alergeno=='16')
                                                                                     @else
@@ -579,7 +624,13 @@
 					precioCantidad: 0,
                     descripcion: "",
                     alergenos:[]
-				}
+				},
+                nombreAlergenos:[
+                    'Gluten','Crustáceos','Huevos','Pescado',
+                    'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                    'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                    'Moluscos','Altramuces'
+                ]
 			},
 			methods: {
 				itemClicado: function (categoria, id, imagen, nombre, precio, descripcion,alergenos){
@@ -594,7 +645,13 @@
 						cantidad: 1,
 						precioCantidad: precio,
                         descripcion: descripcion,
-                        alergenos:alergenos
+                        alergenos:alergenos,
+                        nombreAlergenos:[
+                            'Gluten','Crustáceos','Huevos','Pescado',
+                            'Cacahuetes','Soja','Lácteos','Frutos de cáscara','Apio',
+                            'Mostaza','Granos de sésamo','Dióxido de azufre y sulfitos',
+                            'Moluscos','Altramuces'
+                        ]
 					}
 				},
 
