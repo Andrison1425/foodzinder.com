@@ -1,6 +1,3 @@
-
-let btnNext=document.querySelectorAll("[name=next]");
-let btnBack=document.querySelectorAll("[name=back]");
 let sec=document.querySelectorAll(".sec");
 let titleSec=document.querySelectorAll(".scroll li");
 
@@ -15,35 +12,18 @@ titleSec.forEach((li,i)=>{
     }
 });
 
-btnNext.forEach((btn,i)=>{
-    btn.onclick=()=>{
-        sec.forEach(seccion=>seccion.classList.remove('sec_active'));
-        sec[i+1].classList.add('sec_active');
-
-        titleSec.forEach(seccion=>seccion.classList.remove('active'));
-        titleSec[i+1].classList.add('active');
-        titleSec[i+1].scrollIntoView();
-    }
-});
-
-btnBack.forEach((btn,i)=>{
-    btn.onclick=()=>{
-        sec.forEach(seccion=>seccion.classList.remove('sec_active'));
-        sec[i].classList.add('sec_active');
-
-        titleSec.forEach(seccion=>seccion.classList.remove('active'));
-        titleSec[i].classList.add('active');
-        titleSec[i].scrollIntoView();
-    }
-});
+let aspectRatio=16/9;
+let widthCanvas=1280;
+let heightCanvas=720;
 
 $(document).ready(function() {
     let arrImg=[];
-    let valuesImg=document.querySelector(".valuesImg");
+    //let valuesImg=document.querySelector(".valuesImg");
     let img = document.querySelector("#imagen_final")
     let coleccionImg=document.querySelector(".coleccionImg");
+    let coleccionImg2=document.querySelector(".coleccionImg2");
 
-    if(valuesImg){
+    /*if(valuesImg){
         const arr=JSON.parse(valuesImg.value)
         .forEach(ele=>{
             const imgDom=document.createElement("img");
@@ -62,23 +42,39 @@ $(document).ready(function() {
             }
         })
 
-    }
+    }*/
 
   $('#tabla_listado_restaurantes').DataTable();
 
-  function agregarImg(){
-    const imgDom=document.createElement("img");
-    imgDom.setAttribute("src",img.src);
-    imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
-    coleccionImg.appendChild(imgDom);
-    arrImg.push(img.src);
-    const urlImg=img.src;
-    document.querySelector('#imagen1').value = JSON.stringify(arrImg);
 
-    imgDom.onclick=()=>{
-        coleccionImg.removeChild(imgDom);
-        arrImg=arrImg.filter(ele=>ele!==urlImg);
+
+  function agregarImg(){
+    if(aspectRatio!==1){
+        const imgDom=document.createElement("img");
+        imgDom.setAttribute("src",img.src);
+        imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
+        coleccionImg.appendChild(imgDom);
+        arrImg.push(img.src);
+        const urlImg=img.src;
         document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+
+        imgDom.onclick=()=>{
+            coleccionImg.removeChild(imgDom);
+            arrImg=arrImg.filter(ele=>ele!==urlImg);
+            document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+        }
+    }else{
+        const imgDom=document.createElement("img");
+        imgDom.setAttribute("src",img.src);
+        imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
+        coleccionImg2.appendChild(imgDom);
+        const urlImg=img.src;
+        document.querySelector('#imagen2').value =urlImg;
+
+        imgDom.onclick=()=>{
+            coleccionImg2.removeChild(imgDom);
+            document.querySelector('#imagen2').value ='';
+        }
     }
   }
 
@@ -122,9 +118,23 @@ $('body').on("change", "#original_image", function (e) {
     }
 });
 
+document.querySelectorAll(".btn-file").forEach((btn,i)=>{
+    btn.onclick=()=>{
+        if(i===0){
+            aspectRatio=16/9;
+            widthCanvas=1280;
+            heightCanvas=720;
+        }else{
+            aspectRatio=1;
+            widthCanvas=100;
+            heightCanvas=100;
+        }
+    }
+})
+
 bs_modal.on('shown.bs.modal', function() {
     cropper = new Cropper(image, {
-        aspectRatio: 16/9,
+        aspectRatio: aspectRatio,
         viewmode: 3,
         preview: ".preview_imagen_recortada",
     });
@@ -136,8 +146,8 @@ bs_modal.on('shown.bs.modal', function() {
 
 $('#crop').click(function() {
     canvas = cropper.getCroppedCanvas({
-        width: 1280,
-        height: 720
+        width: widthCanvas,
+        height: heightCanvas
     })
 
     canvas.toBlob(function(blob) {

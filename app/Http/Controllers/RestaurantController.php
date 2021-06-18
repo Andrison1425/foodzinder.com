@@ -110,7 +110,6 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-
         // Crear y guardar el Restaurant con los datos validados:
         $request["categorias"]=!empty($request->input("categorias")) ? $request->input("categorias") : "[]";
 
@@ -161,8 +160,40 @@ class RestaurantController extends Controller
                 $this->comprimir(public_path().'/images/restaurantes/'.$name);
                 $arrNamesImgs[] = '/images/restaurantes/'.$name;
             }
-            $request['imagenes'] = json_encode($arrNamesImgs) ;
+
+            if($request->input('filenames2')){
+
+                // Esto es una imagen de tipo base 64
+                $base64File = $request->input('filenames2');
+
+                // decode the base64 file
+                $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+
+                // save it to temporary dir first.
+                $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+                file_put_contents($tmpFilePath, $fileData);
+
+                // this just to help us get file info.
+                $tmpFile = new File($tmpFilePath);
+
+                //get file extension
+                $extension = $tmpFile->getMimeType();
+
+                if($extension=='image/png'){
+                    $extension='.jpg';
+                }else{
+                    $extension='.jpg';
+                }
+                $name = $tmpFile->getFilename().$extension;
+
+                $tmpFile->move(public_path().'/images/restaurantes/', $name);
+                $this->comprimir(public_path().'/images/restaurantes/'.$name);
+
+                $request['imgMin'] = '/images/restaurantes/'.$name;
+            }
+
             unset($request['filenames']);
+            unset($request['filenames2']);
         }
         $restaurant=Restaurant::create($request->all());
 
@@ -224,7 +255,39 @@ class RestaurantController extends Controller
 
         $request['imagenes']=json_encode($arrNamesImgs);
 
+        if($request->input('filenames2')){
+
+            // Esto es una imagen de tipo base 64
+            $base64File = $request->input('filenames2');
+
+            // decode the base64 file
+            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+
+            // save it to temporary dir first.
+            $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+            file_put_contents($tmpFilePath, $fileData);
+
+            // this just to help us get file info.
+            $tmpFile = new File($tmpFilePath);
+
+            //get file extension
+            $extension = $tmpFile->getMimeType();
+
+            if($extension=='image/png'){
+                $extension='.jpg';
+            }else{
+                $extension='.jpg';
+            }
+            $name = $tmpFile->getFilename().$extension;
+
+            $tmpFile->move(public_path().'/images/restaurantes/', $name);
+            $this->comprimir(public_path().'/images/restaurantes/'.$name);
+
+            $request['imgMin'] = '/images/restaurantes/'.$name;
+        }
+
         unset($request["filenames"]);
+        unset($request["filenames2"]);
         unset($request["submit"]);
         $restaurant->update($request->all());
 

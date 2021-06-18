@@ -14,11 +14,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 	<!-- Favicons-->
-	<link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}" >
-    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('public/'.$imagenes[0])}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('public/'.$imagenes[0])}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('public/'.$imagenes[0])}}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{asset('public/'.$imagenes[0])}}">
+	<link rel="shortcut icon" type="image/x-icon" href="@if($restaurant->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$restaurant->imgMin)}}@endif" >
+    <link rel="apple-touch-icon" type="image/x-icon" href="@if($restaurant->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$restaurant->imgMin)}}@endif">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="@if($restaurant->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$restaurant->imgMin)}}@endif">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="@if($restaurant->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$restaurant->imgMin)}}@endif">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="@if($restaurant->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$restaurant->imgMin)}}@endif">
 	<!-- GOOGLE WEB FONT -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 

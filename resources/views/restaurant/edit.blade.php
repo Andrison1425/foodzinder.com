@@ -39,7 +39,7 @@
     </a>
 </div>
 
-<form id="msform" class="container-fluid py-3 float-left mb-3" method="POST" action="{{ route('restaurant.update',['id'=>$restaurant->id]) }}" enctype="multipart/form-data">
+<form id="msform" class="container-fluid py-3 float-left mb-3" style="max-width: 700px;" method="POST" action="{{ route('restaurant.update',['id'=>$restaurant->id]) }}" enctype="multipart/form-data">
     <h2 class="mb-4">{{$restaurant->nombre}}</h2>
     @csrf
     <!-- progressbar -->
@@ -409,7 +409,7 @@
             <div class="col">
                 <div class="input-group">
                     {{-- para recortar --}}
-                    <label for="original_image" class="btn btn-guardar">
+                    <label for="original_image" class="btn btn-guardar  btn-file">
                         Agregar imagen +
                     </label><br>
                     <h6 style="color:gray; width:100%;"> Haz click sobre una imagen para eliminarla</h6>
@@ -431,6 +431,34 @@
                 </div>
             </div>
         </div> {{-- END-CONTAINER --}}
+
+        <h2 class="fs-title mt-3">Seleccione la imagen que saldrá en Whatsapp</h2>
+
+        <div class="row mt-3">
+            <div class="col">
+                <div class="input-group">
+                    {{-- para recortar --}}
+                    <label for="original_image" class="btn btn-guardar btn-file">
+                        Agregar imagen +
+                    </label><br>
+                    <h6 style="color:gray; width:100%;">Recortela en forma de cuadrado lo más pequeño posible</h6>
+                    <input id="original_image" style="display:none;" type="file" name="imagen2"  class="form-control">
+                    {{-- recortado (oculto) --}}
+                    <input id="imagen2" type="text" name="filenames2" class="form-control d-none">
+                </div>
+            </div>
+            <div class="row m-2 p-1 w-100">
+                <div class="col-md-12">
+                    <div class="coleccionImg2 coleccionImg">
+                        @if($restaurant->imgMin!=1)
+                            <img alt="img" src="{{asset('public/'.$restaurant->imgMin)}}" class="img-coleccion col-md-4 col-sm-6 img-fluid my-1" onclick="quitarImgOri(this)">
+                        @endif
+                    </div>
+                    <img class="imagen_final2" id="imagen_final2" src="" alt="" style="display:none;">
+                </div>
+            </div>
+        </div> {{-- END-CONTAINER --}}
+
         <input type="submit" class="btn btn-guardar m-3 float-right" value="Guardar" />
     </div>
 </form>

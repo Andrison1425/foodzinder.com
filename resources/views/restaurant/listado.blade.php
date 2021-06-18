@@ -4,10 +4,39 @@
     Foodzinder Listado de restaurantes
 @endsection
 
+@section("custom-links")
+<style>
+    #tabla_listado_restaurantes_length{
+        display: none;
+    }
+
+    .cont-botones-nav{
+        width: max-content;
+        margin-bottom: -3.5rem;
+    }
+
+    @media (max-width:840px){
+        .cont-botones-nav {
+            margin-bottom: -7.5rem;
+        }
+    }
+
+    #restaurantes{
+        color:#f67599;
+    }
+</style>
+@endsection
+
 @section('content')
 
 <div class="container-fluid p-2 mt-5">
     <div>
+        <div class="cont-botones-nav p-0">
+            <a href="{{route('users.agregar')}}">
+                <i class="icon_building"></i>
+                <span>Añadir nuevo restaurante</span>
+            </a>
+        </div>
         <div class="text-center title-listado">
             <h4 class="title-table">Lista de restaurantes</h4>
         </div>
@@ -22,17 +51,9 @@
         </thead>
         <tbody class="tbody">
             @foreach ($restaurantes as $resto)
-                <?php
-                    if(is_int($resto) || $resto->id!==133){
-                        continue;
-                    }else{
-                        $imagenes=json_decode($resto->imagenes,true);
-                        $imagen=$imagenes[0];
-                    }
-                ?>
                 <tr class="fila" id="{{$loop->index}}" data-pos="{{$resto->id}}">
                     <td class="p-3 p-md-5 d-flex" >
-                        <img class="img-resto" src="{{asset('public/'.$imagen)}}" alt="">
+                        <img class="img-resto" src="@if($resto->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$resto->imgMin)}}@endif" alt="">
                         <div class="cont-sec-right d-flex justify-content-between h-100 flex-column">
                             <div class="d-flex cont-encabezado justify-content-between">
                                 <span class="d-flex">

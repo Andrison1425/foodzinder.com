@@ -9,6 +9,10 @@
     #app{
         overflow-x: scroll;
     }
+
+    #usuarios{
+        color:#f67599;
+    }
 </style>
 @endsection
 
@@ -27,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table table-dark">
+            <table class="table" style="background:white;">
                 <thead>
                     <tr>
                         <td>Nombre</td>

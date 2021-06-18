@@ -39,6 +39,11 @@
     #app{
         overflow-x: scroll;
     }
+
+
+    #ordenar{
+        color:#f67599 !important;
+    }
 </style>
 
 @endsection

@@ -7,6 +7,13 @@
 @section('custom-links')
 <link href="{{asset('plantilla/css/home.css')}}" rel="stylesheet">
 <link href="{{asset('plantilla/css/booking-sign_up.css')}}" rel="stylesheet">
+
+<style>
+    #nuevoUsuario{
+        color:#f67599 !important;
+    }
+</style>
+
 @endsection
 
 @section('content')

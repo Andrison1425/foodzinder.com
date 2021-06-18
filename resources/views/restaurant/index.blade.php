@@ -10,6 +10,10 @@
             display: flex;
             align-items: center;
         }
+
+        #tablero{
+            color:#f67599 !important;
+        }
     </style>
 @endsection
 

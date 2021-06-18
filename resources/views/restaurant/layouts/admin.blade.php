@@ -79,22 +79,22 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tablero">
                     <a class="nav-link nav-opc-admin" href="{{route('restaurant.index')}}">
                         <!-- <i class="fa fa-fw fa-dashboard"></i> -->
-                        <span class="nav-link-text">Tablero</span>
+                        <span class="nav-link-text" id="tablero">Tablero</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
                     <a class="nav-link nav-opc-admin" href="{{route('restaurant.listado')}}">
                     <!-- <i class="fa fa-fw fa-plus-circle"></i> -->
-                        <span class="nav-link-text">Restaurantes</span>
+                        <span class="nav-link-text" id="restaurantes">Restaurantes</span>
                     </a>
                     <ul style="list-style:none;">
                         <li>
-                            <a class="nav-link nav-opc-admin" href="{{route('restaurant.create')}}">
+                            <a class="nav-link nav-opc-admin" href="{{route('restaurant.create')}}" id="nuevoRestaurante">
                                 Añadir Nuevo
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link nav-opc-admin" href="{{route('restaurant.listadoPrioridad')}}">
+                            <a class="nav-link nav-opc-admin" href="{{route('restaurant.listadoPrioridad')}}" id="ordenar">
                                 Ordenar
                             </a>
                         </li>
@@ -103,11 +103,11 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
                     <a class="nav-link nav-opc-admin" href="{{route('users.index')}}">
                         <!-- <i class="fa fa-fw fa-list"></i> -->
-                        <span class="nav-link-text">Usuarios</span>
+                        <span class="nav-link-text" id="usuarios">Usuarios</span>
                     </a>
                     <ul style="list-style:none;">
                         <li>
-                            <a class="nav-link nav-opc-admin" href="{{route('users.agregar')}}">
+                            <a class="nav-link nav-opc-admin" href="{{route('users.agregar')}}" id="nuevoUsuario">
                                 Añadir usuario
                             </a>
                         </li>
@@ -117,6 +117,20 @@
                     <a class="nav-link nav-opc-admin" href="{{route('directorio')}}">
                         <!-- <i class="fa fa-fw fa-list"></i> -->
                         <span class="nav-link-text">Ir al directorio</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+                    <a class="nav-link nav-opc-admin" href="{{route('home')}}">
+                        <!-- <i class="fa fa-fw fa-list"></i> -->
+                        <span class="nav-link-text">Volver al inicio</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+                    <a class="nav-link nav-opc-admin" data-toggle="modal" data-target="#logout">
+                        <!-- <i class="fa fa-fw fa-sign-out"></i> -->
+                        Cerrar sesión
                     </a>
                 </li>
             </ul>

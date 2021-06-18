@@ -15,12 +15,16 @@
                 width: 100%;
             }
         }
+
+        #nuevoRestaurante{
+            color:#f67599 !important;
+        }
     </style>
 @endsection
 
 <!-- multistep form -->
 @section('content')
-<form id="msform" class="container-fluid py-3 float-left mb-3" method="POST" action="{{ route('restaurant.store') }}" enctype="multipart/form-data">
+<form id="msform" class="container-fluid py-3 float-left mb-3" style="max-width: 700px;" method="POST" action="{{ route('restaurant.store') }}" enctype="multipart/form-data">
     <h2 class="mb-4">Añadir nuevo restaurante</h2>
 
     @csrf
@@ -389,12 +393,12 @@
     </div>
 
     <div class="sec" id="sec5">
-        <h2 class="fs-title mt-3">Imágenes</h2>
+        <h2 class="fs-title mt-3">Fotos del restaurante</h2>
         <div class="row mt-3">
             <div class="col">
                 <div class="input-group">
                     {{-- para recortar --}}
-                    <label for="original_image" class="btn btn-guardar">
+                    <label for="original_image" class="btn btn-guardar btn-file">
                         Agregar imagen +
                     </label><br>
                     <h6 style="color:gray; width:100%;"> Haz click sobre una imagen para eliminarla</h6>
@@ -407,6 +411,29 @@
                 <div class="col-md-12">
                     <div class="coleccionImg"></div>
                     <img class="imagen_final" id="imagen_final" src="" alt="" style="display:none;">
+                </div>
+            </div>
+        </div> {{-- END-CONTAINER --}}
+
+        <h2 class="fs-title mt-3">Seleccione la imagen que saldrá en Whatsapp</h2>
+
+        <div class="row mt-3">
+            <div class="col">
+                <div class="input-group">
+                    {{-- para recortar --}}
+                    <label for="original_image" class="btn btn-guardar btn-file">
+                        Agregar imagen +
+                    </label><br>
+                    <h6 style="color:gray; width:100%;">Recortela en forma de cuadrado lo más pequeño posible</h6>
+                    <input id="original_image" style="display:none;" type="file" name="imagen2"  class="form-control">
+                    {{-- recortado (oculto) --}}
+                    <input id="imagen2" type="text" name="filenames2" class="form-control d-none">
+                </div>
+            </div>
+            <div class="row m-2 p-1 w-100">
+                <div class="col-md-12">
+                    <div class="coleccionImg2 coleccionImg"></div>
+                    <img class="imagen_final2" id="imagen_final2" src="" alt="" style="display:none;">
                 </div>
             </div>
         </div> {{-- END-CONTAINER --}}

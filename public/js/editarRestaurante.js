@@ -19,6 +19,10 @@ let arrImgOri=[];
 let valuesImg=document.querySelector(".valuesImg");
 let img = document.querySelector("#imagen_final")
 let coleccionImg=document.querySelector(".coleccionImg");
+let coleccionImg2=document.querySelector(".coleccionImg2");
+let aspectRatio=16/9;
+let widthCanvas=1280;
+let heightCanvas=720;
 
 arrImgOri=JSON.parse(valuesImg.value);
 
@@ -34,20 +38,49 @@ function quitarImgOri(e){
     valuesImg.value = JSON.stringify(arrImgOri);
 }
 
+document.querySelectorAll(".btn-file").forEach((btn,i)=>{
+    btn.onclick=()=>{
+        if(i===0){
+            aspectRatio=16/9;
+            widthCanvas=1280;
+            heightCanvas=720;
+        }else{
+            aspectRatio=1;
+            widthCanvas=100;
+            heightCanvas=100;
+        }
+    }
+})
+
 $(document).ready(function() {
 
   $('#tabla_listado_restaurantes').DataTable();
 
   function agregarImg(){
-    const imgDom=document.createElement("img");
-    imgDom.setAttribute("src",img.src);
-    imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
-    coleccionImg.appendChild(imgDom);
-    arrImg.push(img.src);
-    const urlImg=img.src;
-    document.querySelector('#imagen1').value = JSON.stringify(arrImg);
+    if(aspectRatio!==1){
+        const imgDom=document.createElement("img");
+        imgDom.setAttribute("src",img.src);
+        imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
+        coleccionImg.appendChild(imgDom);
+        arrImg.push(img.src);
+        const urlImg=img.src;
+        document.querySelector('#imagen1').value = JSON.stringify(arrImg);
 
-    imgDom.onclick=(e)=>quitarImg(e.target);
+        imgDom.onclick=(e)=>quitarImg(e.target);
+    }else{
+        const imgDom=document.createElement("img");
+        imgDom.setAttribute("src",img.src);
+        imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
+        coleccionImg2.innerHTML='';
+        coleccionImg2.appendChild(imgDom);
+        const urlImg=img.src;
+        document.querySelector('#imagen2').value =urlImg;
+
+        imgDom.onclick=(e)=>{
+            coleccionImg2.removeChild(imgDom);
+            document.querySelector('#imagen2').value ='';
+        };
+    }
   }
 
   // Escucha el evento que surge cuando el source de la imagen cambia:
@@ -92,7 +125,7 @@ $('body').on("change", "#original_image", function (e) {
 
 bs_modal.on('shown.bs.modal', function() {
     cropper = new Cropper(image, {
-        aspectRatio: 16/9,
+        aspectRatio: aspectRatio,
         viewmode: 3,
         preview: ".preview_imagen_recortada",
     });
@@ -104,8 +137,8 @@ bs_modal.on('shown.bs.modal', function() {
 
 $('#crop').click(function() {
     canvas = cropper.getCroppedCanvas({
-        width: 1280,
-        height: 720
+        width:widthCanvas,
+        height:heightCanvas
     })
 
     canvas.toBlob(function(blob) {

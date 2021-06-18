@@ -138,7 +138,7 @@ $(document).ready(function() {
 
        observer.observe(img, {attributes : true});
 
-     });
+});
 
 
      // CROPPER
