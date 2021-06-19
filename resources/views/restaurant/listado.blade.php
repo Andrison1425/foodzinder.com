@@ -32,7 +32,7 @@
 <div class="container-fluid p-2 mt-5">
     <div>
         <div class="cont-botones-nav p-0">
-            <a href="{{route('restaurant.create')}}">
+            <a href="{{route('restaurant.create')}}" style="z-index: 9;">
                 <i class="icon_building"></i>
                 <span>Añadir nuevo restaurante</span>
             </a>
@@ -51,6 +51,11 @@
         </thead>
         <tbody class="tbody">
             @foreach ($restaurantes as $resto)
+            <?php
+                if($resto->nombre!=="pppppppppppppppp"){
+                    continue;
+                }
+            ?>
                 <tr class="fila" id="{{$loop->index}}" data-pos="{{$resto->id}}">
                     <td class="p-3 p-md-5 d-flex" >
                         <img class="img-resto" src="@if($resto->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$resto->imgMin)}}@endif" alt="">
@@ -83,7 +88,12 @@
                                         </button>
                                     </a>
                                     <a class="m-1" href="#">
-                                        <form method="POST" class="formEliminar" action="{{ route('restaurant.destroy', ['id' => $resto->id]) }}">
+                                        <form
+                                            method="POST"
+                                            class="formEliminar"
+                                            action="{{ route('restaurant.destroy', ['id' => $resto->id]) }}"
+                                            onsubmit="eliminar(event)"
+                                        >
                                             @csrf
                                             <button type="submit" class="btn btn-sm">
                                                 <i class="fa fa-trash-o mr-2" aria-hidden="true"></i>
@@ -139,14 +149,22 @@
         }
     });
 
+    function eliminar(e){
+        e.preventDefault();
+            let confirmar=confirm("¿Seguro que desea eliminar este restaurante? Los cambios son permanentes");
+            if(confirmar){
+                e.target.submit();
+            }
+    }
+
     document.querySelectorAll(".formEliminar").forEach(form=>{
-        form.onsubmit=e=>{
+        /*form.onsubmit=e=>{
             e.preventDefault();
             let confirmar=confirm("¿Seguro que desea eliminar este restaurante? Los cambios son permanentes");
             if(confirmar){
                 form.submit();
             }
-        }
+        }*/
     });
 
     function editarPos(e){
