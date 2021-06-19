@@ -404,7 +404,7 @@
                     <h6 style="color:gray; width:100%;"> Haz click sobre una imagen para eliminarla</h6>
                     <input id="original_image" style="display:none;" type="file" name="imagen"  class="form-control">
                     {{-- recortado (oculto) --}}
-                    <input id="imagen1" type="text" name="filenames" class="form-control d-none" required>
+                    <input id="imagen1" type="text" name="filenames" class="form-control d-none">
                 </div>
             </div>
             <div class="row m-2 p-1">

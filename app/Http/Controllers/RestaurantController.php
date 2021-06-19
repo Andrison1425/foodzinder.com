@@ -318,7 +318,9 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::find($id);
         $restaurant->platos()->delete();
         $restaurant->delete();
-        return redirect()->route('restaurant.index')->with('Notificacion', 'Restaurante borrado exitosamente');
+        $restaurantes = Restaurant::get();
+
+        return view('restaurant.listado', ['restaurantes' => $restaurantes])->with('Notificacion', 'Restaurante eliminado exitosamente');
     }
 
     public function get_ciudad($number)
