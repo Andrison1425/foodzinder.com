@@ -88,8 +88,9 @@ class RestaurantController extends Controller
     public function comprimir($ruta){
         //Compress Image Code Here
         $filepath = $ruta;
-        try {
-            \Tinify\setKey(env("Z8WHnRhMQhWzYhfb7qTqLwLqr8RTkZnZ"));
+
+        try{
+            \Tinify\setKey("Z8WHnRhMQhWzYhfb7qTqLwLqr8RTkZnZ");
             $source = \Tinify\fromFile($filepath);
             $source->toFile($filepath);
         } catch(\Tinify\AccountException $e) {
@@ -103,6 +104,8 @@ class RestaurantController extends Controller
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         } catch(\Tinify\ConnectionException $e) {
             // A network connection error occurred.
+            return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
+        }catch(\Exception $e) {
             return redirect()->route('restaurant.create')->with('Notificacion','Ha ocurrido un error en la carga de la imagen');
         }
     }
@@ -448,3 +451,5 @@ class RestaurantController extends Controller
         return redirect()->route('restaurant.listadoPrioridad')->with("Notificacion','Se ha quitado la prioridad al restaurante de ID $restauranteId");
     }
 }
+
+
