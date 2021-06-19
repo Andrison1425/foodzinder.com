@@ -152,3 +152,21 @@ $('#crop').click(function() {
         };
     })
 });
+
+document.querySelector("#msform").onsubmit=e=>{
+    e.preventDefault();
+
+    if(document.querySelector("#nombre").value.trim()==''){
+        alert("El nombre del restaurante es obligatorio");
+    }else{
+        if(document.querySelector("#ciudad").value.trim()==''){
+            alert("La ciudad es obligatoria");
+        }else{
+            if(document.querySelector("#imagen1").value.trim()==''){
+                alert("Debe agregar al menos una imágen del restaurante");
+            }else{
+                e.target.submit();
+            }
+        }
+    }
+}
