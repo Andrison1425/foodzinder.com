@@ -32,7 +32,7 @@
 <div class="container-fluid p-2 mt-5">
     <div>
         <div class="cont-botones-nav p-0">
-            <a href="{{route('users.agregar')}}">
+            <a href="{{route('restaurant.create')}}">
                 <i class="icon_building"></i>
                 <span>Añadir nuevo restaurante</span>
             </a>

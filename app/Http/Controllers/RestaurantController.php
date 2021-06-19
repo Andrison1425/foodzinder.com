@@ -88,7 +88,6 @@ class RestaurantController extends Controller
     public function comprimir($ruta){
         //Compress Image Code Here
         $filepath = $ruta;
-
         try {
             \Tinify\setKey(env("Z8WHnRhMQhWzYhfb7qTqLwLqr8RTkZnZ"));
             $source = \Tinify\fromFile($filepath);
@@ -161,39 +160,39 @@ class RestaurantController extends Controller
                 $arrNamesImgs[] = '/images/restaurantes/'.$name;
             }
 
-            if($request->input('filenames2')){
-
-                // Esto es una imagen de tipo base 64
-                $base64File = $request->input('filenames2');
-
-                // decode the base64 file
-                $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
-
-                // save it to temporary dir first.
-                $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
-                file_put_contents($tmpFilePath, $fileData);
-
-                // this just to help us get file info.
-                $tmpFile = new File($tmpFilePath);
-
-                //get file extension
-                $extension = $tmpFile->getMimeType();
-
-                if($extension=='image/png'){
-                    $extension='.jpg';
-                }else{
-                    $extension='.jpg';
-                }
-                $name = $tmpFile->getFilename().$extension;
-
-                $tmpFile->move(public_path().'/images/restaurantes/', $name);
-                $this->comprimir(public_path().'/images/restaurantes/'.$name);
-
-                $request['imgMin'] = '/images/restaurantes/'.$name;
-            }
-
+            $request['imagenes'] = json_encode($arrNamesImgs) ;
             unset($request['filenames']);
             unset($request['filenames2']);
+        }
+        if($request->input('filenames2')){
+
+            // Esto es una imagen de tipo base 64
+            $base64File = $request->input('filenames2');
+
+            // decode the base64 file
+            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64File));
+
+            // save it to temporary dir first.
+            $tmpFilePath = sys_get_temp_dir() . '/' . Str::uuid()->toString();
+            file_put_contents($tmpFilePath, $fileData);
+
+            // this just to help us get file info.
+            $tmpFile = new File($tmpFilePath);
+
+            //get file extension
+            $extension = $tmpFile->getMimeType();
+
+            if($extension=='image/png'){
+                $extension='.jpg';
+            }else{
+                $extension='.jpg';
+            }
+            $name = $tmpFile->getFilename().$extension;
+
+            $tmpFile->move(public_path().'/images/restaurantes/', $name);
+            $this->comprimir(public_path().'/images/restaurantes/'.$name);
+
+            $request['imgMin'] = '/images/restaurantes/'.$name;
         }
         $restaurant=Restaurant::create($request->all());
 
