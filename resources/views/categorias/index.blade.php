@@ -83,7 +83,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nombre de la categoría:</label>
-                                <input type="text" class="form-control" id="recipient-name" name="categoria">
+                                <input type="text" class="form-control" id="recipient-name" name="categoria" required>
                                 <input type="hidden" name="id" value="{{$restaurante->id}}">
                             <small id="categoriaHelp" class="form-text text-muted">Asegúrese de escribir el nombre de la categoría sin errores ortográficos, con la primera letra en mayúscula.</small>
                         </div>

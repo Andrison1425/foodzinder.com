@@ -121,6 +121,8 @@ class CategoriaController extends Controller
             $plato['id'] = $plato_id;
 
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato agregado');
+        }else{
+            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','La imagen es obligatoria');
         }
     }
 
