@@ -122,6 +122,13 @@
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+                    <a class="nav-link nav-opc-admin" href="https://us6.admin.mailchimp.com/lists/members?id=678653" target="_blank">
+                        <!-- <i class="fa fa-fw fa-sign-out"></i> -->
+                        Ver lista de suscriptores
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
                     <a class="nav-link nav-opc-admin" href="{{route('home')}}">
                         <!-- <i class="fa fa-fw fa-list"></i> -->
                         <span class="nav-link-text">Volver al inicio</span>
