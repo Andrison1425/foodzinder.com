@@ -141,7 +141,7 @@
 
 								<div class="main">
 									<div class="form-group">
-                                        <input name="palabra_busqueda" value="" class="form-control palabraBusqueda" placeholder="Nombre del restaurante...">
+                                        <input name="palabra_busqueda" value="" class="form-control palabraBusqueda" placeholder="Nombre del restaurante o tipo de comida...">
                                         <i class="icon_search"></i>
                                         <div class="resultadosNombre ocultarNombre">
                                         </div>

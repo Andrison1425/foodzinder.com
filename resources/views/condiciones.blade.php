@@ -79,7 +79,7 @@
             <div class="row no-gutters custom-search-input">
                 <div class="col-lg-6">
                 <div class="form-group">
-                    <input name="palabra_busqueda" class="form-control" type="text"  placeholder="Nombre del restaurante...">
+                    <input name="palabra_busqueda" class="form-control" type="text"  placeholder="Nombre del restaurante o tipo de comida...">
                     <i class="icon_search"></i>
                 </div>
                 </div>

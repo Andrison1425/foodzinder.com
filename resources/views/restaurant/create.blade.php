@@ -438,7 +438,7 @@
             </div>
         </div> {{-- END-CONTAINER --}}
         <input type="submit" class="btn btn-guardar m-3 float-right" value="Crear restaurante" />
-        <input type="button" class="btn btn-secondary m-3 float-right" value="Anterior" />
+        <input type="button" name="back" class="btn btn-secondary m-3 float-right" value="Anterior" />
     </div>
 </form>
 

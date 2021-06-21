@@ -1,5 +1,29 @@
 let sec=document.querySelectorAll(".sec");
 let titleSec=document.querySelectorAll(".scroll li");
+let btnNext=document.querySelectorAll("[name=next]");
+let btnBack=document.querySelectorAll("[name=back]");
+
+btnNext.forEach((btn,i)=>{
+    btn.onclick=()=>{
+        sec.forEach(seccion=>seccion.classList.remove('sec_active'));
+        sec[i+1].classList.add('sec_active');
+
+        titleSec.forEach(seccion=>seccion.classList.remove('active'));
+        titleSec[i+1].classList.add('active');
+        titleSec[i+1].scrollIntoView(false);
+    }
+});
+
+btnBack.forEach((btn,i)=>{
+    btn.onclick=()=>{
+        sec.forEach(seccion=>seccion.classList.remove('sec_active'));
+        sec[i].classList.add('sec_active');
+
+        titleSec.forEach(seccion=>seccion.classList.remove('active'));
+        titleSec[i].classList.add('active');
+        titleSec[i].scrollIntoView(false);
+    }
+});
 
 titleSec.forEach((li,i)=>{
     li.onclick=()=>{
@@ -18,33 +42,10 @@ let heightCanvas=720;
 
 $(document).ready(function() {
     let arrImg=[];
-    //let valuesImg=document.querySelector(".valuesImg");
     let img = document.querySelector("#imagen_final")
     let coleccionImg=document.querySelector(".coleccionImg");
     let coleccionImg2=document.querySelector(".coleccionImg2");
-
-    /*if(valuesImg){
-        const arr=JSON.parse(valuesImg.value)
-        .forEach(ele=>{
-            const imgDom=document.createElement("img");
-            imgDom.src=ele;
-            imgDom.className="img-coleccion col-md-4 col-sm-6 img-fluid my-1";
-            coleccionImg.appendChild(imgDom);
-            arrImg.push(ele);
-            const urlImg=ele;
-            console.log(ele)
-            document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-
-            imgDom.onclick=()=>{
-                coleccionImg.removeChild(imgDom);
-                arrImg=arrImg.filter(comp=>comp!==urlImg);
-                document.querySelector('#imagen1').value = JSON.stringify(arrImg);
-            }
-        })
-
-    }*/
-
-  $('#tabla_listado_restaurantes').DataTable();
+    $('#tabla_listado_restaurantes').DataTable();
 
 
 
