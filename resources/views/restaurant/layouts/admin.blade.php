@@ -25,6 +25,7 @@
     <!-- Plugin styles -->
     <link href="{{asset('plantilla/admin_section/vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
     <!-- Your custom styles -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel='stylesheet'>
     <link href="{{asset('plantilla/admin_section/css/custom.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- VUEJS -->
