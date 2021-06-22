@@ -249,7 +249,7 @@
 	</div>{{-- end Modal-new-item --}}
 
 	<header class="header_in d-flex align-items-center justify-content-between">
-        <button class="btn btn_contactar ml-2 " onClick="history.back()">
+        <button class="btn btn_contactar ml-2 ">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </button>
         <h2 class="m-0 ml-2 headerTitle" style="color:#f67599;">
@@ -469,7 +469,7 @@
 		</div>
 	</footer>
 	<!--/footer-->
-
+<a href="{{route('directorio')}}" class="redirect d-none"></a>
 
   <!-- modal -->
 
@@ -606,7 +606,7 @@
 	{{-- STARTS VUEJS --}}
 	<script>
 
-//		const restauranteID = "{{ $restaurant->id }}";
+        //		const restauranteID = "{{ $restaurant->id }}";
         let modalMostrado=false;
 
 		const app = new Vue({
@@ -785,8 +785,9 @@
 
     <script>
 
+    document.querySelector(".btn_contactar").onclick=e=>location.href=document.querySelector(".redirect").href;
+
         $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
-            console.log(e.from)
             let img=document.querySelectorAll(".img-portada")[e.from+1]
             img.style.backgroundImage=`url(${img.getAttribute("data-img")})`;
         });
@@ -799,7 +800,7 @@
         window.addEventListener('popstate', function(event) {
 
             if (modalMostrado == false) {
-                history.back();
+                location.href=document.querySelector(".redirect").href;
             }else {
                 //history.pushState(null, null, window.location.pathname);
                 $('#exampleModalCenter').modal('hide')

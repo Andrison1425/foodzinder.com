@@ -223,7 +223,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Descripción:</label>
-                                                    <textarea class="form-control" required name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                    <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     {{-- para recortar --}}
