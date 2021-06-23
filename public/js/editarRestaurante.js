@@ -1,8 +1,6 @@
 let sec=document.querySelectorAll(".sec");
 let titleSec=document.querySelectorAll(".scroll li");
 
-
-
 titleSec.forEach((li,i)=>{
     li.onclick=()=>{
         sec.forEach(seccion=>seccion.classList.remove('sec_active'));
@@ -36,6 +34,11 @@ function quitarImgOri(e){
     coleccionImg.removeChild(e);
     arrImgOri=arrImgOri.filter(comp=>comp!==e.alt);
     valuesImg.value = JSON.stringify(arrImgOri);
+}
+
+function quitarImgOri2(e){
+    coleccionImg2.removeChild(e);
+    document.querySelector('#imagen2').value ='';
 }
 
 document.querySelectorAll(".btn-file").forEach((btn,i)=>{
@@ -162,7 +165,7 @@ document.querySelector("#msform").onsubmit=e=>{
         if(document.querySelector("#ciudad").value.trim()==''){
             alert("La ciudad es obligatoria");
         }else{
-            if(document.querySelector("#imagen1").value.trim()==''){
+            if((document.querySelector("#imagen1").value.trim()=='' || document.querySelector("#imagen1").value.trim()=='[]') && (document.querySelector(".valuesImg").value.trim()=='' || document.querySelector(".valuesImg").value.trim()=='[]')){
                 alert("Debe agregar al menos una imágen del restaurante");
             }else{
                 e.target.submit();

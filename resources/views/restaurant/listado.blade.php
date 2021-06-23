@@ -51,7 +51,7 @@
         </thead>
         <tbody class="tbody">
             @foreach ($restaurantes as $resto)
-
+            <?php if($resto->id!==133){continue;}?>
                 <tr class="fila" id="{{$loop->index}}" data-pos="{{$resto->id}}">
                     <td class="p-3 p-md-5 d-flex" >
                         <img class="img-resto" src="@if($resto->imgMin==1){{asset('plantilla/img/img-compartir.png')}}@else{{asset('public/'.$resto->imgMin)}}@endif" alt="">

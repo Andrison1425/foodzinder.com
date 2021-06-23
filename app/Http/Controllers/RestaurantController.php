@@ -286,6 +286,8 @@ class RestaurantController extends Controller
             $this->comprimir(public_path().'/images/restaurantes/'.$name);
 
             $request['imgMin'] = '/images/restaurantes/'.$name;
+        }else{
+            $request['imgMin'] = '1';
         }
 
         unset($request["filenames"]);

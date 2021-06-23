@@ -455,7 +455,7 @@
                 <div class="col-md-12">
                     <div class="coleccionImg2 coleccionImg">
                         @if($restaurant->imgMin!=1)
-                            <img alt="img" src="{{asset('public/'.$restaurant->imgMin)}}" class="img-coleccion col-md-4 col-sm-6 img-fluid my-1" onclick="quitarImgOri(this)">
+                            <img alt="img" src="{{asset('public/'.$restaurant->imgMin)}}" class="img-coleccion col-md-4 col-sm-6 img-fluid my-1" onclick="quitarImgOri2(this)">
                         @endif
                     </div>
                     <img class="imagen_final2" id="imagen_final2" src="" alt="" style="display:none;">
