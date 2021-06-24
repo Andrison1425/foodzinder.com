@@ -109,12 +109,11 @@ class DirectorioController extends Controller
         }
         $arrRestaurantes=[];
 
-        foreach($platos as $plato){
-            $arrRestaurantes[$plato->restaurant->id]=$plato->restaurant;
-        }
+
+
+        //dd($arrRestaurantes);
 
         $prioridad=json_decode($admin->prioridad);
-
         foreach($restaurantes_sin_paginar as $restaurante){
             $arrRestaurantes[$restaurante->id]=$restaurante;
         }
