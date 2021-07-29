@@ -22,8 +22,12 @@
 @endsection
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<div class="cont-botones-nav">
+
+
+<div class="container mt-4">
+    <div class="cont-botones-nav">
     <a href="{{ route('restaurant.edit', ['id' => $restaurante->id]) }}">
         <i class="fa fa-address-card-o" aria-hidden="true"></i>
         <span>Editar información</span>
@@ -33,8 +37,6 @@
         <span>Editar Menú</span>
     </a>
 </div>
-
-<div class="container mt-4">
     <div class="row justify-content-center">
         <h3>Restaurante:</h3>
     </div>
@@ -215,16 +217,35 @@
                                                     </div>
                                                     <input type="text" required name="nombre" class="form-control" aria-label="nombre" aria-describedby="nombre">
                                                 </div>
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="precio">Precio</span>
-                                                    </div>
-                                                    <input type="number" required step="0.01" name="precio" class="form-control" aria-label="precio" aria-describedby="precio">
-                                                </div>
+                                                
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Descripción:</label>
                                                     <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
                                                 </div>
+
+        
+                                               
+                                                <div id="formulario{{$categoria}}" class="formulario">
+                                                    <label for="Presentacion">Presentaciones</label>
+                                                    <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
+                                                    <div class="input-group" name="presentacion-0">
+                                                        <select name="nombres[]" class="form-control col-md-6">
+                                                            <option value="Tapa">Tapa</option>
+                                                            <option value="1/2 Ración">1/2 Ración</option>
+                                                            <option value="Ración">Ración</option>
+                                                             <option value="Plato">Plato</option>
+                                                             <option value="Kilogramo">Kilogramo</option>
+
+                                                        </select>
+                                                        <input type="number" class="form-control col-md-6 @error('Cantidad') is-invalid @enderror" name="precios[]" placeholder="Precio" required>
+                                                    </div>
+                                                 </div>
+
+
+
+
+
+
                                                 <div class="input-group mb-3">
                                                     {{-- para recortar --}}
                                                     <label for="original_image" class="btn btn-success" {{"onclick=pestanaActiva($iCategoria)"}}>
@@ -296,7 +317,7 @@
                                             <img class="card-img-top" src="{{asset('public'.$plato->imagen)}}" alt="Imagen de ejemplo">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $plato->nombre }}</h5>
-                                                <p class="card-text">{{ $plato->precio }}€</p>
+                                                <p class="card-text">{{ $plato->precios }}€</p>
                                                 <a onclick=cambiarStatus("{{url('/categoria/cambiarstatus',['id'=>$plato->id])}}",{{$plato->id}}) href="#">
                                                     <p class="p{{$plato->id}} card-text @if($plato->status=='1') {{'text-success'}} @else {{'text-danger'}} @endif">@if($plato->status=='1') {{'Habilitado'}} @else {{'Inhabilitado'}} @endif</p>
                                                 </a>
@@ -328,7 +349,7 @@
                                                 </div>
 
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', {{$plato->precio}}, '{{asset('public'.$plato->imagen)}}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}} )" href="#" class="btn btn-opc btn-sm mr-2">
+                                                    <a @click="handleEdicionDeProductoEnCategoria({{$plato->id}}, '{{$plato->nombre}}', '{{asset('public'.$plato->imagen)}}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}},'{{$plato->precios}}','{{$plato->presentacion}}' )" href="#" class="btn btn-opc btn-sm mr-2">
                                                         <i class="icon_pencil-edit edit-orden "></i>
                                                         Editar
                                                     </a>
@@ -401,9 +422,29 @@
                             <label for="nombre">Nombre:</label>
                             <input type="text" v-model="editando.nombre" class="form-control" name="nombre">
 
-                            <label for="nombre">Precio:</label>
-                            <input type="number" step="0.01" v-model="editando.precio" class="form-control" min="0" name="precio">
 
+                            
+                            <div id="formulario" class="formulario">
+                                <label for="Presentacion">Presentaciones</label>
+                                <button type="button" class="clonaredit btn btn-secondary btn-sm">+</button>
+                                <div class="input-group-edit" name="presentacion-0" v-for="(presentacion,index) in editando.presentaciones">
+                                    <select name="nombres[]" class="form-control col-md-6">
+                                        <option v-model="presentacion.nombre" >@{{ presentacion.nombre }}</option>
+                                    <option value="Tapa">Tapa</option>
+                                                            <option value="1/2 Ración">1/2 Ración</option>
+                                                            <option value="Ración">Ración</option>
+                                                             <option value="Plato">Plato</option>
+                                                             <option value="Kilogramo">Kilogramo</option>
+                                    </select>
+                                    <input type="number" class="form-control col-md-6" name="precios[]" placeholder="Precio" v-model="presentacion.precio" step=".01" required><h5>€</h5>
+                                    <a v-show="index > 0" ef="#" class="remover_campo">Remover</a>
+                                </div>
+                            </div>
+
+                            
+                            
+                            
+                            
                             <label for="descripcion">Descripcion:</label>
                             <textarea name="descripcion" id="descripcion" class="form-control w-100" rows="5" v-model="editando.descripcion"></textarea>
 
@@ -473,13 +514,35 @@
             descripcion: null,
             rutaImg: null,
             alergenos: [],
+            presentaciones:[],
         }
     },
     methods: {
-        handleEdicionDeProductoEnCategoria(id,nombre,precio,rutaImg, descripcion, alergenos){
+        handleEdicionDeProductoEnCategoria(id,nombre,rutaImg, descripcion, alergenos, precios, presentacion){
+            
+               var str=precios;
+                    var str2=presentacion;
+                    const arreglo2=str2.split(",");
+                    const arreglo = str.split(",");
+                  this.flag=arreglo.length;
+                //    console.log(this.flag);
+                    var presentaciones = [];
+                   
+                     /////HACER UN FOR QUE CUENTE CUNTAS PRESENTACIONES HAY Y CREE UN ARRAY DE OBJETOS, Y UNA VARIABLE CANTIDAD PARA CAD UNA  LUEGO CUANDO 
+                    for (var i=0; i<this.flag; i++){
+                        let aux = {
+                            "nombre": arreglo2[i],
+                            "precio": parseInt(arreglo[i]),
+                            "cantidad":1,
+                            "index":i,
+                            "precioCantidad":arreglo[i]
+                        }
+                        presentaciones.push(aux);
+                    }
+            this.editando.presentaciones=presentaciones;
             this.editando.id = id;
             this.editando.nombre = nombre;
-            this.editando.precio = precio;
+           // this.editando.precio = precio;
             this.editando.rutaImg = rutaImg;
             this.editando.descripcion = descripcion;
             this.editando.alergenos = alergenos;
@@ -508,8 +571,75 @@
     }
     });
 </script>
+<script>
+    var campos_max = 2; 
+    var maximo=3;
+    var x = 0;
+    
+    
+        $('.clonar').click(function() {
+            var idFormulario = $(this).parent('div').attr('id');
+        // Clona el .input-group
+        if (x < campos_max) {
+          //var $clone = $('#formularioTapas .input-group').last().clone();
+         var $clone = $('#'+idFormulario+' .input-group').last().clone();
+          
+            // Borra los valores de los inputs clonados
+            $clone.find(':input').each(function () {
+                if ($(this).is('select')) {
+                this.selectedIndex = 0;
+                } else {
+         this.value = '';
+                }
+            });
+
+            // Agrega lo clonado al final del #formulario
+            x++;
+
+            $clone.append('<a href="#" class="remover_campo">Remover</a>');
+            $clone.appendTo('#'+idFormulario).attr("name","presentacion-"+(x));;
+
+            
+        }
+    });
+
+    $('#formulario').on("click",".remover_campo",function(e) {
+        
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+        });
+        
+              $('.clonaredit').click(function() {
+                  var y = $(".input-group-edit").toArray().length;
+                 
+            var idFormulario = $(this).parent('div').attr('id');
+        // Clona el .input-group
+        if (y < maximo) {
+
+         var $clone = $('#'+idFormulario+' .input-group-edit').first().clone();
+          
+            // Borra los valores de los inputs clonados
+            $clone.find(':input').each(function () {
+                if ($(this).is('select')) {
+                this.selectedIndex = 0;
+                } else {
+         this.value = '';
+                }
+            });
+
+            // Agrega lo clonado al final del #formulario
+            x++;
+            $clone.append('<a href="#" class="remover_campo">Remover</a>');
+            $clone.appendTo('#'+idFormulario).attr("name","presentacion-"+(x));;
+
+            
+        }
+    });
+</script>
 
 <script src="{{asset('public/js/categorias.js')}}"></script>
 <script src="{{asset('public/js/dragSort.js')}}"></script>
 
 @endsection
+

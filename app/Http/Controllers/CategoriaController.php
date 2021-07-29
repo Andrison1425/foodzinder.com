@@ -105,15 +105,43 @@ class CategoriaController extends Controller
             $tmpFile->move(public_path().'/images/platos/', $name);
 
             $this->comprimir(public_path().'/images/platos/'.$name);
+            
 
             // Preparamos el producto:
+            
+      
+            $prueba = "";
+            $prueba2 = "";
             $plato['nombre'] = $request->input('nombre');
-            $plato['precio'] = $request->input('precio');
+            //$plato['precio'] = $request->input('precio');
             $plato['descripcion'] = $request->input('descripcion');
             $plato['alergenos'] = $request->input('alergenos');
             $plato['restaurant_id'] = $request->input('restauranteId');
             $plato['categoria'] = $request->input('categoria');
             $plato['imagen'] = '/images/platos/'.$name;
+            
+            
+            $i = 1;
+            foreach ($request->input('precios') as $e){
+                if ($i < count($request->input('precios'))){
+                    $prueba = $prueba .$e.",";
+                    $i=$i+1;
+                } else {
+                    $prueba = $prueba .$e;
+                }
+            }
+            $j=1;
+            foreach ($request->input('nombres') as $e){
+                if ($j < count($request->input('nombres'))){
+                    $prueba2 = $prueba2 .$e.",";
+                    $j=$j+1;
+                } else {
+                    $prueba2 = $prueba2 .$e;
+                }
+            }
+           
+            $plato['precios'] = $prueba;
+            $plato['presentacion'] = $prueba2;
 
             $plato_id = DB::table('platos')->insertGetId($plato);
 
@@ -122,7 +150,7 @@ class CategoriaController extends Controller
 
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato agregado');
         }else{
-            return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','La imagen es obligatoria');
+           return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','La imagen es obligatoria');
         }
     }
 
@@ -136,17 +164,44 @@ class CategoriaController extends Controller
     {
         $plato = Plato::findOrFail($request->id);
         $nombre = $request->input('nombre');
-        $precio= $request->input('precio');
+       // $precio= $request->input('precio');
         $descripcion= $request->input('descripcion');
         $imagen=$request->input('file');
         $alergenos=$request->input('alergenos');
-
+        $prueba = "";
+        $prueba2 = "";
+        
+         
+            $i = 1;
+            foreach ($request->input('precios') as $e){
+                if ($i < count($request->input('precios'))){
+                    $prueba = $prueba .$e.",";
+                    $i=$i+1;
+                } else {
+                    $prueba = $prueba .$e;
+                }
+            }
+            $j=1;
+            foreach ($request->input('nombres') as $e){
+                if ($j < count($request->input('nombres'))){
+                    $prueba2 = $prueba2 .$e.",";
+                    $j=$j+1;
+                } else {
+                    $prueba2 = $prueba2 .$e;
+                }
+            }
+           
+           
+        
+        
         if (!$imagen) {
             $plato->update([
                 'nombre' => $nombre,
-                'precio'=>$precio,
+             //   'precio'=>$precio,
                 'descripcion'=>$descripcion,
-                'alergenos'=>$alergenos
+                'alergenos'=>$alergenos,
+                'precios'=>$prueba,
+                'presentacion'=>$prueba2
             ]);
 
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
@@ -185,10 +240,12 @@ class CategoriaController extends Controller
 
              $plato->update([
                 'nombre' => $nombre,
-                'precio'=>$precio,
+              //  'precio'=>$precio,
                 'imagen'=>$imagen,
                 'descripcion'=>$descripcion,
-                'alergenos'=>$alergenos
+                'alergenos'=>$alergenos,
+                'precios'=>$prueba,
+                'presentacion'=>$prueba2
             ]);
             return redirect()->route('categorias.index', ['id' => $request->input('restauranteId')])->with('Notificacion','Plato editado');
         }

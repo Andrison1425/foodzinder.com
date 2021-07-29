@@ -16,7 +16,6 @@
 	<meta name="author" content="Ansonika">
 	<title>{{$restaurant->nombre}} - Food Zinder</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
-
 	<!-- VUEJS -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
@@ -58,6 +57,17 @@
 			opacity: 1;
 			cursor: pointer;
 			z-index: 1000;
+			background-color: #F67599;
+			color: #fff;
+			border-radius: 25px;
+		}
+        .btn-agregar {
+		
+			bottom: 20px;
+            right: 20px;
+			opacity: 1;
+			cursor: pointer;
+		
 			background-color: #F67599;
 			color: #fff;
 			border-radius: 25px;
@@ -152,17 +162,17 @@
 							<img class="img-fluid" :src="item.imagen" alt="">
 						</div>
 						<div class="col-xs-12 col-sm">
-							<h5>@{{ item.nombre }}</h5>
+							<h5>@{{ item.nombre }} -  @{{ item.nombrePresentacion }}</h5>
 							<p class="text-muted">Precio unitario: @{{ item.precioUnitario }} €</p>
 						</div>
 						<div class="col-sm-3 col-4 col-lg-2">
 							<div class="input-group input-group-sm mb-3">
 								<div class="input-group-prepend">
-									<button @click="restarCantidadItemDelCarrito(item.nombre)" class="input-group-text">-</button>
+									<button @click="restarCantidadItemDelCarrito(item.nombre, item.presentacion)" class="input-group-text">-</button>
 								</div>
 								<input type="text" class="form-control text-center" :value="item.cantidad" aria-label="Username" aria-describedby="basic-addon1">
 								<div class="input-group-append">
-									<button @click="sumarCantidadItemDelCarrito(item.nombre)" class="input-group-text">+</button>
+									<button @click="sumarCantidadItemDelCarrito(item.nombre, item.presentacion)" class="input-group-text">+</button>
 								 </div>
 							 </div>
 						</div>
@@ -222,27 +232,54 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-                <div class="row w-100">
-                    <div class="col-5">
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                                <button @click="restarCantidad" class="input-group-text">-</button>
-                            </div>
-                            <input type="text" class="form-control text-center " :value="newItem.cantidad" aria-label="Username" aria-describedby="basic-addon1">
-                            <div class="input-group-append">
-                                <button @click="sumarCantidad" class="input-group-text">+</button>
+                
+               <!--  <div class="row w-100" v-if="flag === 1">
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <button @click="restarCantidad" class="input-group-text">-</button>
                                 </div>
+                                <input type="text" class="form-control text-center " aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <button @click="sumarCantidad" class="input-group-text">+</button>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <h5>@{{newItem.precioUnitario}} €</h5>
+                        </div>
+                    </div>-->
+                
+			    <div  class="row w-100" v-for="presentacion in newItem.presentacion">
+			         <div class="col d-flex align-items-center justify-content-center">
+                            <h5>@{{ presentacion.nombre }}</h5>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <button @click="restarCantidad(presentacion.index)" class="input-group-text">-</button>
+                                </div>
+                                <input type="text" class="form-control text-center " :value="presentacion.cantidad" aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <button @click="sumarCantidad(presentacion.index)" class="input-group-text">+</button>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <h5>@{{ presentacion.precioCantidad }} €</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <button @click="agregarAMiLista(presentacion.index)" type="button" class="btn btn-agregar">Agregar</button>
                             </div>
+                        </div>
                     </div>
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <h5>@{{ newItem.precioCantidad }} €</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <button @click="agregarAMiLista" type="button" class="btn btn-primary">Agregar a mi lista</button>
-                    </div>
-                </div>
+                
+
+                
+                
 			</div>
 		</div>
 		</div>
@@ -364,7 +401,7 @@
                                                         <div class="item">
                                                             <div class="strip">
                                                                 <a href="#">
-                                                                    <a  @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}})" href="#" class="strip_info" >
+                                                                    <a  @click="itemClicado('entrantes', '{{ $plato->id }}', '{{asset('public'.$plato->imagen)}}', '{{ $plato->nombre }}', '{{ $plato->precio }}', {{json_encode($plato->descripcion)}}, {{$plato->alergenos}}, '{{$plato->precios}}','{{$plato->presentacion}}')" href="#" class="strip_info" >
                                                                         <img  loading="lazy" src="{{asset('public'.$plato->imagen)}}" class="owl-lazy plate-100" alt="">
                                                                         <div class="item_title_ind">
                                                                             <?php
@@ -390,7 +427,47 @@
                                                                                     @endforeach
                                                                                 </span>
                                                                             </div>
-                                                                            <span>{{ $plato->precio }} €</span>
+                                                                        
+                                                                            
+                                                                            <?php
+                                                                                if ($plato->precios == NULL){
+                                                                                    ?>
+                                                                                    <span>{{ $plato->precio }} €</span>
+                                                                            <?php
+                                                                                } else {
+                                                                                    $array = explode(",",$plato->precios);
+                                                                                    $array2 = explode(",",$plato->presentacion);
+                                                                                    $longitud = count($array2);
+                                                                                    $presentaciones = array();
+                                                                                    for ($k= 0; $k < $longitud; $k++) {
+                                                                                        $aux = (object) [
+                                                                                            'valor' => $array[$k],
+                                                                                            'name' => $array2[$k],
+                                                                                          ];
+                                                                                        array_push($presentaciones,$aux);
+                                                                                       
+                                                                                        }
+                                                                                       
+                                                                                    ?>
+                                                                                   <div class="cont-alergenos-sec">
+
+                                                                                   @foreach($presentaciones as $plato)
+                                                                                 
+                                                                                            <span class="cont-info-alergenos">
+                                                                                       {{ $plato->valor }}€
+                                                                                            <h5  style="font-size: 8px">{{ $plato->name }} </h5>
+                                                                                        </span>
+                                                                                    @endforeach
+                                                                                    </div>
+                                                                                <!--    @foreach($array as $plato)
+                                                                                        
+                                                                                   <span class="ml-5">{{ $plato }} €</span>   
+                                                                                       
+                                                                                    @endforeach
+                                                                                    -->
+                                                                                    <?php
+                                                                                }
+                                                                            ?>
                                                                         </div>
                                                                     </a>
                                                                 </a>
@@ -633,12 +710,37 @@
                 ]
 			},
 			methods: {
-				itemClicado: function (categoria, id, imagen, nombre, precio, descripcion,alergenos){
+				itemClicado: function (categoria, id, imagen, nombre, precio, descripcion,alergenos, precios, presentacion){
                     $("#exampleModalCenter").modal('show');
                     modalMostrado=true;
+                    var str=precios;
+                    var str2=presentacion;
+                    const arreglo2=str2.split(",");
+                    const arreglo = str.split(",");
+                    this.flag=arreglo.length;
+                    console.log(this.flag);
+                    var presentaciones = [];
+                    
+                     /////HACER UN FOR QUE CUENTE CUNTAS PRESENTACIONES HAY Y CREE UN ARRAY DE OBJETOS, Y UNA VARIABLE CANTIDAD PARA CAD UNA  LUEGO CUANDO 
+                    for (var i=0; i<this.flag; i++){
+                        let aux = {
+                            "nombre": arreglo2[i],
+                            "precio": arreglo[i],
+                            "cantidad":1,
+                            "index":i,
+                            "precioCantidad":arreglo[i]
+                        }
+                        presentaciones.push(aux);
+                    }
+                    
+                    
 					this.newItem = {
+					    
 						categoria: categoria,
 						id: id,
+						precios:arreglo,
+						presentacion:presentaciones,
+						nombrePresentacion: "",
 						imagen: imagen,
 						nombre: nombre,
 						precioUnitario: precio,
@@ -655,31 +757,40 @@
 					}
 				},
 
-				restarCantidad: function (){
-					if (this.newItem.cantidad >= 2) {
-						this.newItem.cantidad--;
-						this.newItem.precioCantidad = Number(Math.round((this.newItem.precioUnitario * this.newItem.cantidad)* 100) / 100).toFixed(2);
+				restarCantidad: function (i){
+					if (this.newItem.presentacion[i].cantidad >= 2) {
+						this.newItem.presentacion[i].cantidad--;
+						this.newItem.presentacion[i].precioCantidad = Number(Math.round((this.newItem.presentacion[i].precio * this.newItem.presentacion[i].cantidad)* 100) / 100).toFixed(2);
 					}
 				},
 
-				sumarCantidad: function (){
+				sumarCantidad: function (i){
 
-					this.newItem.cantidad++;
-					this.newItem.precioCantidad =Number(Math.round((this.newItem.precioUnitario * this.newItem.cantidad)* 100) / 100).toFixed(2);
+					this.newItem.presentacion[i].cantidad++;
+					this.newItem.presentacion[i].precioCantidad =Number(Math.round((this.newItem.presentacion[i].precio * this.newItem.presentacion[i].cantidad)* 100) / 100).toFixed(2);
 				},
 
-				agregarAMiLista: function (){
+				agregarAMiLista: function (j){
+				    var aux = false;
+				    this.newItem.cantidad = this.newItem.presentacion[j].cantidad;
+				    this.newItem.precioUnitario = this.newItem.presentacion[j].precio;
+				    this.newItem.nombrePresentacion = this.newItem.presentacion[j].nombre;
+				    this.newItem.precioCantidad = this.newItem.cantidad * this.newItem.precioUnitario; 
 					if (this.carritoActual.length === 0) {
 						this.carritoActual.push(this.newItem);
 					} else {
 						for (let i = 0; i < this.carritoActual.length; i++) {
 							const elementoEnElcarrito = this.carritoActual[i];
-							if (elementoEnElcarrito.id === this.newItem.id) {
+							
+							if (elementoEnElcarrito.id === this.newItem.id && elementoEnElcarrito.nombrePresentacion == this.newItem.nombrePresentacion) {
+							    aux = true;
 								this.carritoActual[i].cantidad += this.newItem.cantidad;
 								this.carritoActual[i].precioCantidad = this.carritoActual[i].cantidad * this.carritoActual[i].precioUnitario;
-							}
+							} 
 						}
-						this.carritoActual.push(this.newItem);
+						if (aux == false){
+						    this.carritoActual.push(this.newItem);
+						}
 					}
 					document.querySelector('#botonCerrarModal').click();
 					this.newItem = {
@@ -697,10 +808,10 @@
 					this.carritoActual = this.carritoActual.filter(item => item.nombre !== nombre);
 				},
 
-				restarCantidadItemDelCarrito: function(nombre){
+				restarCantidadItemDelCarrito: function(nombre, presentacion){
 					for (let i = 0; i < this.carritoActual.length; i++) {
 						const elemento = this.carritoActual[i];
-						if (elemento.nombre === nombre && elemento.cantidad >= 2) {
+						if (elemento.nombre === nombre && elemento.cantidad >= 2 && elemento.presentacion===presentacion) {
 							//restar cantidad
 							this.carritoActual[i].cantidad--;
 							//restar monto total
@@ -709,10 +820,10 @@
 					}
 				},
 
-				sumarCantidadItemDelCarrito: function (nombre){
+				sumarCantidadItemDelCarrito: function (nombre, presentacion){
 					for (let i = 0; i < this.carritoActual.length; i++) {
 						const elemento = this.carritoActual[i];
-						if (elemento.nombre === nombre) {
+						if (elemento.nombre === nombre  && elemento.presentacion===presentacion) {
 							//restar cantidad
 							this.carritoActual[i].cantidad++;
 							//restar monto total
