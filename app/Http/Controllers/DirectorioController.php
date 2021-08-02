@@ -99,19 +99,29 @@ class DirectorioController extends Controller
         $restaurantes_sin_paginar = Restaurant::where($filtro)->where('status', 1)->get();
         $platos = Plato::where('nombre', 'like', $palabra_busqueda)->get();
 
+        $arrId=[];
+        foreach($platos as $plato){
+            $arrId[]=$plato->restaurant->id;
+        }
+
         $restaurantes = '';
 
         $restaurantes =Restaurant::orderBy('id', 'desc')->where($filtro)->where('status', 1)->paginate(6);
+
+        if($palabra_busqueda){
+            unset($filtro[0]);
+            $restaurant_platos_sin_paginar = Restaurant::where($filtro)->whereIn('id', $arrId)->get();
+
+            foreach($restaurant_platos_sin_paginar as $restaurant){
+                $restaurantes_sin_paginar[$restaurant->id]=$restaurant;
+            }
+        }
 
         $admin = User::where('email', '=' , "admin@admin.com")->get();
         foreach ($admin as $key => $value) {
             $admin=$value;
         }
         $arrRestaurantes=[];
-
-
-
-        //dd($arrRestaurantes);
 
         $prioridad=json_decode($admin->prioridad);
         foreach($restaurantes_sin_paginar as $restaurante){
